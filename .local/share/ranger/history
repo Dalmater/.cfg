@@ -1,0 +1,33 @@
+fzf
+find his
+zsh
+shell
+subshell
+trash delete
+search fzf
+search ranger
+
+search zi
+search zin
+search Zi
+deleted
+open_with 
+trash -d
+search z
+delete
+search http
+search pinentry-qt
+rename wgetrc
+search move
+search mv
+search .
+shell 
+open_with xdg-open --chooser "$@"
+search mc
+search prompt
+search prompt_
+search prompt_m
+search st
+search sticky
+search zsh
+search prompt_s
