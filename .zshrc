@@ -3,7 +3,7 @@ export PATH=$PATH:/storage/emulated/0/bin:/storage/40E6-DFFD/bin
 export USERNAME
 export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
 export LESSHISTFILE="-"
-# export INPUTRC="${XDG_CONFIG_HOME:-$HOME/.config}/shell/inputrc"
+
 # custom zsh prompt + colors
 autoload colors -Uz && colors
 #export CLICOLORS=1
@@ -12,7 +12,7 @@ setopt prompt_subst
 autoload -Uz promptinit
 promptinit
 prompt kali
-# preexec() { echo -ne '\e[5 q'}
+
 PROMPT_TITLE="%~ | ${COLUMNS}x${LINES} | %! | %? | %y |\007"
 
 # Path to your oh-my-zsh installation.
@@ -177,5 +177,10 @@ source "${EXTERNAL_STORAGE}/termuxlauncher/.apps-launcher"
 
 source /sdcard/Termux/launch-completion.bash
 
+# sticky notes
 autoload -Uz sticky-note
-zle -N sticky-note
+    zle -N sticky-note
+
+zstyle :sticky-note theme \
+    bg red \
+    fg $fg_bold[black]
