@@ -1,0 +1,143 @@
+#!bin/sh zsh bash
+alias HMBs='du -h --max-depth=1 --one-file-system /data/data/com.termux/files/home'
+alias MBs='du -h --max-depth=1 --one-file-system /data/data/com.termux/files/usr'
+alias apti='apt install'
+alias aptp='apt purge'
+alias aptr='apt remove'
+alias aptri='apt reinstall'
+alias aptu='apt update -yy && apt full-upgrade -qq'
+alias back='$PREFIX'
+alias bbin='$PREFIX/bin'
+alias betc='$PREFIX/etc'
+alias bfarben=spectrum_bls
+alias bfrbn=spectrum_bls
+alias blbxc='$PREFIX/libexec'
+alias blib='$PREFIX/lib'
+alias bshr='$PREFIX/share'
+alias bttry=termux-battery-status
+alias cheats='navi repo browse'
+alias chmod='chmod -v'
+alias chown='chown -v'
+alias clean='( for ((i=1;i<$LINES;i++)) ; do echo "" ; done ) ; clear'
+alias config='$PREFIX/bin/git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME'
+alias count='find . -type f | wc -l'
+alias cp='nocorrect cp -i -v'
+alias cpy=termux-clipboard-set
+alias dateformatcodes='date --help | sed -n '\''/^FORMAT/,//p'\'
+alias ddg='web_search duckduckgo'
+alias del='trash delete'
+alias dfc='date --help | sed -n '\''/^FORMAT/,//p'\'
+alias diff='diff --color'
+alias dir='nocorrect dir --color=auto'
+alias dud='du -d 1 -h'
+alias duf='du -sh *'
+alias egrep='egrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
+alias exa='exa --color=always --icons'
+alias farben=spectrum_ls
+alias fcd='\cd "$(find -L -type d | fzf)"\'
+alias fd='fd -H -I -i --color always'
+alias ff='find . -type f -name'
+alias fgrep='fgrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox}'
+alias foto=termux-camera-photo
+alias frbn=spectrum_ls
+alias g=git
+alias gc='git clone'
+alias gp='git pull'
+alias grep='grep --color=auto'
+alias gs='git status -sb'
+alias h=history
+alias hgrep='fc -El 0 | grep'
+alias l='exa -b@ --icons --git'
+alias lS='exa -1 --icons'
+alias la='exa -bhHigUmuSaa --git --icons'
+alias lart='\ls -1Fcart'
+alias lazymux='cd ~/Lazymux && python lazymux.py'
+alias lch=launch
+alias ldot='\ls -ld .*'
+alias ll='exa -ahlFbG --icons'
+alias ll.='exa -Fhl -d .*'
+alias lld='\ls -D */'
+alias lll='exa -ahlT --icons L -R'
+alias llm='exa -lbGF --git --sort=modified --git --icons'
+alias llt='du -sh * | sort -h'
+alias lmux='cd ~/Lazymux && python lazymux.py'
+alias lr='\ls -tRFh'
+alias lrt='\ls -1Fcrt'
+alias ls='exa -a --icons --git'
+alias lsa='exa -alFh@T --level=3 --icons | more -f'
+alias lt='exa -alhFt@ --time=changed --icons'
+alias lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
+alias m=micro
+alias m.a='micro /data/data/com.termux/files/home/.aliases'
+alias m.m='m /data/data/com.termux/files/home/.zsh/my-zsh.sh'
+alias m.p='micro ~/.profile'
+alias m.z='micro /data/data/com.termux/files/home/.zshrc'
+alias man='nocorrect man'
+alias mc='mc -c'
+alias md='mkdir -p'
+alias mkd='nocorrect mkdir -pv'
+alias mkdir='mkdir -v'
+alias mv='nocorrect mv -i -v'
+alias myip='curl http://ipecho.net/plain; echo'
+alias mymap='telnet mapscii.me'
+alias mz='micro /data/data/com.termux/files/usr/etc/zshrc'
+alias n='nano -mlce%'
+alias n.a='nano -mlce% ~/.aliases'
+alias n.b='nano -mlce $HOME/.bashrc'
+alias n.o='n ~/openssh/open'
+alias n.z='nano -mlce% ~/.zshrc'
+alias nb='nano -mlce $PREFIX/etc/bash.bashrc'
+alias mli='micro $PREFIX/bin/login'
+alias nnn='nnn -cde -H'
+alias np='nano -mlce% $PREFIX/etc/profile'
+alias null='>/dev/null 2>&1 &'
+alias nz='nano -mlce% $PREFIX/etc/zshrc'
+alias opn='m /data/data/com.termux/files/home/openssh/open'
+alias open='termux-open --chooser "$@"'
+alias ox='onex start'
+alias p='ps -f'
+alias pf='ps -e | grep '
+alias pp='python -mjson.tool | pygmentize -l js'
+alias pst=termux-clipboard-get
+alias reset-colors='tput init'
+alias rm='trash-put -i -v'
+alias rm='nocorrect rm -i -v'
+alias s=source
+alias sb='source ~/.config/.bashrc'
+alias sdcard=/sdcard
+alias sdcrd='cd /storage/emulated/0'
+alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
+alias sortnr='sort -n -r'
+alias storage='cd /storage/40E6-DFFD'
+alias strg='cd /storage/40E6-DFFD'
+alias stype='cd ~/typing-speed-test && python3 speed_typing.py'
+alias surl=shorturl
+alias sz='source ~/.zshrc'
+alias t-b=termux-brightness
+alias t-n=termux-notification
+alias t-o='termux-open --chooser'
+alias tb='terbr -b'
+alias tbs=termux-battery-status
+alias tcp=termux-camera-photo
+alias tcr=termux-change-repo
+alias tfs=termux-fix-shebang
+alias tfo=termux-file-opener
+alias tls='cd ~/Termux-Lazyscript && python2 ls.py'
+alias tnr=termux-notification-remove
+alias trs=termux-reload-settings
+alias tuo=termux-url-opener
+alias twe=termux-wifi-enable
+alias types='cd ~/typing-speed-test && python3 speed_typing.py'
+alias wget='wget -r -e --robots=off -nc -np'
+alias wtr='curl wttr.in/Berlin'
+alias yolo='rm -rf node_modules/ && rm package-lock.json && yarn install'
+alias z=_zlua
+alias zb='z -b'
+alias zbf='z -b -I'
+alias zbi='z -b -i'
+alias zc='z -c'
+alias zf='z -I'
+alias zh='z -I -t .'
+alias zshrc='${=EDITOR} ${ZDOTDIR:-$HOME}/.zshrc'
+alias zz='z -i'
+alias zzc='zz -c'

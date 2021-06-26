@@ -1,0 +1,7 @@
+ENTRY "/data/data/com.termux/files/home" URL "/data/data/com.termux/files/home"
+ENTRY "/data/data/com.termux/files/home/bin" URL "/data/data/com.termux/files/home/bin"
+ENTRY "/data/data/com.termux/files/home/downloads" URL "/data/data/com.termux/files/home/downloads"
+ENTRY "Internal Downloads" URL "/storage/emulated/0/download"
+ENTRY "Internal Storage" URL "/storage/emulated/0"
+ENTRY "External Storage" URL "/storage/40E6-DFFD"
+ENTRY "External Downloads" URL "/storage/40E6-DFFD/Download"
