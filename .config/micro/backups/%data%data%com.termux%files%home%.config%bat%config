@@ -1,9 +1,0 @@
--q--theme="Monokai Extended"
---style=full
---italic-text=always
---color=always
---decorations=always
---show-all
-#--force-colorization
-#--diff
-#--diff-context=3
