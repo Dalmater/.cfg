@@ -110,7 +110,6 @@ alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
 alias sortnr='sort -n -r'
 alias storage='cd /storage/40E6-DFFD'
 alias strg='cd /storage/40E6-DFFD'
-alias stype='cd ~/typing-speed-test && python3 speed_typing.py'
 alias surl=shorturl
 alias sz='source ~/.zshrc'
 alias t-b=termux-brightness
@@ -127,7 +126,6 @@ alias tnr=termux-notification-remove
 alias trs=termux-reload-settings
 alias tuo=termux-url-opener
 alias twe=termux-wifi-enable
-alias types='cd ~/typing-speed-test && python3 speed_typing.py'
 alias wget='wget -r -e --robots=off -nc -np'
 alias wtr='curl wttr.in/Berlin'
 alias yolo='rm -rf node_modules/ && rm package-lock.json && yarn install'
@@ -141,3 +139,7 @@ alias zh='z -I -t .'
 alias zshrc='${=EDITOR} ${ZDOTDIR:-$HOME}/.zshrc'
 alias zz='z -i'
 alias zzc='zz -c'
+alias coc=config-colors
+alias cof=config-fonts
+alias chc=change-colors
+alias chf=change-fonts

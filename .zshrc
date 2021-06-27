@@ -168,7 +168,7 @@ bindkey '^[[1;5B' history-substring-search-down
 # bindkey  '^[[B' history-substring-search-down
 bindkey '^[t' fzf-file-widget
 bindkey "^[r" fzf-history-widget
-bindkey -s "^[R" "ranger_cd\n"
+bindkey -s "^[R" "ranger_cd \n"
 # bindkey '^[B' zbrowse
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line

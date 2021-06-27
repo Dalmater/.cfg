@@ -22,7 +22,7 @@ class Monokai(ColorScheme):
             if context.empty or context.error:
                 fg = 161
             if context.border:
-                fg = 245
+                fg = 242
             if context.media:
                 if context.image:
                     fg = 207
