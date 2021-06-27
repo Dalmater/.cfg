@@ -1,7 +1,7 @@
 export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 export PATH=$PATH:/storage/emulated/0/bin:/storage/40E6-DFFD/bin
 export USERNAME
-export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
+# export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
 export LESSHISTFILE="-"
 
 # custom zsh prompt + colors
@@ -40,9 +40,10 @@ export FZF_DEFAULT_OPTS="--height 80% --color='bg:000,bg+:236,info:136,border:88
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
 # much, much faster.
-DISABLE_COMPFIX="true"
 
 DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# DISABLE_COMPFIX="true"
 
 HIST_STAMPS="dd.mm.yyyy"
 
