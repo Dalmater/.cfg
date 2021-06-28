@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/data/data/com.termux/files/usr/bin/env sh
 
 # Description: Fuzzy list and kill a (zombie) process by name
 #

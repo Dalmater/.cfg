@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/data/data/com.termux/files/usr/bin/env sh
 
 # Description: Check and update to latest version of nnn manually on Debian 9 Stretch
 #

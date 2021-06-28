@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/data/data/com.termux/files/usr/bin/env sh
 
 # Description: Fuzzy find a command from history,
 #              edit in $EDITOR and run as a command

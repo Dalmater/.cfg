@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/data/data/com.termux/files/usr/bin/env sh
 
 # Description: Fuzzy find and execute nnn plugins (and optionally,
 #              custom scripts located elsewhere).

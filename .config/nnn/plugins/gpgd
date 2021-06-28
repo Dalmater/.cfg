@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/data/data/com.termux/files/usr/bin/env sh
 
 # Description: Decrypts selected files using gpg. The contents of the
 #              decrypted file are stored in a file with extension .dec

@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/data/data/com.termux/files/usr/bin/env sh
 
 # Description: Fuzzy search multiple locations read-in from a path-list file
 #              (or $PWD) and open the selected file's dir in a smart context.

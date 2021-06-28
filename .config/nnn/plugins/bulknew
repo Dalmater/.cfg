@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/data/data/com.termux/files/usr/bin/env sh
 
 # Description: Allows for creation of multiple files/dirs simultaneously
 #              Creates a tmp file to write each entry in a separate line

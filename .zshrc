@@ -5,15 +5,15 @@ export USERNAME
 export LESSHISTFILE="-"
 
 # custom zsh prompt + colors
+PROMPT_TITLE="%~ | ${COLUMNS}x${LINES} | %! | %? | %y |\007"
+
 autoload colors -Uz && colors
 #export CLICOLORS=1
 export TERM="xterm-256color"
 setopt prompt_subst
-autoload -Uz promptinit
+autoload -U promptinit
 promptinit
 prompt kali
-
-PROMPT_TITLE="%~ | ${COLUMNS}x${LINES} | %! | %? | %y |\007"
 
 # Path to your oh-my-zsh installation.
 export ZSH="/data/data/com.termux/files/home/.zsh"
@@ -23,38 +23,23 @@ export FZF_BASE='$PREFIX/share/fzf'
 export FZF_DEFAULT_COMMAND='ag --hidden --color --follow --ignore .git -g ""'
 export FZF_DEFAULT_OPTS="--height 80% --color='bg:000,bg+:236,info:136,border:88,spinner:108,hl:65,fg:250,header:65,fg+:252,pointer:124,marker:168,prompt:136,hl+:108' --layout=reverse --border --info=inline --bind=alt-T:toggle"
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
+# oh-my-zsh settings
 # DISABLE_AUTO_UPDATE="true"
-# Uncomment the following line to automatically update without prompting.
 # DISABLE_UPDATE_PROMPT="true"
-# Uncomment the following line to change how often to auto-update (in days).
- export UPDATE_ZSH_DAYS=13
-# Uncomment the following line if pasting URLs and other text is messed up.
+# export UPDATE_ZSH_DAYS=13
 # DISABLE_MAGIC_FUNCTIONS="true"
-# Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
-# Uncomment the following line to disable auto-setting terminal title.
-#DISABLE_AUTO_TITLE="true"
-# Uncomment the following line to display red dots whilst waiting for completion.
-#COMPLETION_WAITING_DOTS="true"
+DISABLE_AUTO_TITLE="true"
+# COMPLETION_WAITING_DOTS="true"
 # Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-
 DISABLE_UNTRACKED_FILES_DIRTY="true"
-
 # DISABLE_COMPFIX="true"
-
 HIST_STAMPS="dd.mm.yyyy"
-
 ZSH_CUSTOM="$HOME/.zsh/custom"
+# ZSH_CACHE_DIR="$HOME/.cache/zsh"
+# ZDOTDIR=$HOME/.config
 
-ZSH_CACHE_DIR="$HOME/.cache/zsh"
-
-#ZDOTDIR=$HOME/.config
-
-# Which plugins would you like to load?
-# Add wisely, as too many plugins slow down shell startup.
+# Plugins
 plugins=(common-aliases extract nice-exit-code
 colored-man-pages fd fzf fzf-tab z.lua title
 gitfast python pip zsh-hist colorize
@@ -100,6 +85,7 @@ source $ZSH/oh-my-zsh.sh
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 export EDITOR=micro
+export BROWSER=lynx
 export LANG=en_US.UTF-8
 
 # export MANPATH="data/data/com.termux/usr/share/doc/man
@@ -185,3 +171,4 @@ autoload -Uz sticky-note
 zstyle :sticky-note theme \
     bg red \
     fg $fg_bold[black]
+bindkey "^Sn" sricky-note

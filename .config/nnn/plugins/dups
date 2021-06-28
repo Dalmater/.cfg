@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/data/data/com.termux/files/usr/bin/env sh
 
 # Description: List non-empty duplicates in the current dir (based on size followed by MD5)
 #

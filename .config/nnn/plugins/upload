@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/data/data/com.termux/files/usr/bin/env sh
 
 # Description: Upload to Firefox Send if ffsend is found, else
 #              Paste contents of a text a file http://ix.io

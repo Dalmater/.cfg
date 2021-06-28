@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/data/data/com.termux/files/usr/bin/env bash
 
 # Description: Clean filename or dirname (either hovered or selections)
 #              to be more shell-friendly. This script cleans

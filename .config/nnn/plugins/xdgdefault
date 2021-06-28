@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/data/data/com.termux/files/usr/bin/env sh
 
 # Description: Sets the xdg-open's default application for the current entry's file
 #              type. ${XDG_DATA_DIRS} and ${XDG_DATA_HOME} are set to the recommended

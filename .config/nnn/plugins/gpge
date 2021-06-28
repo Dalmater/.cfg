@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/data/data/com.termux/files/usr/bin/env sh
 
 # Description: Encrypts selected files using gpg. Can encrypt
 #              asymmetrically (key) or symmetrically (passphrase).
