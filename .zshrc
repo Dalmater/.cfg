@@ -8,8 +8,6 @@ export LESSHISTFILE="-"
 PROMPT_TITLE="%~ | ${COLUMNS}x${LINES} | %! | %? | %y |\007"
 
 autoload colors -Uz && colors
-#export CLICOLORS=1
-export TERM="xterm-256color"
 setopt prompt_subst
 autoload -U promptinit
 promptinit
@@ -20,20 +18,20 @@ export ZSH="/data/data/com.termux/files/home/.zsh"
 
 ##### >FZF Base<
 export FZF_BASE='$PREFIX/share/fzf'
-export FZF_DEFAULT_COMMAND='ag --hidden --color --follow --ignore .git -g ""'
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 export FZF_DEFAULT_OPTS="--height 80% --color='bg:000,bg+:236,info:136,border:88,spinner:108,hl:65,fg:250,header:65,fg+:252,pointer:124,marker:168,prompt:136,hl+:108' --layout=reverse --border --info=inline --bind=alt-T:toggle"
 
 # oh-my-zsh settings
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 # DISABLE_UPDATE_PROMPT="true"
 # export UPDATE_ZSH_DAYS=13
 # DISABLE_MAGIC_FUNCTIONS="true"
-# DISABLE_LS_COLORS="true"
+DISABLE_LS_COLORS="true"
 DISABLE_AUTO_TITLE="true"
 # COMPLETION_WAITING_DOTS="true"
 # Uncomment the following line if you want to disable marking untracked files
 DISABLE_UNTRACKED_FILES_DIRTY="true"
-# DISABLE_COMPFIX="true"
+DISABLE_COMPFIX="true"
 HIST_STAMPS="dd.mm.yyyy"
 ZSH_CUSTOM="$HOME/.zsh/custom"
 # ZSH_CACHE_DIR="$HOME/.cache/zsh"
@@ -41,7 +39,7 @@ ZSH_CUSTOM="$HOME/.zsh/custom"
 
 # Plugins
 plugins=(common-aliases extract nice-exit-code
-colored-man-pages fd fzf fzf-tab z.lua title
+colored-man-pages fd fzf-tab fzf z.lua title
 gitfast python pip zsh-hist colorize
 #keychain gpg-agent ssh-agent gpg-crypt
 # nmap handy-helpers zsh-pentest
@@ -65,6 +63,8 @@ zui zbrowse
 zstyle ":plugin:history-search-multi-word" clear-on-cancel "no"
 zstyle ":history-search-multi-word" page-size "20"
 
+GIT_DISCOVERY_ACROSS_FILESYSTEM=true
+
 ZSH_COLORIZE_CHROMA_FORMATTER=terminal256
 
 ZSH_COLORIZE_STYLE="vim"
@@ -87,16 +87,16 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR=micro
 export BROWSER=lynx
 export LANG=en_US.UTF-8
+export CLICOLORS=true
+export TERM="xterm-256color"
+export NNN_OPENER=nuke
 
 # export MANPATH="data/data/com.termux/usr/share/doc/man
 
 # For a full list of active aliases, run `alias`
-source ~/.aliases
 # Example aliases
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export NNN_OPENER=nuke
-
-source ~/.config/ranger/shell_*.sh
+source ~/.aliases
 
 # Correction
 #setopt correctall
@@ -161,6 +161,8 @@ bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
 
 source "${EXTERNAL_STORAGE}/termuxlauncher/.apps-launcher"
+
+source ~/.config/ranger/shell_*.sh
 
 source /sdcard/Termux/launch-completion.bash
 
