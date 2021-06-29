@@ -26,12 +26,12 @@ DISABLE_AUTO_UPDATE="true"
 # DISABLE_UPDATE_PROMPT="true"
 # export UPDATE_ZSH_DAYS=13
 # DISABLE_MAGIC_FUNCTIONS="true"
-DISABLE_LS_COLORS="true"
-DISABLE_AUTO_TITLE="true"
+# DISABLE_LS_COLORS="true"
+# DISABLE_AUTO_TITLE="true"
+# DISABLE_COMPFIX="true"
 # COMPLETION_WAITING_DOTS="true"
 # Uncomment the following line if you want to disable marking untracked files
 DISABLE_UNTRACKED_FILES_DIRTY="true"
-DISABLE_COMPFIX="true"
 HIST_STAMPS="dd.mm.yyyy"
 ZSH_CUSTOM="$HOME/.zsh/custom"
 # ZSH_CACHE_DIR="$HOME/.cache/zsh"
@@ -40,40 +40,40 @@ ZSH_CUSTOM="$HOME/.zsh/custom"
 # Plugins
 plugins=(common-aliases extract nice-exit-code
 colored-man-pages fd fzf-tab fzf z.lua title
-gitfast python pip zsh-hist colorize
-#keychain gpg-agent ssh-agent gpg-crypt
+gitfast python pip zsh-hist colorize npm
+# keychain gpg-agent ssh-agent gpg-crypt
 # nmap handy-helpers zsh-pentest
 # youtube-dl web-search
-# npm nvm node
-# zsnapshot
-# zsh_reload
+# git npm nvm node
 # zsh-lazyload
+# zsh_reload
+# zsnapshot
 # evalcache
 zhooks
-# dotbare
-#zsh-hooks
+# zsh-hooks
 you-should-use
 zsh-autosuggestions
 fast-syntax-highlighting
-zsh-history-substring-search
+# zsh-history-substring-search
 history-search-multi-word
 zui zbrowse
 )
 
 zstyle ":plugin:history-search-multi-word" clear-on-cancel "no"
 zstyle ":history-search-multi-word" page-size "20"
+ENABLE_COMMAND_TIP=true
 
 GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 
 ZSH_COLORIZE_CHROMA_FORMATTER=terminal256
 
-ZSH_COLORIZE_STYLE="vim"
-
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=58"
 
-FAST_WORK_DIR=XDG
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=25
+
+ZSH_COLORIZE_STYLE="vim"
 
 eval "$(lua5.3 ~/.zsh/custom/plugins/z.lua/z.lua --init zsh enhanced once fzf)"
 
@@ -149,9 +149,9 @@ setopt hash_dirs
 
 # keybindings
 # bindkey "^R" history-search-multi-word
-bindkey '^[[1;5A' history-substring-search-up
+# bindkey '^[[1;5A' history-substring-search-up
 # bindkey  '^[[A' history-substring-search-up
-bindkey '^[[1;5B' history-substring-search-down
+#bindkey '^[[1;5B' history-substring-search-down
 # bindkey  '^[[B' history-substring-search-down
 bindkey '^[t' fzf-file-widget
 bindkey "^[r" fzf-history-widget
@@ -173,4 +173,4 @@ autoload -Uz sticky-note
 zstyle :sticky-note theme \
     bg red \
     fg $fg_bold[black]
-bindkey "^Sn" sricky-note
+bindkey "^Xs" sticky-note
