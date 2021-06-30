@@ -16,6 +16,10 @@ alias blib='$PREFIX/lib'
 alias bshr='$PREFIX/share'
 alias bttry=termux-battery-status
 alias cheats='navi repo browse'
+alias chc=change-colors
+alias chf=change-fonts
+alias coc=config-colors
+alias cof=config-fonts
 alias chmod='chmod -v'
 alias chown='chown -v'
 alias clean='( for ((i=1;i<$LINES;i++)) ; do echo "" ; done ) ; clear'
@@ -88,7 +92,7 @@ alias n.o='n ~/openssh/open'
 alias n.z='nano -mlce% ~/.zshrc'
 alias nb='nano -mlce $PREFIX/etc/bash.bashrc'
 alias mli='micro $PREFIX/bin/login'
-alias nnn='nnn -cde -H'
+alias nnn='nnn -encrX -H'
 alias np='nano -mlce% $PREFIX/etc/profile'
 alias null='>/dev/null 2>&1 &'
 alias nz='nano -mlce% $PREFIX/etc/zshrc'
@@ -139,7 +143,3 @@ alias zh='z -I -t .'
 alias zshrc='${=EDITOR} ${ZDOTDIR:-$HOME}/.zshrc'
 alias zz='z -i'
 alias zzc='zz -c'
-alias coc=config-colors
-alias cof=config-fonts
-alias chc=change-colors
-alias chf=change-fonts

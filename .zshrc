@@ -3,7 +3,7 @@ export PATH=$PATH:/storage/emulated/0/bin:/storage/40E6-DFFD/bin
 export USERNAME
 # export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
 export LESSHISTFILE="-"
-
+export HISTIGNORE="&:ls:ll:la"
 # custom zsh prompt + colors
 PROMPT_TITLE="%~ | ${COLUMNS}x${LINES} | %! | %? | %y |\007"
 
@@ -48,9 +48,8 @@ gitfast python pip zsh-hist colorize npm
 # zsh-lazyload
 # zsh_reload
 # zsnapshot
+# zhooks
 # evalcache
-zhooks
-# zsh-hooks
 you-should-use
 zsh-autosuggestions
 fast-syntax-highlighting
@@ -71,7 +70,7 @@ ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=58"
 
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=25
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=50
 
 ZSH_COLORIZE_STYLE="vim"
 
@@ -89,7 +88,14 @@ export BROWSER=lynx
 export LANG=en_US.UTF-8
 export CLICOLORS=true
 export TERM="xterm-256color"
-export NNN_OPENER=nuke
+export NNN_OPENER="$HOME/.config/nnn/plugins/nuke"
+export NNN_PLUG='f:finder;o:fzopen;d:diffs;m:nmount;t:treewiew;x:!chmod +x $nnn;'
+export NNN_FIFO="$PREFIX/tmp/nnn.fifo"
+NNN_OPTS="cEnrx"
+NNN_ARCHIVE="\\.(7z|bz2|gz|tar|tgz|zip)$"
+NNN_COLORS="'1234' (/'#0a1b2c3d'/'#0a1b2c3d;1234')"
+NNN_FCOLORS='c1e2272e006033f7c6d6abc4'
+NNN_TRASH="n (n=1: trash-cli)"
 
 # export MANPATH="data/data/com.termux/usr/share/doc/man
 
@@ -117,8 +123,8 @@ setopt pushdtohome
 setopt cdable_vars
 # Job Control
 setopt notify
-# setopt long_list_jobs
-# setopt no_hup
+setopt long_list_jobs
+setopt no_hup
 setopt autoresume
 setopt autocontinue
 unsetopt bg_nice
@@ -127,16 +133,16 @@ setopt automenu
 setopt autolist
 setopt complete_in_word
 setopt always_to_end
-# setopt menucomplete
+setopt menucomplete
 setopt listpacked
 setopt globdots
 setopt extendedglob
 setopt markdirs
-# setopt nomatch
-# setopt numeric_glob_sort
+setopt nomatch
+setopt numeric_glob_sort
 setopt rc_quotes
 setopt rec_exact
-# unsetopt autoparamslash
+setopt autoparamslash
 setopt noautoremoveslash
 setopt hash_cmds
 setopt hash_dirs
@@ -173,4 +179,4 @@ autoload -Uz sticky-note
 zstyle :sticky-note theme \
     bg red \
     fg $fg_bold[black]
-bindkey "^Xs" sticky-note
+bindkey -s "^Xs" "sticky-note \n"

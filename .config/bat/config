@@ -1,9 +1,8 @@
 --theme="Spark"
 --style=numbers
 --italic-text=always
-#--color=always
-#--decorations=never
---show-all
---force-colorization
-#--diff
-#--diff-context=3
+--color=always
+###--decorations=never
+###--show-all
+###--diff
+###--diff-context=3
