@@ -6,7 +6,6 @@
     "basename": true,
     "colorscheme": "monokai-dark",
     "diffgutter": true,
-    "filemanager.foldersfirst": false,
     "keepautoindent": true,
     "keymenu": true,
     "mkparents": true,

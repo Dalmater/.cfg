@@ -3,7 +3,11 @@ export PATH=$PATH:/storage/emulated/0/bin:/storage/40E6-DFFD/bin
 export USERNAME
 # export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/wgetrc"
 export LESSHISTFILE="-"
-export HISTIGNORE="&:ls:ll:la"
+export HISTIGNORE="&:l:ls:ll:la"
+GITHUB_USER=Dalmater
+GITHUB_PASSWORD=GHrasta24-7
+GITHUB_TOKEN=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
+
 # custom zsh prompt + colors
 PROMPT_TITLE="%~ | ${COLUMNS}x${LINES} | %! | %? | %y |\007"
 
@@ -34,7 +38,7 @@ DISABLE_AUTO_UPDATE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 HIST_STAMPS="dd.mm.yyyy"
 ZSH_CUSTOM="$HOME/.zsh/custom"
-# ZSH_CACHE_DIR="$HOME/.cache/zsh"
+ZSH_CACHE_DIR="$HOME/.cache/zsh"
 # ZDOTDIR=$HOME/.config
 
 # Plugins
@@ -93,7 +97,7 @@ export NNN_PLUG='f:finder;o:fzopen;d:diffs;m:nmount;t:treewiew;x:!chmod +x $nnn;
 export NNN_FIFO="$PREFIX/tmp/nnn.fifo"
 NNN_OPTS="cEnrx"
 NNN_ARCHIVE="\\.(7z|bz2|gz|tar|tgz|zip)$"
-NNN_COLORS="'1234' (/'#0a1b2c3d'/'#0a1b2c3d;1234')"
+NNN_COLORS='1234'(/'#0a1b2c3d'/'#0a1b2c3d;1234')
 NNN_FCOLORS='c1e2272e006033f7c6d6abc4'
 NNN_TRASH="n (n=1: trash-cli)"
 
@@ -166,6 +170,8 @@ bindkey -s "^[R" "ranger_cd \n"
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
 
+eval "$(hub alias -s)"
+
 source "${EXTERNAL_STORAGE}/termuxlauncher/.apps-launcher"
 
 source ~/.config/ranger/shell_*.sh
@@ -179,4 +185,4 @@ autoload -Uz sticky-note
 zstyle :sticky-note theme \
     bg red \
     fg $fg_bold[black]
-bindkey -s "^Xs" "sticky-note \n"
+bindkey -s "^s" "sticky-note \n"
