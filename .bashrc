@@ -25,10 +25,10 @@ shopt -s checkwinsize
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
-#[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
@@ -76,8 +76,8 @@ esac
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls -la --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
 
     alias grep='grep --color=auto'
     alias fgrep='fgrep --color=auto'
@@ -85,7 +85,7 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # some more ls aliases
-alias proj='cd /home/user/projects'
+#alias proj='cd /home/user/projects'
 
 # Alias definitions.
 # You may want to put all your additions into a separate file like
@@ -165,24 +165,4 @@ echo -e "[fbvid] done. output: output/${ex[4]}.${videoext}"
 readme() {
 # Usage: readme user repos
 curl https://raw.githubusercontent.com/$1/$2/master/README.md
-}
-
-iconset() {
-# Usage: iconset project_name icon.png
-if test ! -d $HOME/appicon; then
-	mkdir $HOME/appicon
-fi
-hdpi="/sdcard/AppProjects/$1/app/src/main/res/drawable-hdpi"
-mdpi="/sdcard/AppProjects/$1/app/src/main/res/drawable-mdpi"
-xhdpi="/sdcard/AppProjects/$1/app/src/main/res/drawable-xhdpi"
-xxhdpi="/sdcard/AppProjects/$1/app/src/main/res/drawable-xxhdpi"
-rm ${hdpi}/ic_launcher.png
-rm ${mdpi}/ic_launcher.png
-rm ${xhdpi}/ic_launcher.png
-rm ${xxhdpi}/ic_launcher.png
-cp $2 $HOME/appicon/ic_launcher.png
-cp $HOME/appicon/ic_launcher.png ${hdpi}
-cp $HOME/appicon/ic_launcher.png ${mdpi}
-cp $HOME/appicon/ic_launcher.png ${xhdpi}
-cp $HOME/appicon/ic_launcher.png ${xxhdpi}
 }

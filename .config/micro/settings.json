@@ -18,7 +18,7 @@
     "scrollmargin": 1,
     "scrollspeed": 3,
     "softwrap": true,
-    "statusformatr": "",
+    "statusformatr": "$(status.size) ",
     "tabmovement": true,
     "tabstospaces": true
 }

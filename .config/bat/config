@@ -1,8 +1,9 @@
---theme="Spark"
---style=numbers
+--theme="Spaceblack-Monokai"
+--style=auto
 --italic-text=always
 --color=always
+--wrap=auto
 ###--decorations=never
 ###--show-all
 ###--diff
-###--diff-context=3
+--diff-context=3
