@@ -1,5 +1,5 @@
 #!bin/sh zsh bash
-alias crsr='echo -ne '\e[6 q''
+alias crsr="echo -ne '\e[6 q'"
 alias dateformatcodes='date --help | sed -n '\''/^FORMAT/,//p'\'
 alias dfc='date --help | sed -n '\''/^FORMAT/,//p'\'
 alias null='>/dev/null 2>&1 &'
@@ -53,7 +53,6 @@ alias \
 alias \
      bfarben=spectrum_bls \
      bfrbn=spectrum_bls \
-     cheats='navi repo browse' \
      chc=change-colors \
      chf=change-fonts \
      coc=config-colors \
@@ -181,6 +180,7 @@ alias \
      dota='dot add' \
      dotaa='dot add --all' \
      dotb='dot branch -a' \
+     dotc='dot checkout' \
      dotcm='dot commit -m' \
      dotd='dot diff' \
      dotp='dot push' \
@@ -260,7 +260,7 @@ is_in_git_repo() {
 }
 
 fzf-down() {
-    fzf --height 50% --min-height 20 --border --bind ctrl-/:toggle-preview "$@"
+    fzf --height 50% --min-height 20 --border --bind alt--:toggle-preview "$@"
 }
 
 _gf() {
@@ -290,7 +290,7 @@ _gt() {
 _gh() {
     is_in_git_repo || return
     git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
-        fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
+        fzf-down --ansi --no-sort --reverse --multi --bind 'alt-s:toggle-sort' \
             --header 'Press CTRL-S to toggle sort' \
             --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always' |
         grep -o "[a-f0-9]\{7,\}"

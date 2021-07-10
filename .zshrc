@@ -1,5 +1,6 @@
 export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 export PATH=$PATH:/storage/emulated/0/bin:/storage/40E6-DFFD/bin
+
 export USERNAME
 export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/.wgetrc"
 export LESSHISTFILE="-"
@@ -43,7 +44,7 @@ ZSH_CACHE_DIR="$HOME/.cache/zsh"
 # Plugins
 plugins=(common-aliases extract nice-exit-code
 gitfast python pip zsh-hist colorize ripgrep
-colored-man-pages fd fzf fzf-tab title ag
+colored-man-pages fd fzf fzf-tab title ag yarn
 # ssh-agent keychain gpg-agent
 # youtube-dl web-search
 # git npm nvm node
@@ -85,10 +86,11 @@ export EDITOR=micro
 export VISUAL="nvim"
 export PAGER="bat --paging=always"
 export BROWSER=lynx
-export LANG=en.UTF-8
-export CLICOLORS=true
+export LANG=en_us.UTF-8
 export TERM="xterm-256color"
+export CLICOLORS=true
 export COLORTERM="truecolor"
+export MICRO_TRUECOLOR=1
 export NNN_OPENER=nuke
 export NNN_PLUG='b:-bookmarks;c:cdpath;d:-diffs;f:finder;g:-_git diff;h:hexview;l:-_git log;o:fzopen;p:getplugs;t:treewiew;x:_chmod +x $nnn;z:fzz'
 export NNN_FIFO="$PREFIX/tmp/nnn.fifo"
@@ -136,19 +138,20 @@ setopt automenu
 setopt autolist
 setopt complete_in_word
 setopt always_to_end
-#setopt menucomplete
+setopt menucomplete
 setopt listpacked
-setopt globdots
-setopt caseglob
+#setopt globdots
+#setopt caseglob
 setopt globcomplete
 setopt extended_glob
-setopt numeric_glob_sort
+#setopt numeric_glob_sort
 setopt markdirs
-# setopt nomatch
-setopt rc_quotes
-setopt rec_exact
+setopt nomatch
+#setopt rc_quotes
+#setopt rec_exact
 setopt autoparamslash
 setopt noautoremoveslash
+setopt transient_rprompt
 setopt hash_all
 setopt hash_cmds
 setopt hash_dirs
@@ -187,17 +190,20 @@ zstyle :sticky-note theme \
 bindkey "^s" sticky-note
 
 ##### >FZF Base<
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 bindkey '^[t' fzf-file-widget
 # bindkey "^r" fzf-history-widget
 bindkey -s "^[i" "interactive_fzf \n"
 
+export FZF_BASE='~/.fzf'
 export FZF_BASE='$PREFIX/share/fzf'
-export FZF_DEFAULT_COMMAND='ag --hidden --depth 3 --color --ignore-dir .cache --ignore ~/.cfg.git ignore ~/.config/micro/buffers -g ""'
-export FZF_DEFAULT_OPTS="--height 92% --color=bg:-1,bg+:236,gutter:-1,info:136,border:88,spinner:108,hl:64,fg:250,header:65,fg+:252,pointer:124,marker:168,prompt:81,hl+:71 --layout=reverse --border --info=inline --ansi --cycle -s --bind=alt-T:toggle"
+export FZF_DEFAULT_COMMAND='ag --hidden --depth 3 --color --ignore-dir .git -g ""'
+export FZF_DEFAULT_OPTS="--height 92% --color=bg:-1,bg+:236,gutter:-1,info:136,border:88,spinner:108,hl:64,fg:250,header:65,fg+:252,pointer:124,marker:168,prompt:81,hl+:71 --layout=reverse --border --info=inline --ansi --cycle '--bind=alt-t:toggle'"
 export FZF_ALT_C_COMMAND='fd --type d . --color=always --hidden --exclude .cache --exclude .git --exclude .cfg.git --exclude .config/micro/buffers'
-export FZF_ALT_C_OPTS=" --ansi --preview 'tree -C -L 3 {}'"
+export FZF_ALT_C_OPTS=" --ansi --preview 'tree -C -L 3 {}' --bind=alt--:toggle-preview"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_OPTS="--ansi --preview 'bat --color=always --line-range :200 {}'"
+export FZF_CTRL_T_OPTS="--ansi --preview 'bat --color=always --line-range :200 {}' --bind=alt--:toggle-preview"
 # export FZF_CTRL_R_COMMAND=""
 # export FZF_CTRL_R_OPTS=""
 
