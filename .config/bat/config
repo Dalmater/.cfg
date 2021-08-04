@@ -1,9 +1,6 @@
---theme="Spaceblack-Monokai"
+--theme="gruvbox-dark"
 --style=auto
 --italic-text=always
 --color=always
 --wrap=auto
-###--decorations=never
-###--show-all
-###--diff
 --diff-context=3
