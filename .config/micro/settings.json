@@ -4,7 +4,7 @@
     "aspell.sugmode": "fast",
     "backupdir": "~/.config/micro/backups",
     "basename": true,
-    "colorscheme": "monokai-dark",
+    "colorscheme": "gruvbox-tc",
     "diffgutter": true,
     "filemanager.compressparent": false,
     "filemanager.showignored": false,
