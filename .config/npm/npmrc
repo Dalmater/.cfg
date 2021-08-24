@@ -28,7 +28,7 @@
 ; bin-links=true
 ; browser=null
 ; ca=null
-cache=~/.config/npm
+cache=~/.cache/npm
 ; cache-max=null
 ; cache-min=0
 ; cafile=null
@@ -149,7 +149,7 @@ tmp=/data/data/com.termux/files/usr/tmp
 ; update-notifier=true
 ; usage=false
 ; user-agent=npm/{npm-version} node/{node-version} {platform} {arch} workspaces/{workspaces} {ci}
-userconfig=~/.config/npm/.npmrc
+userconfig=~/.config/npm/npmrc
 ; version=false
 ; versions=false
 ; viewer=man

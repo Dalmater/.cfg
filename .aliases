@@ -1,4 +1,4 @@
-#!bin/sh zsh bash
+#!bin/env zsh
 alias crsr="echo -ne '\e[6 q'"
 alias dateformatcodes='date --help | sed -n '\''/^FORMAT/,//p'\'
 alias dfc='date --help | sed -n '\''/^FORMAT/,//p'\'
@@ -17,228 +17,229 @@ alias fsh='fast-theme'
 
 # apt
 alias \
-     apti='apt install' \
-     aptp='apt purge' \
-     aptr='apt remove' \
-     aptri='apt reinstall' \
-     aptu='apt update -yy && apt full-upgrade -qq'
+    apti='apt install' \
+    aptp='apt purge' \
+    aptr='apt remove' \
+    aptri='apt reinstall' \
+    aptu='apt update -yy && apt full-upgrade -qq'
 
 # commands
 alias \
-     HMBs='du -h --max-depth=1 --one-file-system /data/data/com.termux/files/home' \
-     MBs='du -h --max-depth=1 --one-file-system /data/data/com.termux/files/usr' \
-     chmod='chmod -v' \
-     chown='chown -v' \
-     cp='nocorrect cp -i -v' \
-     dir='nocorrect dir --color=auto' \
-     diff='diff --color' \
-     dud='du -d 1 -h' \
-     duf='du -sh *' \
-     egrep='egrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.cfg.git,.cache}' \
-     h=history \
-     hgrep='fc -El 0 | grep' \
-     man='nocorrect man' \
-     mc='mc -c' \
-     md='mkdir -p' \
-     mkd='nocorrect mkdir -pv' \
-     ncdu='ncdu --color=dark -L -x' \
-     nnn='nnn -Erx -H' \
-     mkdir='mkdir -v' \
-     mv='nocorrect mv -i -v' \
-     rm='nocorrect rm -i -v' \
-     sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} ' \
-     shad="ssh-add ~/.ssh/id_rsa" \
-     shag='eval "$(ssh-agent -s)"' \
-     wget='wget -r -e --robots=off -nc -np' \
-     del='trash-put -i -v' \
-     grep='grep --color=auto' \
-     fgrep='fgrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.cfg.git,.cache}'
+    HMBs='du -h --max-depth=1 --one-file-system ~' \
+    MBs='du -h --max-depth=1 --one-file-system /data/data/com.termux/files/usr' \
+    chmod='chmod -v' \
+    chown='chown -v' \
+    cp='nocorrect cp -i -v' \
+    dir='nocorrect dir --color=auto' \
+    diff='diff --color=auto' \
+    dud='du --all -d 1 -h' \
+    duf='du -sh *' \
+    egrep='egrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.cfg.git,.cache}' \
+    h=history \
+    hgrep='fc -El 0 | grep' \
+    man='nocorrect man' \
+    md='nocorrect mkdir -pv' \
+    mkd='nocorrect mkdir -pv' \
+    ncdu='ncdu --color=dark -L -x' \
+    mkdir='mkdir -pv' \
+    mv='nocorrect mv -i -v' \
+    rm='nocorrect rm -I -v' \
+    sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS,.cfg.git,.cache} ' \
+    shad="ssh-add ~/.ssh/id_rsa" \
+    shag='eval "$(ssh-agent -s)"' \
+    wget='wget -r -e --robots=off -nc -np' \
+    grep='grep --color=auto' \
+    fgrep='fgrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.cfg.git,.cache}' \
+    ffmpeg='ffmpeg -hide_banner'
 
 # special commands
 alias \
-     bfarben=spectrum_bls \
-     bfrbn=spectrum_bls \
-     coc=config-colors \
-     cof=config-fonts \
-     clean='( for ((i=1;i<$LINES;i++)) ; do echo "" ; done ) ; clear' \
-     ddg='web_search duckduckgo' \
-     del='trash-put' \
-     farben=spectrum_ls \
-     frbn=spectrum_ls \
-     fsh='fast-theme' \
-     lazymux='cd ~/gitrepos/Lazymux && python lazymux.py' \
-     lch=launch \
-     lmux='cd ~/gitrepos/Lazymux && python lazymux.py' \
-     myip='curl http://ipecho.net/plain; echo' \
-     mymap='telnet mapscii.me' \
-     ox='onex start' \
-     tb='terbr -b' \
-     tls='cd ~/gitrepos/Termux-Lazyscript && python2 ls.py' \
-     wtr='curl wttr.in/Berlin' \
-     pip='$PREFIX/bin/python3 -m pip'
-     pip2='$PREFIX/bin/python2 -m pip'
+    bfarben=spectrum_bls \
+    bfrbn=spectrum_bls \
+    coc=config-colors \
+    cof=config-fonts \
+    clean='( for ((i=1;i<$LINES;i++)) ; do echo "" ; done ) ; clear' \
+    ddg='web_search duckduckgo' \
+    farben=spectrum_ls \
+    frbn=spectrum_ls \
+    fsh='fast-theme' \
+    lazymux='cd ~/gitrepos/Lazymux && python lazymux.py' \
+    lch=launch \
+    lmux='cd ~/gitrepos/Lazymux && python lazymux.py' \
+    myip='curl http://ipecho.net/plain; echo' \
+    mymap='telnet mapscii.me' \
+    ox='onex start' \
+    tb='terbr -b' \
+    tls='cd ~/gitrepos/Termux-Lazyscript && python2 ls.py' \
+    wtr='curl wttr.in/Berlin'
+    # pip='$PREFIX/bin/python3 -m pip' \
+    # pip2='$PREFIX/bin/python2 -m pip'
 
 # directories
 alias \
-     back='$PREFIX' \
-     bbin='$PREFIX/bin' \
-     betc='$PREFIX/etc' \
-     blbxc='$PREFIX/libexec' \
-     blib='$PREFIX/lib' \
-     bshr='$PREFIX/share' \
-     storage='cd /storage/40E6-DFFD' \
-     strg='cd /storage/40E6-DFFD' \
-     sdcard=/sdcard \
-     sdcrd='cd /storage/emulated/0'
+    back='$PREFIX' \
+    bbin='$PREFIX/bin' \
+    betc='$PREFIX/etc' \
+    blbxc='$PREFIX/libexec' \
+    blib='$PREFIX/lib' \
+    bshr='$PREFIX/share' \
+    storage='cd /storage/40E6-DFFD' \
+    strg='cd /storage/40E6-DFFD' \
+    sdcard=/sdcard \
+    sdcrd='cd /storage/emulated/0'
 
 # find & fzf
 alias \
-     count='find . -type f | wc -l' \
-     fzcd='\cd "$(find -L -type d | fzf)"' \
-     fdh='fd -H -I -i --color always' \
-     ff='find . -type f -name' \
-     iaf=interactive_fzf
+    count='find . -type f | wc -l' \
+    fzcd='\cd "$(find -L -type d | fzf)"' \
+    fdh='fd -H -I -i --color always' \
+    ff='find . -type f -name' \
+    iaf=interactive_fzf
 
 
 # ls & exa
 alias \
-     exa='exa --color=always --icons'\
-     l='exa -b@ --icons --git' \
-     lS='exa -1 --icons' \
-     la='exa -bhHigUmuSaa --git --icons' \
-     lart='\ls -1Fcart' \
-     ldot='ls -ld .*' \
-     ll='exa -ahlFbG --icons' \
-     l.='exa -d .*' \
-     ll.='exa -Fhl -d .*' \
-     lld='\ls -D */' \
-     lll='exa -ahlT --icons L -R' \
-     llm='exa -lbGF --git --sort=modified --git --icons' \
-     llt='du -sh * | sort -h' \
-     lr='\ls -tRFh' \
-     lrt='\ls -1Fcrt' \
-     ls='exa -a --icons --git' \
-     lsa='exa -alFh@T --level=3 --icons | more -f' \
-     lt='exa -alhFt@ --time=changed --icons' \
-     lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
+    exa='exa --color=always --icons'\
+    l='exa -b@ --icons --git' \
+    lS='exa -1 --icons' \
+    la='exa -bhHigUmuSaa --git --icons' \
+    lart='\ls -1Fcart' \
+    ldot='ls -ld .*' \
+    ll='exa -ahlFbG --icons' \
+    l.='exa -d .*' \
+    ll.='exa -Fhl -d .*' \
+    lld='\ls -D */' \
+    lll='exa -ahlT --icons L -R' \
+    llm='exa -lbGF --git --sort=modified --git --icons' \
+    llt='du -sh * | sort -h' \
+    lr='\ls -tRFh' \
+    lrt='\ls -1Fcrt' \
+    ls='exa -a --icons --git' \
+    lsa='exa -alFh@T --level=3 --icons | more -f' \
+    lt='exa -alhFt@ --time=changed --icons' \
+    lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
 
 # Editors
 alias \
-     m=micro \
-     m.a='micro ${ZDOTDIR:-$HOME}/.aliases' \
-     m.m='m ~/.zsh/my-zsh.sh' \
-     mp='micro $PREFIX/etc/profile' \
-     m.z='micro ${ZDOTDIR:-$HOME}/.zshrc' \
-     mli='micro $PREFIX/bin/login' \
-     mz='micro $PREFIX/etc/zshrc' \
-     zshrc='${=EDITOR} ${ZDOTDIR:-$HOME}/.zshrc' \
-     n='nano -mce%' \
-     n.a='nano -mce% ${ZDOTDIR:-$HOME}/.aliases' \
-     n.b='nano -mce% $HOME/.bashrc' \
-     n.o='n ~/openssh/open' \
-     n.z='nano -mce% ${ZDOTDIR:-$HOME}/.zshrc' \
-     nb='nano -mce $PREFIX/etc/bash.bashrc' \
-     np='nano -mce% $PREFIX/etc/profile' \
-     nz='nano -mlce% $PREFIX/etc/zshrc' \
-     vim=nvim \
-     v=nvim \
-     init='v ~/.config/nvim/init.vim'
+    m=micro \
+    m.a='micro ${ZDOTDIR:-$HOME}/.aliases' \
+    m.m='m ~/.zsh/my-zsh.sh' \
+    mp='micro $PREFIX/etc/profile' \
+    m.z='micro ${ZDOTDIR:-$HOME}/.zshrc' \
+    mli='micro $PREFIX/bin/login' \
+    mz='micro $PREFIX/etc/zshrc' \
+    zshrc='${=EDITOR} ${ZDOTDIR:-$HOME}/.zshrc' \
+    n='nano -mce%' \
+    n.a='nano -mce% ${ZDOTDIR:-$HOME}/.aliases' \
+    n.b='nano -mce% $HOME/.bashrc' \
+    n.o='n ~/openssh/open' \
+    n.z='nano -mce% ${ZDOTDIR:-$HOME}/.zshrc' \
+    nb='nano -mce $PREFIX/etc/bash.bashrc' \
+    np='nano -mce% $PREFIX/etc/profile' \
+    nz='nano -mlce% $PREFIX/etc/zshrc' \
+    vim=nvim \
+    v=nvim \
+    vimdiff="nvim -d" \
+    init='v ~/.config/nvim/init.vim'
 
 # zlua
 alias \
-     z=_zlua \
-     zb='z -b' \
-     zbf='z -b -I' \
-     zbi='z -b -i' \
-     zc='z -c' \
-     zf='z -I' \
-     zh='z -I -t .' \
-     zz='z -i' \
-     zzc='zz -c'
+    z=_zlua \
+    zb='z -b' \
+    zbf='z -b -I' \
+    zbi='z -b -i' \
+    zc='z -c' \
+    zf='z -I' \
+    zh='z -I -t .' \
+    zz='z -i' \
+    zzc='zz -c'
 
 # Termux
 alias \
-     bttry=termux-battery-status \
-     cpy=termux-clipboard-set \
-     foto=termux-camera-photo \
-     open='termux-open --chooser "$@"' \
-     pst=termux-clipboard-get \
-     t-b='termux-brightness' \
-     t-n=termux-notification \
-     tbs=termux-battery-status \
-     tcp=termux-camera-photo \
-     tcr=termux-change-repo \
-     tfs=termux-fix-shebang \
-     tfo=termux-file-opener \
-     tnr=termux-notification-remove \
-     to='termux-open --chooser "$@"' \
-     trs=termux-reload-settings \
-     tuo=termux-url-opener \
-     twe=termux-wifi-enable
+    bttry=termux-battery-status \
+    cpy=termux-clipboard-set \
+    foto=termux-camera-photo \
+    open='termux-open --chooser "$@"' \
+    pst=termux-clipboard-get \
+    t-b='termux-brightness' \
+    t-n=termux-notification \
+    tbs=termux-battery-status \
+    tcp=termux-camera-photo \
+    tcr=termux-change-repo \
+    tfs=termux-fix-shebang \
+    tfo=termux-file-opener \
+    tnr=termux-notification-remove \
+    to='termux-open --chooser "$@"' \
+    trs=termux-reload-settings \
+    tuo=termux-url-opener \
+    twe=termux-wifi-enable
 
 
 # git
 
 alias \
-     dot='$PREFIX/bin/git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME' \
-     config='$PREFIX/bin/git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME' \
-     dota='dot add' \
-     dotaa='dot add --all' \
-     dotb='dot branch -a' \
-     dotc='dot checkout' \
-     dotcm='dot commit -m' \
-     dotd='dot diff' \
-     dotp='dot push' \
-     dotpl='dot pull' \
-     dotl='dot log' \
-     dots='dot status' \
-     dotr='dot remote -v' \
-     dotrm='dot rm' \
-     dotrmc='dot rm --cached' \
-     dotrs='dot restore --staged' \
-     dotmv='dot mv'
+    dot='$PREFIX/bin/git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME' \
+    config='$PREFIX/bin/git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME' \
+    dota='dot add' \
+    dotaa='dot add --all' \
+    dotb='dot branch -a' \
+    dotc='dot checkout' \
+    dotcm='dot commit -m' \
+    dotd='dot diff' \
+    dotp='dot push' \
+    dotpl='dot pull' \
+    dotl='dot log' \
+    dots='dot status' \
+    dotr='dot remote -v' \
+    dotrm='dot rm' \
+    dotrmc='dot rm --cached' \
+    dotrs='dot restore --staged' \
+    dotmv='dot mv' \
+    dot=dotbare
 
 alias \
-     gad='git add' \
-     gaa='git add --all' \
-     gb='git branch -a' \
-     gcm='git commit -m' \
-     gdf='git diff' \
-     gds="git diff --staged" \
-     gc='git clone' \
-     gf='git fetch' \
-     g=git \
-     check='git checkout' \
-     pull='git pull origin' \
-     push='git push origin' \
-     gss='git status -sb' \
-     gp='git push' \
-     gpl='git pull' \
-     gl='git log' \
-     gs='git status' \
-     gr='git remote -v' \
-     grm='git rm' \
-     grmc='git rm --cached' \
-     grs="git restore --staged" \
-     gmv='git mv'
+    gad='git add' \
+    gaa='git add --all' \
+    gb='git branch -a' \
+    gcm='git commit -m' \
+    gdf='git diff' \
+    gds="git diff --staged" \
+    gc='git clone' \
+    gf='git fetch' \
+    g=git \
+    check='git checkout' \
+    pull='git pull origin' \
+    push='git push origin' \
+    gss='git status -sb' \
+    gp='git push' \
+    gpl='git pull' \
+    gl='git log' \
+    gs='git status' \
+    gr='git remote -v' \
+    grm='git rm' \
+    grmc='git rm --cached' \
+    grs="git restore --staged" \
+    gmv='git mv'
 
 #----------------- FZF & GIT -------------------
 
-alias fv='nvim "$(find -L -type f | fzf +m --keep-right)"'
+alias fv='nvim "$(fd -H -i -L --type f | fzf +m --keep-right)"'
+vf() { fzf | xargs -r -I % $EDITOR % ;}
+se() { du -a ~/.scripts/* ~/.config/* | awk '{print $2}' | fzf --keep-right | xargs -r $EDITOR ;}
 
 # search for all scripts and dotfiles, then open them with editor of choice
-files=(~/.bashrc ~/.zshrc ~/.config/{bat,configstore,git,htop,lynx,mc,micro,mpv,neofetch,nnn,npm,nvim,pip,pulse,ranger,w3m,wget,zsh}
+files=(~/.bashrc ~/.zshrc ~/.config/{bat,configstore,git,htop,lynx,mc,micro,mpv,neofetch,npm,nvim,pip,pulse,ranger,w3m,wget,zsh}
      ~/.lynxrc ~/.scripts/* ~/bin/* ~/.local/bin/* ~/.local/share/* $PREFIX/etc/* ~/documents/*)
 
 dotf() {
     find $files -type f |
-        fzf --keep-right --preview 'bat --color=always --line-range :50 {}' | xargs -r "$EDITOR"
+        fzf --keep-right --preview 'bat --color=always --line-range :100 {}' --bind=alt--:toggle-preview | xargs -r "$EDITOR"
  }
 
  # search for all notes and open selected one in editor
 notes() {
     rg --files "$HOME"/*ocuments/notes |
-        fzf --keep-right --preview 'bat --color=always --line-range :50 {}' | xargs -r "$EDITOR"
+        fzf --keep-right --preview 'bat --color=always --line-range :100 {}' --bind=alt--:toggle-preview | xargs -r "$EDITOR"
 }
 
  # cd into note dir, live grep the contents of notes, then open in editor
@@ -248,8 +249,8 @@ live_search_notes() {
 
 # search for all git repos in folders I care, then cd into selected one.
 all_git() {
-     dir=$(find ~/{.zsh,gitrepos,documents} -type d -name .git | sed 's/\/.git//' |
-         fzf --cycle --preview 'tree -C {} | head -50'
+    dir=$(find ~/{.zsh,gitrepos,documents} -type d -name .git | sed 's/\/.git//' |
+        fzf --cycle --preview 'tree -C {} | head -50'
 ) && cd $dir && git status
 }
 
@@ -283,7 +284,7 @@ _gf() {
     is_in_git_repo || is_in_dot_repo || return
     dot -c color.status=always status --short |
         fzf-down -m --ansi --nth 2..,.. \
-            --preview '(dot diff --color=always -- {-1} | sed 1,4d; cat {-1})' |
+            --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1})' |
         cut -c4- | sed 's/.* -> //'
 }
 

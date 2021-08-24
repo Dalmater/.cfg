@@ -7,36 +7,33 @@ set backspace=indent,eol,start
 set hid
 set shm+=cI
 set pumheight=10
-set path=.,/data/data/com.termux/files/usr/include
+set path+=.,/data/data/com.termux/files/usr/include
 set path+=**
-" set tabstop=5 softtabstop=4 shiftwidth=4
+set tabstop=2 softtabstop=2 shiftwidth=2
 set et smarttab
 set ai si
 set inc ic scs hls
 set nuw=1
 set viminfo+=n$HOME/.config/nvim/viminfo
 set viminfo^=!
-set cb+=unnamed,unnamedplus
+set cb+=unnamedplus
 set showcmd nosmd
 set cmdheight=2
 set updatetime=300
-if !has('gui_running')
-  set t_Co=256
-endif
-set termguicolors
 set guioptions+='d'
 set ttyfast
 " Formating
 " set encoding=utf-8
 " set fileencoding=utf-8
-set iskeyword+=$,%,#,-,_	"not to split word"
-set fo=ql
+" set iskeyword+=$,%,#,-,_	"not to split word"
+set fo+=qlp
 " q - allow formatting of comments with :gq
 " l - don't format already long lines
+set fo-=cro " dont comment on new lines
 set spl=en_us
 let $LANG='en_US'
 " set nowrap
-set complete+=k,kspell,t complete-=i complete-=w ""complete-=b complete-=u
+set complete+=k,kspell complete-=i complete-=w ""complete-=b complete-=u complete+=t (tags)
 set sm
 set wmnu
 set cot=menu,longest,preview,noselect
@@ -54,23 +51,28 @@ set magic
 set textwidth=54
 set noswapfile nobackup undofile title
 set undolevels=1000
-set undoreload=1000
-
+set undoreload=10000
+set matchpairs+=<:>
+set pastetoggle=<F12>
 set grepprg=ag\ --vimgrep\ $*
 set grepformat=%f:%l:%c:%m
+
+if !has('gui_running')
+  set t_Co=256
+endif
+set termguicolors
 
 "" Timeout
 " set noto
 set timeoutlen=1000
 
 if &history < 1000
-    set history=1000
+  set history=1000
 endif
 
-set tags+=~/.config/nvim/systags
-
 if has('path_extra')
-    setglobal tags-=./tags tags-=./tags; tags^=./tags;
+  setglobal tags-=./tags tags-=./tags; tags^=./tags;
+  setglobal tags+=~/.config/nvim/systags;
 endif
 
 " Don't save options in sessions and views
@@ -84,7 +86,7 @@ set viewoptions-=options
 
 " Allow for up to 20 opened tabs on Vim start.
 if &tabpagemax < 20
-    set tabpagemax=20
+  set tabpagemax=20
 endif
 
 " Disable strange Vi defaults.
@@ -98,9 +100,13 @@ au CursorHold * checktime
 
 " Merge signcolumn with number line (if supported)
 if has("nvim-0.5.0") || has("patch-8.1.1564")
-    set signcolumn=number
+  set signcolumn=number
 else
-    set signcolumn=yes
+  set signcolumn=yes
+endif
+
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
 endif
 
 set debug=msg
@@ -113,7 +119,7 @@ set vb
 set nomodeline
 
 " Do not fold by default. But if, do it up to 3 level
-set foldmethod=indent
+set foldmethod=manual
 set foldnestmax=3
 set nofoldenable
 
@@ -124,7 +130,7 @@ set nocursorline
 set nocursorcolumn
 set so=3
 set siso=5
-" set scrolljump=3
+set scrolljump=3
 set lazyredraw
 set redrawtime=10000
 set synmaxcol=250
@@ -143,7 +149,7 @@ let g:netrw_sizestyle="H"
 let g:netrw_browse_split=3
 
 " sql omni completion
-let g:omni_sql_no_default_maps = 1
+" let g:omni_sql_no_default_maps = 1
 
 "" disable/enable providers
 " let g:loaded_python_provider = 0
@@ -158,10 +164,18 @@ let g:python2_host_prog = expand('$PREFIX/bin/python2')
 " set python3
 let g:python3_host_prog = expand('$PREFIX/bin/python3')
 
-" disable pair highlighting
-let g:loaded_matchit = 0
-let g:loaded_matchparen = 0
-let g:matchup_motion_enabled = 0
-let g:matchup_text_obj_enabled = 0
-let g:matchup_delim_noskips = 1
-let g:matchup_matchparen_deferred = 1
+" tmux clipboard
+if exists('$TMUX')
+  let g:clipboard = {
+        \   'name': 'myClipboard',
+        \   'copy': {
+          \      '+': ['tmux', 'load-buffer', '-'],
+          \      '*': ['tmux', 'load-buffer', '-'],
+          \    },
+          \   'paste': {
+            \      '+': ['tmux', 'save-buffer', '-'],
+            \      '*': ['tmux', 'save-buffer', '-'],
+            \   },
+            \   'cache_enabled': 1,
+            \ }
+endif

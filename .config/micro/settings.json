@@ -23,5 +23,6 @@
     "softwrap": true,
     "statusformatr": "$(status.size) ",
     "tabmovement": true,
+    "tabsize": 2,
     "tabstospaces": true
 }
