@@ -1,0 +1,127 @@
+[user]
+    name       = Dalmater
+
+[credential]
+    helper     = cache --timeout=6600
+
+[core]
+    editor     = nvim
+    pager      = delta
+
+[pager]
+    diff       = delta
+    log        = delta
+    reflog     = delta
+    show       = delta
+
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+
+[alias]
+    lg         = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --decorate
+    lb         = branch --sort=-authordate --format '%(align:width=18)%(authordate:format:%Y-%m-%d %H:%M)%(end) %(align:width=14,position=right)%(authordate:relative)%(end) %(objectname:short) %(HEAD) %(if)%(HEAD)%(then)%(color:green)%(end)%(refname:short)'
+    search     = ! git branch -a | sed '/->/d' | sed 's/\\*//' | xargs git grep -n -I
+    save       = !git add -A && git commit -m 'chore: commit save point
+    ll         = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+    stags      = !git for-each-ref --format='%(*committerdate:raw)%(committerdate:raw) %(refname) %(*objectname) %(objectname)' refs/tags | sort -n | cut -d'/' -f 3 | cut -d' ' -f 1
+    aa         = add --all
+    ba         = branch -a
+    cm         = commit -m
+    ds         = diff --staged
+    check      = checkout
+    pull       = git pull origin
+    push       = git push origin
+    ss         = status -sb
+    s          = status
+    r          = remote -v
+    rmc        = rm --cached
+    rs         = restore --staged
+
+[init]
+    templatedir = ~/.config/git/template
+
+[merge]
+    tool       = nvim
+
+[mergetool]
+    prompt     = false
+
+[color "decorate"]
+    HEAD         = 6 normal bold italic
+    remotebranch = 5 normal bold
+    grafted     = 1 0 bold
+    tag         = 3 0 bold
+    stash       = normal
+    branch      = 6 normal bold
+
+[color "diff"]
+    whitespace  = normal
+    commit      = 3 0
+    func        = 2 normal bold
+
+[color "grep"]
+    filename    = 7 normal
+    function    = 2 normal bold
+    column      = normal
+    linenumber  = normal
+
+[color "interactive"]
+    header      = normal
+    help        = normal
+    error       = 1 0 bold
+
+[color "status"]
+    changed     = 3 normal
+    unmerged    = 1 normal
+    nobranch    = 1 0 bold
+    updated     = 2 normal
+    localbranch = 6 normal bold
+    added       = 2 normal
+    untracked   = normal dim
+    header      = normal
+    remotebranch = 5 normal bold
+    branch      = 6 normal bold
+
+[color "branch"]
+    remote      = 5 normal bold
+    upstream    = 5 normal bold
+    plain       = 6 normal bold
+    current     = 6 normal bold reverse
+    local       = 6 normal bold
+
+[color "remote"]
+    success     = 2 normal
+    error       = 1 normal
+    hint        = normal dim
+    warning     = 3 normal
+
+[delta]
+    features = side-by-side line-numbers decorations
+    minus-non-emph-style     = red
+    minus-emph-style         = reverse red
+    plus-non-emph-style      = green
+    plus-emph-style          = reverse green
+    minus-empty-line-marker-style = normal "#4d4b4f"
+    plus-empty-line-marker-style  = normal "#3e5c64"
+    line-numbers-zero-style  = "#ffffff"
+    line-numbers-minus-style = red
+    line-numbers-plus-style  = green
+    plus-style               = "syntax #012800"
+    minus-style              = "syntax #340001"
+    syntax-theme             = gruvbox-dark
+    navigate                 = true
+    diffFilter               = delta --color-only
+    whitespace-error-style   = 22 reverse
+
+[delta "interactive"]
+    keep-plus-minus-markers = false
+
+[delta "decorations"]
+    commit-decoration-style = blue ul
+    commit-style = raw
+    file-style = omit
+    file-decoration-style    = none
+    hunk-header-decoration-style = blue box
+    hunk-header-file-style = red
+    hunk-header-line-number-style = "#067a00"
+    hunk-header-style = file line-number syntax

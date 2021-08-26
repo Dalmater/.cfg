@@ -165,17 +165,17 @@ let g:python2_host_prog = expand('$PREFIX/bin/python2')
 let g:python3_host_prog = expand('$PREFIX/bin/python3')
 
 " tmux clipboard
-if exists('$TMUX')
-  let g:clipboard = {
-        \   'name': 'myClipboard',
-        \   'copy': {
-          \      '+': ['tmux', 'load-buffer', '-'],
-          \      '*': ['tmux', 'load-buffer', '-'],
-          \    },
-          \   'paste': {
-            \      '+': ['tmux', 'save-buffer', '-'],
-            \      '*': ['tmux', 'save-buffer', '-'],
-            \   },
-            \   'cache_enabled': 1,
-            \ }
-endif
+" if exists('$TMUX')
+"   let g:clipboard = {
+"         \   'name': 'myClipboard',
+"         \   'copy': {
+"           \      '+': ['tmux', 'load-buffer', '-'],
+"           \      '*': ['tmux', 'load-buffer', '-'],
+"           \    },
+"           \   'paste': {
+"             \      '+': ['tmux', 'save-buffer', '-'],
+"             \      '*': ['tmux', 'save-buffer', '-'],
+"             \   },
+"             \   'cache_enabled': 1,
+"             \ }
+" endif

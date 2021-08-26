@@ -20,6 +20,7 @@ filetype plugin indent on
 syntax enable
 
 let g:polyglot_disabled = ['sensible', 'markdown']
+let g:vim_markdown_frontmatter = 1
 
 " call plug#begin('~/.config/nvim/plugged')
 call plug#begin('~/.local/share/nvim/plugged')
@@ -37,6 +38,8 @@ Plug 'junegunn/goyo.vim', { 'on': 'Goyo', 'for': 'markdown' }
 Plug 'tpope/vim-scriptease', {'for': 'vim'}
 Plug 'junegunn/vim-easy-align'
 Plug 'jiangmiao/auto-pairs'
+  " let g:AutoPairsFlyMode = 1
+  " let g:AutoPairs['<']='>'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'editorconfig/editorconfig-vim'
@@ -71,9 +74,10 @@ Plug 'tpope/vim-obsession'
 Plug 'Chiel92/vim-autoformat'
   noremap <F9>       :Autoformat<CR>
   noremap <leader>af :Autoformat<CR>
-Plug 'godlygeek/tabular', {'on': 'Tabularize'}
-Plug 'tpope/vim-markdown', {'for': 'markdown'}
+Plug 'godlygeek/tabular' ", {'on': 'Tabularize'}
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
   " let g:vim_markdown_folding_disabled = 1
+" Plug 'tpope/vim-markdown', {'for': 'markdown'}
 " Plug 'vim-utils/vim-man'
 "   noremap  <leader>m <Plug>(Man)
 Plug 'justinmk/vim-sneak'
@@ -126,7 +130,6 @@ set guicursor=n-v:block-Cursor,i-c-ci-ve:ver25-iCursor,r-cr:hor20-lCursor,o:hor5
       \,sm:block-blinkwait175-blinkoff150-blinkon175
       \,o:blinkon0
 
-" let g:optionprefix_invert_selection = 1
 let g:optionprefix_improved_warnings = 1
 " let g:gruvbox_plugin_hi_groups = 1
 
@@ -597,7 +600,7 @@ nnoremap <silent> <C-Q>      :q<CR>
 vnoremap <silent> <C-Q> <ESC>:q<CR>
 inoremap <silent> <C-Q> <ESC>:q<CR>
 " Quit all
-map <silent><leader>q  <ESC>:qa<CR>
+map <silent> <leader>q  <ESC>:qa<CR>
 
 " -------------- "Copy & paste" --------------
 
@@ -708,11 +711,17 @@ endfunction
 
 command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
 
-" FZF settings
+" dotbare command
+command! Dots call fzf#run(fzf#wrap({
+      \ 'source': 'dotbare ls-files --full-name --directory "${DOTBARE_TREE}" | awk -v home="${DOTBARE_TREE}/" "{print home \$0}"',
+      \ 'sink': 'e',
+      \ 'options': [ '--keep-right', '--multi', '--preview', 'bat {}', '--preview-window=down:60%' ]
+      \ }))
 
+" FZF settings
 let g:fzf_layout = { 'down': '60%' }
 
-let g:fzf_preview_window = ['right:55%:hidden', 'alt--']
+let g:fzf_preview_window = ['down:55%:hidden', 'alt-t']
 
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
@@ -764,6 +773,7 @@ nnoremap <leader>ls  :Ls<CR>
 nnoremap <leader>lS  :LS<CR>
 nnoremap <leader>fr  :RG<CR>
 nnoremap <leader>r   :Rg<CR>
+nnoremap <leader>fd  :Dots<CR>
 noremap  <leader>ff  :Files<CR>
 nnoremap <leader>hh  :HFiles<CR>
 nnoremap <leader>fl  :Lines<Space>
@@ -888,6 +898,7 @@ let g:which_key_map['b'] = { 'name': '+buffers' }
 let g:which_key_map['c'] = { 'name': '+Commands_History +Colors' }
 let g:which_key_map['f'] = { 'name': '+FZF' }
 let g:which_key_map['g'] = { 'name': '+git +goyo' }
+let g:which_key_map['h'] = { 'name': 'hsplit + fzf' }
 let g:which_key_map['l'] = { 'name': '+fzf_ls' }
 let g:which_key_map['o'] = { 'name': '+(c+l)open' }
 let g:which_key_map['s'] = { 'name': '+spell +' }
@@ -899,6 +910,7 @@ let g:which_key_map['n'] = { 'name': 'which_key_ignore' }
 let g:which_key_map.e = 'which_key_ignore'
 let g:which_key_map['<Esc>'] = 'which_key_ignore'
 let g:which_key_map['i'] = 'edit init.vim'
+let g:which_key_map['.'] = 'set working directory'
 
 " call which_key#register('space', "g:which_key_map")
 autocmd! User vim-which-key call which_key#register('<Space>', "g:which_key_map")

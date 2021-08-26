@@ -3,6 +3,7 @@ export PATH=$HOME/bin:$HOME/.local/bin:$PATH
 
 # XDG Path
 export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
 
 # export USERNAME=Dalmater
@@ -10,10 +11,7 @@ export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/.wgetrc"
 export GITHUB_USER=Dalmater
 export GITHUB_PASSWORD=GHrasta24-7
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=true
-export GITHUB_TOKEN=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
-GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 # Allow GnuPG to use console for authentication
-GPG_TTY=$(tty)
 export GPG_TTY="$(tty)"
 
 # Path to your oh-my-zsh installation.
@@ -59,7 +57,6 @@ fast-syntax-highlighting
 )
 
 source $ZSH/oh-my-zsh.sh
-_dotbare_completion_cmd dot
 _comp_options+=(globdots)
 
 # Plugin settings
@@ -94,7 +91,7 @@ export EDITOR=nvim
 export VISUAL="nvim"
 export PAGER="bat -p --paging=always"
 export BROWSER="lynx"
-# export FILE="vifm"
+export FILE="vifm"
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LC_CTYPE=UTF-8
@@ -104,23 +101,26 @@ export MICRO_TRUECOLOR=1
 # export TMUX_TMPDIR="$PREFIX/var/run"
 # export FZF_TMPDIR="$PREFIX/var/run"
 export LESSHISTFILE="-"
-export HISTIGNORE="&:l:ls:ll:la"
+export HISTIGNORE="&:l:ls *:ll:la:cd"
 export BAT_THEME="gruvbox-dark"
 export DOTBARE_DIR="$HOME/.cfg.git"
 export DOTBARE_TREE="$HOME"
-export DOTBARE_FZF_DEFAULT_OPTS="--preview-window=down:50%"
+export DOTBARE_FZF_DEFAULT_OPTS="--preview-window=down:60% --keep-right"
 export DOTBARE_DIFF_PAGER="delta --diff-so-fancy --line-numbers"
-alias dotbare="$HOME/.zsh/custom/plugins/dotbare/dotbare"
+alias dot="$HOME/.zsh/custom/plugins/dotbare/dotbare"
+bindkey -s '^dd' "dotbare fedit"^j
+_dotbare_completion_cmd #dot
 
-# export MANPATH="data/data/com.termux/usr/share/doc/man
+# export MANPATH="data/data/com.termux/usr/share/doc/man"
 export MANPATH="$HOME/.fzf/man":$MANPATH
 # Keydelay + disable right prompt indent
-export KEYTIMEOUT=3000
+export KEYTIMEOUT=100 # 2sec
 ZLE_RPROMPT_INDENT=0
 
 # For a full list of active aliases, run `alias`
 # Example aliases
-# alias ohmyzsh="vim ~/.oh-my-zsh"
+alias ohmyzsh="vim ~/.oh-my-zsh"
+
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -130,27 +130,21 @@ source ~/.aliases
 # Correction
 #setopt correctall
 setopt correct
-
 # Misc
 # > and >> work as expected
 setopt clobber
-
 # Enable piping to multiple outputs
 setopt multios
-
 # Enable comments in interactive mode
 setopt interactivecomments
-
 # Safe rm. Wait 10 seconds before executing "rm *"
 setopt rm_star_wait
 unsetopt rm_star_silent
-
 # Directories
 setopt autocd # change directory without cd
 setopt cdable_vars
 setopt pushdtohome
 setopt pushd_silent
-
 # Job Control
 setopt notify
 setopt long_list_jobs
@@ -158,7 +152,6 @@ setopt no_hup
 setopt autoresume
 setopt autocontinue
 setopt no_bg_nice
-
 # Completion, expansion and globbing
 setopt automenu
 setopt autolist
@@ -166,21 +159,25 @@ setopt complete_in_word
 setopt always_to_end
 setopt menucomplete
 setopt listpacked
-setopt globdots
-setopt caseglob
+setopt glob_dots
+setopt case_glob
 setopt globcomplete
+# setopt complete_aliases
 setopt extended_glob
+setopt glob_star_short
 #setopt numeric_glob_sort
-setopt markdirs
+setopt mark_dirs
 setopt nomatch
 #setopt rc_quotes
 #setopt rec_exact
 setopt autoparamslash
 setopt noautoremoveslash
-setopt transient_rprompt
+# setopt transient_rprompt
 setopt hash_all
+setopt hash_list_all
 setopt hash_cmds
 setopt hash_dirs
+setopt bang_hist
 
 PROMPT_TITLE="%~ | ${COLUMNS}x${LINES} | %! | %? | %y |"
 
@@ -204,12 +201,12 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 # keybindings
 bindkey -s '^[R' 'ranger_cd \n'
-bindkey -s '^[V' 'vifm\n'
+bindkey -s '^[V' 'vifm \n'
 # bindkey '^[B' zbrowse
-bindkey "^[[H" beginning-of-line
-bindkey "^[[F" end-of-line
-bindkey "^[[1;3C" kill-word
-bindkey "^[[1;3D" backward-kill-word
+bindkey '^[[H' beginning-of-line
+bindkey '^[[F' end-of-line
+bindkey '^[[1;3C' kill-word
+bindkey '^[[1;3D' backward-kill-word
 bindkey '^[v' vi-cmd-mode
 bindkey '^[' vi-cmd-mode
 
@@ -227,32 +224,33 @@ zstyle :sticky-note maxnotes 500
 zstyle :sticky-note theme \
     bg red \
     fg $fg_bold[yellow]
-bindkey "^s" sticky-note
+bindkey '^s' sticky-note
 
 ############# >FZF Base< #############
 
 bindkey -s '^[i' 'interactive_fzf \n'
-bindkey -s '^nn' 'notes\n'
-bindkey -s '^fd' 'dotf\n'
+bindkey -s '^nn' 'notes \n'
+bindkey -s '^fd' 'dotf \n'
 bindkey -s '^fn' 'live_search_notes \n'
-bindkey -s '^ff' 'fuz\n'
+bindkey -s '^ff' 'fuz \n'
 bindkey    '^ft' 'toggle-fzf-tab'
 
 export FZF_BASE='~/.fzf'
 #export FZF_BASE='$PREFIX/share/fzf'
 export FZF_DEFAULT_COMMAND='ag --hidden --color -S -U -g ""'
-export FZF_DEFAULT_OPTS="--height 92% --color=bg:-1,bg+:236,fg:015,fg+:7 \
-    --color=gutter:-1,info:136,border:009,spinner:108,hl:001,hl+:076 \
+export FZF_DEFAULT_OPTS="--height 90% --color=bg:-1,bg+:236,fg:015,fg+:7 \
+    --color=gutter:-1,info:136,border:001,spinner:108,hl:001,hl+:076 \
     --color=header:148,pointer:124,marker:5,prompt:6 \
-    --layout=reverse --border --info=inline --ansi --cycle --bind change:first"
+    --layout=reverse --border --info=inline --ansi --cycle \
+    --bind change:first --bind=alt-t:toggle-preview --bind 'alt-s:toggle-sort'"
 export FZF_ALT_C_COMMAND='fd --type d . -a --color=always --hidden -L --no-ignore-vcs --base-directory /data/data/com.termux/files'
 export FZF_ALT_C_OPTS="--ansi --preview 'tree -U -l -C -L 3 {}' --preview-window=hidden \
-  --bind=alt--:toggle-preview --keep-right --bind change:first"
+  --bind=alt-t:toggle-preview --keep-right --bind change:first"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--ansi --preview 'bat --color=always --line-range :200 {}' \
   --preview-window 'down,50%,border-top,+{2}+3/3,hidden' \
-  --bind=alt--:toggle-preview --bind change:first"
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind 'alt--:toggle-preview'"
+  --bind=alt-t:toggle-preview --bind change:first"
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window down:3:hidden:wrap --bind 'alt-t:toggle-preview'"
 # export FZF_CTRL_R_OPTS='--sort --exact'
 export FZF_TMUX_OPTS="-d 60%"
 export FZF_TMUX=1
