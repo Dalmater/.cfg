@@ -8,9 +8,11 @@ With **zsh, fzf, nvim, vim/lightline, starship, Tmux,
 git, vifm**, micro and some more. <br>
 Oh, and a lot of **aliases and fzf functions**.
 
-I'm using a dozen plugins but only 3 are essential
-for me(fast syntax highlighting, zsh-autosuggestions, fzf-tab).<br>
-#### ***Zsh startup time on Android 9(Sm j7) is about 0.8 - 1.2 sec***<br>
+I'm using too many plugins but only 2-3 are essential
+to me(fast syntax highlighting, zsh-autosuggestions, fzf-tab).<br>
+I'm using oh-my-zsh as a plugin manager with about
+10-15 plugins.<br>
+#### ***Zsh startup time on Android 9(Sm-j7) is about 0.8 - 1.2 sec***<br>
 #### ***Starship timings***<br>
 - In my home directory<br>
   - git_status  -  22ms <br>
@@ -31,3 +33,9 @@ for me(fast syntax highlighting, zsh-autosuggestions, fzf-tab).<br>
 [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions.git)<br>
 [fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting.git)<br>
 [fzf-tab](https://github.com/Aloxaf/fzf-tab.git)
+
+#### **Prompt**
+[starship](https://github.com/starship/starship.git)
+
+### **TODO**
+Migrate to [Zinit](https://github.com/zdharma/zinit.git)
