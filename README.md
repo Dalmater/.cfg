@@ -27,7 +27,7 @@ for me(fast syntax highlighting, zsh-autosuggestions, fzf-tab).<br>
   - line_break   -   1ms  -   \n<br>
   - character    -   1ms  -   ❯
 
-### **Essential plugins
+### **Essential plugins**
 [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions.git)
 [fast-syntax-highlighting](p)
 [fzf-tab](https://github.com/Aloxaf/fzf-tab.git)
