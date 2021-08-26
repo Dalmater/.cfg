@@ -10,7 +10,7 @@ Oh, and a lot of **aliases and fzf functions**.
 
 I'm using a dozen plugins but only 3 are essential
 for me(fast syntax highlighting, zsh-autosuggestions, fzf-tab).<br>
-### ***Zsh startup time on Android 9(Sm j7) is about 0.8 - 1.2 sec***<br>
+#### ***Zsh startup time on Android 9(Sm j7) is about 0.8 - 1.2 sec***<br>
 #### ***Starship timings***<br>
 - In my home directory<br>
   - git_status  -  22ms <br>
