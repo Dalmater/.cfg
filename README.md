@@ -1,18 +1,18 @@
 
-#.cfg
+# Termux dotfiles
 
-##***Just my personal dotfiless***
+## ***Just my personal dotfiles***
 
-###This is my setup for **Termux** on **Android**.
+### This is my setup for **Termux** on **Android**.
 
 **Zsh, fzf, nvim, vim/lightline, starship, Tmux,
 git, vifm**, micro and some more. <br>
 Oh, and a lot of **aliases and fzf functions**.
 
-Feel free to copy and use whatever you like**!**
-
-###***Zsh staruptime on Android 9 is about 0.8 - 1.2 sec***<br>
-####***Starship timings***<br>
+I'm using a dozen plugins but only 4 are essential
+for me(fast syntax highlighting, zsh-autosuggestions, fzf-tab, dotbare).
+### ***Zsh startup time on Android 9 is about 0.8 - 1.2 sec***<br>
+#### ***Starship timings***<br>
 
 - In my home directory<br>
   - git_status  -  22ms <br>
