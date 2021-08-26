@@ -76,7 +76,7 @@ Plug 'Chiel92/vim-autoformat'
   noremap <leader>af :Autoformat<CR>
 Plug 'godlygeek/tabular' ", {'on': 'Tabularize'}
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-  " let g:vim_markdown_folding_disabled = 1
+  let g:vim_markdown_folding_disabled = 1
 " Plug 'tpope/vim-markdown', {'for': 'markdown'}
 " Plug 'vim-utils/vim-man'
 "   noremap  <leader>m <Plug>(Man)
