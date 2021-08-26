@@ -28,6 +28,6 @@ for me(fast syntax highlighting, zsh-autosuggestions, fzf-tab).<br>
   - character    -   1ms  -   ❯
 
 ### **Essential plugins**
-[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions.git)
-[fast-syntax-highlighting](p)
+[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions.git)<br>
+[fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting.git)<br>
 [fzf-tab](https://github.com/Aloxaf/fzf-tab.git)
