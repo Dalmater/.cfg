@@ -194,8 +194,7 @@ alias \
     dotrmc='dot rm --cached' \
     dotrs='dot restore --staged' \
     dotmv='dot mv' \
-    dot='dotbare' \
-    config='dotbare'
+    config=dotbare
 
 alias \
     gad='git add' \

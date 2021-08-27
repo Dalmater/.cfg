@@ -77,7 +77,6 @@ Plug 'Chiel92/vim-autoformat'
   noremap <leader>af :Autoformat<CR>
 Plug 'godlygeek/tabular' ", {'on': 'Tabularize'}
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-  let g:vim_markdown_folding_disabled = 1
 " Plug 'tpope/vim-markdown', {'for': 'markdown'}
 " Plug 'vim-utils/vim-man'
 "   noremap  <leader>m <Plug>(Man)
@@ -99,8 +98,11 @@ call plug#end()
 
 " let g:tmuxline_preset = 'minimal'
 let g:CoolTotalMatches = 1
-let g:vim_markdown_no_default_key_mappings = 1
+" let g:vim_markdown_no_default_key_mappings = 1
 let g:vim_markdown_new_list_item_indent = 2
+let g:vim_markdown_folding_disabled = 1
+
+let g:sneak#s_next = 1
 
 "-------------- "Configurations" --------------
 
@@ -108,11 +110,11 @@ source ~/.config/nvim/settings/settings.vim
 source ~/.config/nvim/settings/lightline.vim
 " source ~/.config/nvim/settings/mystatusline.vim
 
+lua require'colorizer'.setup()
+
 set bg=dark
 colorscheme gruvbox8
 hi Visual gui=reverse guifg=NONE guibg=NONE
-
-lua require'colorizer'.setup()
 
 "" Always use terminal background
 " au ColorScheme * hi! Normal ctermbg=none guibg=none
@@ -139,8 +141,6 @@ let g:awk_is_gawk = 1
 " if executable('rg')
 "   let g:rg_derive_root='true'
 " endif
-
-let g:sneak#s_next = 1
 
 " Delete trailing white spaces on save
 autocmd BufWritePre * %s/\s\+$//e

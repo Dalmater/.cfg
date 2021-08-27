@@ -9,7 +9,6 @@ export XDG_DATA_HOME=$HOME/.local/share
 # export USERNAME=Dalmater
 export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/.wgetrc"
 export GITHUB_USER=Dalmater
-export GITHUB_PASSWORD=GHrasta24-7
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 # Allow GnuPG to use console for authentication
 export GPG_TTY="$(tty)"
@@ -41,7 +40,7 @@ ZSH_CACHE_DIR="$HOME/.cache/zsh"
 # Plugins
 plugins=(extract nice-exit-code colored-man-pages
 gitfast python zsh-hist colorize zsh-autopair
-dotbare fzf fzf-tab you-should-use pip
+dotbare fzf-tab you-should-use pip
 #ssh-agent keychain gpg-agent
 # youtube-dl web-search
 # git npm nvm node
@@ -98,18 +97,18 @@ export LC_CTYPE=UTF-8
 export CLICOLORS=true
 export COLORTERM="truecolor"
 export MICRO_TRUECOLOR=1
-# export TMUX_TMPDIR="$PREFIX/var/run"
-# export FZF_TMPDIR="$PREFIX/var/run"
+export TMUX_TMPDIR="$PREFIX/var/run"
+export FZF_TMPDIR="$PREFIX/var/run"
 export LESSHISTFILE="-"
-export HISTIGNORE="&:l:ls *:ll:la:cd"
+export HISTIGNORE="&:l:ls *:ll:la:cd *"
 export BAT_THEME="gruvbox-dark"
 export DOTBARE_DIR="$HOME/.cfg.git"
 export DOTBARE_TREE="$HOME"
 export DOTBARE_FZF_DEFAULT_OPTS="--preview-window=down:60% --keep-right"
 export DOTBARE_DIFF_PAGER="delta --diff-so-fancy --line-numbers"
-alias dot="$HOME/.zsh/custom/plugins/dotbare/dotbare"
+alias dotbare="$HOME/.zsh/custom/plugins/dotbare/dotbare"
 bindkey -s '^dd' "dotbare fedit"^j
-_dotbare_completion_cmd #dot
+_dotbare_completion_cmd #dotbare
 
 # export MANPATH="data/data/com.termux/usr/share/doc/man"
 export MANPATH="$HOME/.fzf/man":$MANPATH
@@ -163,11 +162,11 @@ setopt glob_dots
 setopt case_glob
 setopt globcomplete
 # setopt complete_aliases
-setopt extended_glob
+# setopt extended_glob
 setopt glob_star_short
 #setopt numeric_glob_sort
 setopt mark_dirs
-setopt nomatch
+# setopt nomatch
 #setopt rc_quotes
 #setopt rec_exact
 setopt autoparamslash
