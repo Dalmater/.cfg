@@ -14,6 +14,7 @@ alias sz='source ~/.zshrc'
 alias s='source'
 alias forgit="source <(curl -sSL git.io/forgit)"
 alias fsh='fast-theme'
+alias zsnapshot='source ~/.zsh/custom/plugins/zsnapshot/__zsnapshot > snap-$(date +%Y.%m.%d_%H:%M:%S)'
 
 # apt
 alias \
@@ -194,7 +195,8 @@ alias \
     dotrmc='dot rm --cached' \
     dotrs='dot restore --staged' \
     dotmv='dot mv' \
-    config=dotbare
+    cfg=dotbare
+    # dot=dotbare
 
 alias \
     gad='git add' \

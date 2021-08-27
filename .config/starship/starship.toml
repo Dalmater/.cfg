@@ -1,5 +1,6 @@
+# no new line before prompt & 10ms scan timeout
 add_newline = false
-# scan_timeout = 10
+scan_timeout = 10
 
 [line_break]
 disabled = false
@@ -17,11 +18,11 @@ disabled = false
 
 [username]
 format = '[$user]($style)@'
-style_user = '#4fdf4f'
+style_user = '#4FDF4F'
 show_always = false
 
 [cmd_duration]
-min_time = 1000
+min_time = 1
 format = ' took [$duration]($style)'
 show_milliseconds = true
 disabled = false
@@ -38,16 +39,17 @@ truncate_to_repo = true
 ssh_only = true
 format = '[$hostname in]($style) '
 trim_at = '-'
-style = '#4fdf4f'
+style = '#4FDF4F'
 disabled = false
 
 [git_branch]
-format = '[$symbol](yellow bold)[$branch]($style 014 bold):[$remote_name $remote_branch]($style)'
+format = '[$symbol](yellow bold)[$branch]($style bold 014):[$remote_name $remote_branch]($style)'
 symbol = ' '
 always_show_remote = true
 only_attached = false
 truncation_length = 20
 truncation_symbol = ''
+# style = 'bold'
 
 [git_status]
 ahead = '⇡${count}(#EBCB8B) '
@@ -55,8 +57,8 @@ diverged = '⇕⇡${ahead_count}⇣${behind_count}(#EBCB8B) '
 behind = '⇣[$count](#EBCB8B) '
 format = '[$all_status$ahead_behind]($style)'
 conflicted = '=×[$count](#D08770) '
-untracked = '?×[$count](#fabd2f) '
-stashed = '\$×[$count](#65a290) '
+untracked = '?×[$count](#D79921) '
+stashed = '\$×[$count](#65A290) '
 modified = '!×[$count](#8FBCBB) '
 renamed = '»×[$count](#D3869B) '
 deleted = '✘×[$count](#BF616A) '
@@ -64,8 +66,8 @@ staged = '[++\($count\)](#A0BB8A)'
 disabled = false
 
 [git_commit]
-style = 'bold #d79921'
-commit_hash_length = 8
+style = '#FABD2F'
+commit_hash_length = 7
 disabled = false
 only_detached = false
 tag_symbol = '🔖 '
@@ -178,7 +180,7 @@ disabled = true
 
 [shlvl]
 disabled = false
-symbol = ''
+# symbol = ''
 
 [memory_usage]
 disabled = true

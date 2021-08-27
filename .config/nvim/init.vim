@@ -427,7 +427,7 @@ noremap <M-Right> de
 "inoremap <M-Right>
 
 " Replace all is aliased to S.
-nnoremap S :%s//g<Left><Left>
+nnoremap <leader>S :%s//g<Left><Left>
 
 " These will kepp the next search centered
 nnoremap n nzzzv

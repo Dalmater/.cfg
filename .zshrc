@@ -38,16 +38,14 @@ ZSH_CACHE_DIR="$HOME/.cache/zsh"
 # ZDOTDIR=$HOME/.config/zsh
 
 # Plugins
-plugins=(extract nice-exit-code colored-man-pages
+plugins=(extract nice-exit-code colored-man-pages pip
 gitfast python zsh-hist colorize zsh-autopair
-dotbare fzf-tab you-should-use pip
+title dotbare fzf-tab you-should-use
 #ssh-agent keychain gpg-agent
-# youtube-dl web-search
 # git npm nvm node
 # zsh-lazyload
 # zsnapshot
 # zhooks
-title
 # evalcache
 zsh-completions
 zsh-autosuggestions
@@ -107,7 +105,7 @@ export DOTBARE_TREE="$HOME"
 export DOTBARE_FZF_DEFAULT_OPTS="--preview-window=down:60% --keep-right"
 export DOTBARE_DIFF_PAGER="delta --diff-so-fancy --line-numbers"
 alias dotbare="$HOME/.zsh/custom/plugins/dotbare/dotbare"
-bindkey -s '^dd' "dotbare fedit"^j
+bindkey -s '^Xx' "dotbare fedit"^j
 _dotbare_completion_cmd #dotbare
 
 # export MANPATH="data/data/com.termux/usr/share/doc/man"
@@ -153,7 +151,7 @@ setopt autocontinue
 setopt no_bg_nice
 # Completion, expansion and globbing
 setopt automenu
-setopt autolist
+# setopt autolist
 setopt complete_in_word
 setopt always_to_end
 setopt menucomplete
@@ -233,6 +231,7 @@ bindkey -s '^fd' 'dotf \n'
 bindkey -s '^fn' 'live_search_notes \n'
 bindkey -s '^ff' 'fuz \n'
 bindkey    '^ft' 'toggle-fzf-tab'
+bindkey '^R' fzf-history-widget
 
 export FZF_BASE='~/.fzf'
 #export FZF_BASE='$PREFIX/share/fzf'
