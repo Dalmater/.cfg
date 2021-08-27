@@ -114,7 +114,7 @@ _dotbare_completion_cmd #dot
 # export MANPATH="data/data/com.termux/usr/share/doc/man"
 export MANPATH="$HOME/.fzf/man":$MANPATH
 # Keydelay + disable right prompt indent
-export KEYTIMEOUT=100 # 2sec
+export KEYTIMEOUT=100 # 1sec
 ZLE_RPROMPT_INDENT=0
 
 # For a full list of active aliases, run `alias`

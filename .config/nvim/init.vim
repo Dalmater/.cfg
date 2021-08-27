@@ -43,6 +43,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'editorconfig/editorconfig-vim'
+  let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
   nmap <leader>u <Cmd>UndotreeToggle<CR>
   let g:undotree_WindowLayout    = 2

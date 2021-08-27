@@ -10,10 +10,10 @@ Oh, and a lot of **aliases and fzf functions**.
 
 I'm using too many plugins but only 2-3 are essential
 to me(fast syntax highlighting, zsh-autosuggestions, fzf-tab).<br>
-I'm using oh-my-zsh as a plugin manager with about
+I'm using [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh.git) as a plugin manager with about
 10-15 plugins.<br>
-#### ***Zsh startup time on Android 9(Sm-j7) is about 0.8 - 1.2 sec***<br>
-#### ***Starship timings***<br>
+#### ***Zsh startup time on Android 9(Sm-j7) is about 0.8 - 1.2 sec***
+#### ***Starship timings***
 - In my home directory<br>
   - directory   -   2ms <br>
   - line_break  -  <1ms <br>
@@ -28,7 +28,7 @@ I'm using oh-my-zsh as a plugin manager with about
   - line_break   -  <1ms  -   \n<br>
   - character    -  <1ms  -   ❯
 
-### **Essential plugins**
+#### **Essential plugins**
 [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions.git)<br>
 [fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting.git)<br>
 [fzf-tab](https://github.com/Aloxaf/fzf-tab.git)
