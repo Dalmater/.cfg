@@ -15,6 +15,10 @@ style = "red"
 symbol = "💥 " # 💣
 format = '[\[$symbol$status\]]($style) '
 disabled = false
+map_symbol = true
+recognize_signal_code = true
+pipestatus = true
+success_symbol = ''
 
 [username]
 format = '[$user]($style)@'
@@ -22,8 +26,8 @@ style_user = '#4FDF4F'
 show_always = false
 
 [cmd_duration]
-min_time = 1
-format = ' took [$duration]($style)'
+min_time = 1000
+# format = ' took [$duration]($style)'
 show_milliseconds = true
 disabled = false
 
@@ -49,7 +53,6 @@ always_show_remote = true
 only_attached = false
 truncation_length = 20
 truncation_symbol = ''
-# style = 'bold'
 
 [git_status]
 ahead = '⇡${count}(#EBCB8B) '
@@ -62,7 +65,7 @@ stashed = '\$×[$count](#65A290) '
 modified = '!×[$count](#8FBCBB) '
 renamed = '»×[$count](#D3869B) '
 deleted = '✘×[$count](#BF616A) '
-staged = '[++\($count\)](#A0BB8A)'
+staged = '[++\($count\)](#A0BB8A) '
 disabled = false
 
 [git_commit]
@@ -76,7 +79,7 @@ tag_disabled = false
 [git_metrics]
 added_style = 'bold #90AB79'
 deleted_style = 'bold #BF616A'
-format = '[+$added]($added_style)|[-$deleted]($deleted_style) '
+format = '[+$added]($added_style) [-$deleted]($deleted_style) '
 disabled = false
 
 [git_state]
@@ -166,6 +169,9 @@ disabled = true
 [purescript]
 disabled = true
 
+[red]
+disabled = true
+
 [rlang]
 disabled = true
 
@@ -178,9 +184,29 @@ disabled = true
 [shell]
 disabled = true
 
+[singularity]
+disabled = true
+
 [shlvl]
 disabled = false
-# symbol = ''
+symbol = ''
+
+[terraform]
+disabled = true
 
 [memory_usage]
 disabled = true
+
+[vagrant]
+disabled = true
+
+[vcsh]
+disabled = true
+
+[vlang]
+disabled = true
+
+[zig]
+disabled = true
+
+
