@@ -19,7 +19,7 @@ filetype plugin on
 filetype plugin indent on
 syntax enable
 
-let g:polyglot_disabled = ['sensible', 'markdown']
+" let g:polyglot_disabled = ['sensible', 'markdown']
 let g:vim_markdown_frontmatter = 1
 
 " call plug#begin('~/.config/nvim/plugged')
@@ -29,7 +29,7 @@ Plug 'junegunn/fzf.vim'
 " Syntax Highlight & Colorscheme
 Plug 'lifepillar/vim-gruvbox8'
 " Plug 'sheerun/vim-polyglot'
-Plug 'gisphm/vim-polyglot-min'
+" Plug 'gisphm/vim-polyglot-min'
 " Covinience
 Plug 'tpope/vim-repeat'
 Plug 'vim-scripts/visualrepeat'
@@ -64,18 +64,18 @@ Plug 'norcalli/snippets.nvim'
 " Neovim LSP
 Plug 'neovim/nvim-lspconfig'
 " Plug 'tjdevries/nlua.nvim'
-" Plug 'tjdevries/lsp_extensions.nvim'
+Plug 'tjdevries/lsp_extensions.nvim'
 " Extras
 " Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'tpope/vim-obsession'
 " Plug 'craigemery/vim-autotag'
-" let g:autotagCtagsCmd=
-" let g:autotagTagsFile=
-" Plug 'junegunn/vim-peekaboo'
+"   let g:autotagCtagsCmd='ctags -R --excmd=number -f'
+  " let g:autotagTagsFile=
+Plug 'junegunn/vim-peekaboo'
 Plug 'Chiel92/vim-autoformat'
   noremap <F9>       :Autoformat<CR>
   noremap <leader>af :Autoformat<CR>
-Plug 'godlygeek/tabular' ", {'on': 'Tabularize'}
+Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 " Plug 'tpope/vim-markdown', {'for': 'markdown'}
 " Plug 'vim-utils/vim-man'
@@ -91,19 +91,21 @@ Plug 'itchyny/lightline.vim'
 Plug 'ryanoasis/vim-devicons'
 
 if exists('$TMUX')
+  Plug 'tmux-plugins/vim-tmux'
+  Plug 'christoomey/vim-tmux-navigator'
   Plug 'edkolev/tmuxline.vim'
+  let g:tmuxline_preset = 'minimal'
 endif
 
 call plug#end()
 
-" let g:tmuxline_preset = 'minimal'
-let g:CoolTotalMatches = 1
-" let g:vim_markdown_no_default_key_mappings = 1
-let g:vim_markdown_new_list_item_indent = 2
-let g:vim_markdown_folding_disabled = 1
-let g:markdown_syntax_conceal = 0
+  let g:CoolTotalMatches = 1
+  " let g:vim_markdown_no_default_key_mappings = 1
+  let g:vim_markdown_new_list_item_indent = 2
+  let g:vim_markdown_folding_disabled = 1
+  let g:markdown_syntax_conceal = 1
 
-let g:sneak#s_next = 1
+  let g:sneak#s_next = 1
 
 "-------------- "Configurations" --------------
 
@@ -153,9 +155,26 @@ command! FixWhitespace :%s/\s\+$//e
 map <leader>fx :FixWhitespace
 
 " Remember cursor position
-augroup vimrc-remember-cursor-position
+" augroup vimrc-remember-cursor-position
+"   autocmd!
+"   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+" augroup END
+
+" autocmd BufReadPost *
+"       \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+"       \ |   exe "normal! g`\""
+"       \ | endif
+
+function! ResCur()
+  if line("'\"") <= line("$")
+    normal! g`"
+    return 1
+  endif
+endfunction
+
+augroup resCur
   autocmd!
-  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+  autocmd BufWinEnter * call ResCur()
 augroup END
 
 " auto save folds
@@ -184,12 +203,12 @@ nmap <leader>se :setlocal spell! spelllang=en_us<Cr>
 " nmap <leader>sd :setlocal spell! spelllang=de_de<Cr>
 nmap <leader>sp :setlocal invspell<CR>
 
-" Use spell correction and start in insert mode when we're editing commit messages.
+" Use spell correction and start in insert mode when we're editing commit messages or markdown files.
 if has('autocmd')
   if has('spell')
-    au BufNewFile,BufRead COMMIT_EDITMSG setlocal spell
+    au BufNewFile,BufRead COMMIT_EDITMSG, markdown setlocal spell
   endif
-  au BufNewFile,BufRead COMMIT_EDITMSG call feedkeys('ggi', 't')
+  au BufNewFile,BufRead COMMIT_EDITMSG, markdown call feedkeys('ggi', 't')
 endif
 
 " tmux
@@ -427,8 +446,8 @@ noremap <M-Left> db
 noremap <M-Right> de
 "inoremap <M-Right>
 
-" Replace all is aliased to S.
-nnoremap <leader>S :%s//g<Left><Left>
+" Replace all is aliased to S
+nnoremap <leader>S :%s///g<Left><Left><Left>
 
 " These will kepp the next search centered
 nnoremap n nzzzv
@@ -451,16 +470,10 @@ nnoremap <expr> j (v:count > 5 ? "m'" . v:count : "") . 'j'
 inoremap jk <ESC>
 inoremap kj <ESC>
 inoremap jj <ESC>
+inoremap kk <ESC>
 
 " diff since last save
 nnoremap <leader>d :w !diff % -<CR>
-
-" ctag goto definition/declaration
-nnoremap <Leader><C-]> <C-w><C-]><C-w>T
-nmap <Leader>tg :!ctags --extras=+f -R *<CR>
-nmap <Leader>st g]
-nmap <Leader>ta g<C-]>
-" nmap <Leader>T   <C-t>
 
 " toggle ruler
 noremap <silent> <leader>nn :set nornu nonu<CR>
@@ -480,13 +493,70 @@ tnoremap <ESC> <C-\><C-n>
 vnoremap < <gv
 vnoremap > >gv
 
-" Move line / block of text around
-xnoremap <silent>K                  :m '<-2<CR>gv-gv
-xnoremap <silent>J                  :m '>+1<CR>gv-gv
-inoremap <silent><leader><C-k> <ESC>:m .-2<CR>==
-inoremap <silent><leader><C-j> <ESC>:m .+1<CR>==
-nnoremap <silent><leader>k          :m .-2<CR>==
-nnoremap <silent><leader>j          :m .+1<CR>==
+" Move line / block of text up/down
+xnoremap <silent>K                   :move '<-2<CR>gv-gv
+xnoremap <silent>J                   :move '>+1<CR>gv-gv
+inoremap <silent> <leader><C-k> <ESC>:move .-2<CR>==
+inoremap <silent> <leader><C-j> <ESC>:move .+1<CR>==
+nnoremap <silent> <leader>k          :move .-2<CR>==
+nnoremap <silent> <leader>j          :move .+1<CR>==
+
+"" Set working directory
+nnoremap <leader>. :lcd %:p:h<CR>
+
+"" path to the edited file
+cnoremap <M-e>   <C-R>=expand("%:p:h") . "/" <CR>
+
+"" Opens an edit command with the path of the currently edited file filled in
+noremap <Leader>e  :e <C-R>=expand("%:p:h") . "/" <CR>
+
+"" Opens a tab edit command with the path of the currently edited file filled in
+noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+"" expand %% to path in command mode.
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+cnoremap <expr> * getcmdline() =~ '.*\*\*$' ? '/*' : '*'
+" cnoreabbr <expr> %% fnameescape(expand('%:p'))
+
+""highlight search off
+noremap <silent> <leader><Esc> :noh<CR><Esc>
+
+"" Keep flags when repeating substitute command.
+nnoremap & :&&<CR>
+xnoremap & :&&<CR>
+
+"" easy caps
+inoremap <M-u> <ESC>viwUi
+nnoremap <M-u> viwU<ESC>
+
+"" Check file in shellcheck
+""nmap <leader>s :!clear && shellcheck %<CR>
+
+"" quick edit & source init.vim & .zshrc
+nnoremap <silent> <leader>i  :tabe ~/.config/nvim/init.vim<cr>
+nnoremap <silent> <leader>so :so $MYVIMRC<CR>:echo 'Config sourced'<cr>
+nnoremap <silent> <leader>zs :tabe ~/.zshrc<CR>
+nnoremap <silent> <leader>sz :!source $HOME/.zshrc<CR>:echo 'Config sourced'<cr>
+
+"" shortcut for creating shebang
+inoremap <silent> <leader>sb  #!/data/data/com.termux/files/usr/bin
+
+" ctag goto definition/declaration
+nnoremap <Leader><C-]> <C-w><C-]><C-w>T
+nmap     <Leader>tg :!ctags --extras=+f -R *<CR>
+nmap     <Leader>st g]
+nmap     <Leader>ta g<C-]>
+nmap     <Leader>T   <C-t>
+
+"" netrw
+nnoremap <silent> <leader>nt :wincmd v<bar> : Ex <bar> :vertical resize 25<CR>
+nnoremap <silent> - :tabe %:h<CR>
+
+"" tpopes vim.repeat
+silent! call repeat#set("\<Plug>preservim/nerdcommenter", v:count)
+silent! call repeat#set("\<Plug>easymotion/easymotion", v:count)
+silent! call repeat#set("\<Plug>jiangmiao/auto-pairs", v:count)
+silent! call repeat#set("\<Plug>liuchengxu/vim-which-key", v:count)
 
 " ----------- "Window navigation" -------------
 
@@ -509,19 +579,19 @@ noremap <silent> <C-j> :call WinMove('j')<CR>
 noremap <silent> <C-k> :call WinMove('k')<CR>
 noremap <silent> <C-l> :call WinMove('l')<CR>
 
-"" ALT+{h,j,k,l} to navigate windows from any mode
-" tnoremap <M-h> <C-\><C-N><C-w>h
-" tnoremap <M-j> <C-\><C-N><C-w>j
-" tnoremap <M-k> <C-\><C-N><C-w>k
-" tnoremap <M-l> <C-\><C-N><C-w>l
-" inoremap <M-h> <C-\><C-N><C-w>h
-" inoremap <M-j> <C-\><C-N><C-w>j
-" inoremap <M-k> <C-\><C-N><C-w>k
-" inoremap <M-l> <C-\><C-N><C-w>l
-" nnoremap <M-h> <C-w>h
-" nnoremap <M-j> <C-w>j
-" nnoremap <M-k> <C-w>k
-" nnoremap <M-l> <C-w>l
+"" Ctrl+{h,j,k,l} to navigate windows from any mode
+" tnoremap <C-h> <C-\><C-N><C-w>h
+" tnoremap <C-j> <C-\><C-N><C-w>j
+" tnoremap <C-k> <C-\><C-N><C-w>k
+" tnoremap <C-l> <C-\><C-N><C-w>l
+" inoremap <C-h> <C-\><C-N><C-w>h
+" inoremap <C-j> <C-\><C-N><C-w>j
+" inoremap <C-k> <C-\><C-N><C-w>k
+" inoremap <C-l> <C-\><C-N><C-w>l
+" nnoremap <C-h> <C-w>h
+" nnoremap <C-j> <C-w>j
+" nnoremap <C-k> <C-w>k
+" nnoremap <C-l> <C-w>l
 
 "" Resize window
 nnoremap <silent> <M-j> :resize -2<CR>
@@ -542,14 +612,10 @@ noremap <silent> <leader>tm :tabm<CR>
 noremap <silent> <leader>tt :tabnew<CR>
 noremap <silent> <leader>tc :tabclose<CR>
 noremap <silent> <leader>ts :tab split<CR>
-noremap <silent> <leader>hs :<C-u>split<CR>
-noremap <silent> <leader>vs :<C-u>vsplit<CR>
+noremap <silent> <leader>sh :<C-u>split<CR>
+noremap <silent> <leader>sv :<C-u>vsplit<CR>
 
-"" Buffer nav
-nmap    <silent> <leader>bp :bp<CR>
-nmap    <silent> <leader>bn :bn<CR>
-
-" buffers & args "
+" buffer nav & args "
 nmap    <silent> <leader>w  :update<CR>
 nmap    <silent> <leader>bd :bdelete<CR>
 nmap    <silent> <leader>bu :Buffer <C-d>
@@ -560,24 +626,7 @@ nmap    <silent> <Leader>bw :w<CR>
 nmap    <silent> <Leader>bn :bnext<CR>
 nmap    <silent> <Leader>bp :bprevious<CR>
 
-" nnoremap <leader>aa :argadd <C-r>=fnameescape(expand('%:p:h'))<CR>/*<C-d>
-
-"" Set working directory
-nnoremap <leader>. :lcd %:p:h<CR>
-
-"" Opens an edit command with the path of the currently edited file filled in
-noremap <Leader>e  :e <C-R>=expand("%:p:h") . "/" <CR>
-
-"" Opens a tab edit command with the path of the currently edited file filled in
-noremap <Leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
-
-"" path to the edited file
-cnoremap <M-e>   <C-R>=expand("%:p:h") . "/" <CR>
-
-"" expand %% to path in command mode.
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-cnoremap <expr> * getcmdline() =~ '.*\*\*$' ? '/*' : '*'
-" cnoreabbr <expr> %% fnameescape(expand('%:p'))
+nnoremap <leader>aa :argadd <C-r>=fnameescape(expand('%:p:h'))<CR>/*<C-d>
 
 "--------- "Standart Keybindings" ---------
 
@@ -588,12 +637,12 @@ nmap j gj
 nmap k gk
 
 " Control-S & W Save
-nnoremap W          :update<CR>
-vnoremap W     <ESC>:update<CR>
-inoremap W    W<ESC>:update<CR>a
-" nnoremap <C-S>      :up<cr>
-" vnoremap <C-S> <esc>:up<cr>
-" inoremap <C-S> <esc>:up<cr>
+nnoremap <silent> W          :update<CR>
+vnoremap <silent> W     <ESC>:update<CR>
+inoremap <silent> W    W<ESC>:update<CR>a
+" nnoremap <silent> <C-S>      :up<cr>
+" vnoremap <silent> <C-S> <esc>:up<cr>
+" inoremap <silent> <C-S> <esc>:up<cr>
 "" Save + back into insert
 "inoremap <C-S> <esc>:w<cr>a
 
@@ -629,38 +678,6 @@ nnoremap Y y$
 
 ""Visually select text that was last edited/pasted
 noremap gV `[v`]
-
-""highlight search off
-noremap <silent> <leader><Esc> :noh<CR><Esc>
-
-"" Keep flags when repeating substitute command.
-nnoremap & :&&<CR>
-xnoremap & :&&<CR>
-
-"" easy caps
-inoremap <M-u> <ESC>viwUi
-nnoremap <M-u> viwU<ESC>
-
-"" Check file in shellcheck
-""nmap <leader>s :!clear && shellcheck %<CR>
-
-"" quick edit & source init.vim & .zshrc
-nnoremap <silent> <leader>i  :tabe ~/.config/nvim/init.vim<cr>
-nnoremap <silent> <leader>zs :tabe ~/.zshrc<CR>
-nnoremap <silent> <leader>so :so $MYVIMRC<CR>:echo 'Config sourced'<cr>
-
-"" shortcut for creating shebang
-inoremap <silent> <leader>sb  #!/data/data/com.termux/files/usr/bin
-
-"" netrw
-nnoremap <silent> <leader>nt :wincmd v<bar> : Ex <bar> :vertical resize 25<CR>
-nnoremap <silent> - :e %:h<CR>
-
-"" tpopes vim.repeat
-silent! call repeat#set("\<Plug>preservim/nerdcommenter", v:count)
-silent! call repeat#set("\<Plug>easymotion/easymotion", v:count)
-silent! call repeat#set("\<Plug>jiangmiao/auto-pairs", v:count)
-silent! call repeat#set("\<Plug>liuchengxu/vim-which-key", v:count)
 
 "---------------- "FZF-BASE" ------------------
 
@@ -723,7 +740,7 @@ command! Dots call fzf#run(fzf#wrap({
 " FZF settings
 let g:fzf_layout = { 'down': '60%' }
 
-let g:fzf_preview_window = ['down:55%:hidden', 'alt-t']
+let g:fzf_preview_window = ['down:50%:hidden', 'alt-t']
 
 " [Buffers] Jump to the existing window if possible
 let g:fzf_buffers_jump = 1
@@ -732,10 +749,10 @@ let g:fzf_buffers_jump = 1
 let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
 
 " [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags -R'
+let g:fzf_tags_command = 'ctags --excmd=number -R'
 
 " Expect expression for direct command execution
-let g:fzf_commands_expect = 'C-enter'
+let g:fzf_commands_expect = 'ctrl-space'
 
 " fzf-history
 let g:fzf_history_dir = '~/.local/share/fzf-history'
@@ -795,7 +812,7 @@ nnoremap <leader>fa  :Ag<CR>
 nnoremap <leader>gg  :GGrep<CR>
 " Recover commands from history through FZF
 nnoremap <leader>ch  :History:<CR>
-nnoremap <leader>sh  :History/<CR>
+nnoremap <leader>hs  :History/<CR>
 nnoremap <leader>fh  :History <CR>
 " Search root files
 nnoremap <leader>fp  :Root<CR>
@@ -900,19 +917,19 @@ let g:which_key_map['b'] = { 'name': '+buffers' }
 let g:which_key_map['c'] = { 'name': '+Commands_History +Colors' }
 let g:which_key_map['f'] = { 'name': '+FZF' }
 let g:which_key_map['g'] = { 'name': '+git +goyo' }
-let g:which_key_map['h'] = { 'name': 'hsplit + fzf' }
+let g:which_key_map['h'] = { 'name': 'hsearch + fzf' }
 let g:which_key_map['l'] = { 'name': '+fzf_ls' }
 let g:which_key_map['o'] = { 'name': '+(c+l)open' }
-let g:which_key_map['s'] = { 'name': '+spell +' }
+let g:which_key_map['s'] = { 'name': '+spell +split' }
 let g:which_key_map['t'] = { 'name': '+tabs +tags' }
-let g:which_key_map['v'] = { 'name': 'vsplit +' }
+let g:which_key_map['v'] = { 'name': '+change_split' }
 let g:which_key_map['z'] = { 'name': 'edit zshrc' }
 let g:which_key_map['n'] = { 'name': 'which_key_ignore' }
 " let g:which_key_map[' '] = { 'name': 'easymotion' }
 let g:which_key_map.e = 'which_key_ignore'
 let g:which_key_map['<Esc>'] = 'which_key_ignore'
 let g:which_key_map['i'] = 'edit init.vim'
-let g:which_key_map['.'] = 'set working directory'
+let g:which_key_map['.'] = 'set working direct ory'
 
 " call which_key#register('space', "g:which_key_map")
 autocmd! User vim-which-key call which_key#register('<Space>', "g:which_key_map")

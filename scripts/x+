@@ -1,0 +1,11 @@
+#!/data/data/com.termux/files/usr/bin/env bash
+
+# script to toggle on/off executable bit of files
+
+file=$1
+
+if [[ -x "$file" ]]; then
+    /usr/bin/chmod -x "$file"
+else
+    /usr/bin/chmod +x "$file"
+fi

@@ -1,13 +1,13 @@
 """"""""""""""""""""""
 "  General Settings  "
 """"""""""""""""""""""
-
 set shell=$SHELL
 set backspace=indent,eol,start
 set hid
 set shm+=cI
 set pumheight=10
-set path+=.,/data/data/com.termux/files/usr/include
+set path=.,/data/data/com.termux/files
+set path+=/data/data/com.termux/files/usr/include
 set path+=**
 set tabstop=2 softtabstop=2 shiftwidth=2
 set et smarttab
@@ -23,9 +23,10 @@ set updatetime=300
 set guioptions+='d'
 set ttyfast
 " Formating
-" set encoding=utf-8
-" set fileencoding=utf-8
-" set iskeyword+=$,%,#,-,_	"not to split word"
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8
+set iskeyword+=$,%,#,-,_	"not to split word"
 set fo+=qlp
 " q - allow formatting of comments with :gq
 " l - don't format already long lines
@@ -72,8 +73,8 @@ endif
 
 if has('path_extra')
   setglobal tags-=./tags tags-=./tags; tags^=./tags;
-  setglobal tags+=~/.config/nvim/systags;
 endif
+setglobal tags+=~/.config/nvim/systags;
 
 " Don't save options in sessions and views
 set sessionoptions-=options
@@ -98,19 +99,6 @@ set autoread
 " Auto reload if file was changed somewhere else
 au CursorHold * checktime
 
-" Merge signcolumn with number line (if supported)
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
-
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
-
-set debug=msg
-
 " Disable any annoying beeps on errors.
 set noeb
 set vb
@@ -134,6 +122,19 @@ set scrolljump=3
 set lazyredraw
 set redrawtime=10000
 set synmaxcol=250
+
+" Merge signcolumn with number line (if supported)
+if has("nvim-0.5.0") || has("patch-8.1.1564")
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
+
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif
+
+set debug=msg
 
 "" ----- disable/enable plugins & modules -----
 

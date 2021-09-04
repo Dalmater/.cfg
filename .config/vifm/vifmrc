@@ -105,9 +105,9 @@ set scrolloff=3
 
 " Don't do too many requests to slow file systems
 
-if !has('win')
-    set slowfs=curlftpfs
-endif
+""if !has('win')
+ ""   set slowfs=curlftpfs
+""endif
 
 " Set custom status line look
 
@@ -407,7 +407,7 @@ filextype */
 " What should be saved automatically between vifm sessions."  Drop "savedirs"
 " value if you don't want vifm to remember last visited directories for you. cs ?
 set vifminfo=dhistory,chistory,state,tui,shistory,
-    \phistory,fhistory,savedirs,dirstack,registers,bookmarks,bmarks
+    \phistory,fhistory,dirstack,registers,bookmarks,bmarks
 " :pwd
 " ------------------------------------------------
 
@@ -415,7 +415,7 @@ set vifminfo=dhistory,chistory,state,tui,shistory,
 
 " Customize view columns a bit (enable ellipsis for truncated file names)
 "
-" set viewcolumns=-{name}..,6{}.
+set viewcolumns=-{name}..,6{}.
 
 " Filter-out build and temporary files
 "
@@ -464,6 +464,8 @@ elseif executable('xsel')
                 \ echo -n %c:p | xsel --clipboard --input %i<cr>
 endif
 
+nnoremap yd :!echo -n %d | termux-clipboard-set %i &&
+
 " Mappings for faster renaming
 nnoremap I cw<c-a>
 nnoremap cc cw<c-u>
@@ -475,7 +477,7 @@ nnoremap A cw
 " Open editor to edit vifmrc and apply settings after returning to vifm
 nnoremap ,c :write | edit $MYVIFMRC | restart full<cr>
 " Open nvim to edit vifmrc
-nnoremap ,C :!nvim --remote-tab-silent $MYVIFMRC &<cr>
+nnoremap ,C :!nvim $MYVIFMRC &<cr>
 
 " Toggle wrap setting on ,w key
 nnoremap ,w :set wrap!<cr>
@@ -570,7 +572,7 @@ set findprg='find %s %a -print ,
 
 " Ranger devicons for ViFM
 " https://github.com/cirala/vifm_devicons
-"
+
 " Filetypes/directories
 set classify=' :dir:/, :exe:, :reg:, :link:,? :?:, ::../::'
 

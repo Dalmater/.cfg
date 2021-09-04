@@ -12,8 +12,7 @@ Oh, and a lot of **aliases and fzf functions**.
 I'm using too many plugins but only 2-3 are essential
 to me(fast syntax highlighting, zsh-autosuggestions, fzf-tab).<br>
 I'm using [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh) as a plugin manager with about 10-15 plugins.<br>
-#### ***Zsh startup time on Android 9(Sm-j7) is about 0.8 - 1.2 sec***<br>
-(0.53s user 0.20s system 80% cpu 0.912 total)
+#### ***Zsh startup time on Android 9(Sm-j7) is about 0.8 - 1.2 sec***<br>(0.53s user 0.20s system 80% cpu 0.912 total)
 
 #### ***Starship timings***
 - In my home directory<br>

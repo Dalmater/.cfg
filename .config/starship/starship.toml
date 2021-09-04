@@ -18,7 +18,7 @@ disabled = false
 map_symbol = true
 recognize_signal_code = true
 pipestatus = true
-success_symbol = ''
+# success_symbol = ''
 
 [username]
 format = '[$user]($style)@'
@@ -32,12 +32,12 @@ show_milliseconds = true
 disabled = false
 
 [directory]
-format = '[$path]($style blue italic)[$read_only]($read_only_style) ' #[$lock_symbol]($lock_style)
+format = '[$path]($style blue italic)[$lock_symbol]($lock_style)[$read_only]($read_only_style) '
 read_only = ' 🔒'
 read_only_style = "bold #8FBCBB"
-fish_style_pwd_dir_length = 1
-truncation_length = 1
 truncate_to_repo = true
+truncation_length = 2
+# fish_style_pwd_dir_length = 1
 
 [hostname]
 ssh_only = true
