@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 #
 # Original source: https://bluz71.github.io/2018/11/26/fuzzy-finding-in-bash-with-fzf.html
 
@@ -14,17 +14,20 @@ fzf-kill() {
   if [[ $(uname) = Linux ]]; then
     pid_col=2
     pids=$(
-      ps -f -u "$USERNAME" | sed 1d | fzf --multi | tr -s "[:blank:]" | cut -d' ' -f"$pid_col"
+    ps -f -u "$USERNAME" | sed 1d | fzf --multi --preview-window=down:3:border:nohidden:wrap | \
+    tr -s "[:blank:]" | cut -d' ' -f"$pid_col"
     )
   elif [[ $(uname) = Darwin ]]; then
     pid_col=3;
     pids=$(
-      ps -f -u "$USER" | sed 1d | fzf --multi | tr -s "[:blank:]" | cut -d' ' -f"$pid_col"
+    ps -f -u "$USER" | sed 1d | fzf --multi --preview-window=down:3:border:nohidden:wrap | \
+    tr -s "[:blank:]" | cut -d' ' -f"$pid_col"
     )
   elif [[ $(uname) = FreeBSD ]]; then
     pid_col=2
     pids=$(
-      ps -axu -U "$USER" | sed 1d | fzf --multi | tr -s "[:blank:]" | cut -d' ' -f"$pid_col"
+    ps -axu -U "$USER" | sed 1d | fzf --multi --preview-window=down:3:border:nohidden:wrap | \
+    tr -s "[:blank:]" | cut -d' ' -f"$pid_col"
     )
   else
     echo 'Error: unknown platform'

@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 #
 # tm-search [FUZZY PATTERN] - Select selected tmux session
 #   - Bypass fuzzy finder if there's only one match (--select-1)
@@ -29,7 +29,7 @@ function has() {
 
 tm-search() {
   local session
-  session=$(tmux list-sessions -F "#{session_name}" | \
+  session=$(tmux list-sessions | \
     fzf --query="$1" --select-1 --exit-0) &&
   tmux switch-client -t "$session"
 }

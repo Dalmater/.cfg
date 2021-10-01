@@ -26,9 +26,10 @@ fzf-grep-edit(){
     return
   fi
   match=$(
-  rg --color=always --line-number "$1" |
+  rg --hidden --color=always --line-number --smart-case "$1" |
     fzf --no-multi --delimiter : \
-    --preview "bat --color=always --line-range {2}: {1}"
+    --preview "bat --color=always --line-range {2}: {1} --highlight-line {2}" \
+    --preview-window=nohidden
   )
   file=$(echo "$match" | cut -d':' -f1)
   if [[ -n $file ]]; then
