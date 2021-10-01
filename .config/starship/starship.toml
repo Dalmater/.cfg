@@ -1,6 +1,8 @@
-# no new line before prompt & 10ms scan timeout
-add_newline = false
-scan_timeout = 10
+format = '$shlvl$username$hostname$directory$git_branch$git_commit$git_state$git_metrics$git_status$custom$cmd_duration$line_break$jobs$status$character'
+right_format = ''
+# scan_timeout = 10
+# command_timeout = 500
+add_newline = false # no new line before prompt
 
 [line_break]
 disabled = false
@@ -8,28 +10,29 @@ disabled = false
 [character]
 success_symbol = '[❯](bold green)'
 error_symbol = '[❮](bold red)' # ✗
-vicmd_symbol = '[\[\]](#A3BE8C)'
+vicmd_symbol = '[](#A3BE8C)'
 
 [status]
-style = "red"
+style = "red bold"
 symbol = "💥 " # 💣
-format = '[\[$symbol$status\]]($style) '
+format = '[\[$symbol$status\]]($style)'
 disabled = false
 map_symbol = true
 recognize_signal_code = true
 pipestatus = true
-# success_symbol = ''
+success_symbol = ''
+pipestatus_separator = ''
 
 [username]
 format = '[$user]($style)@'
 style_user = '#4FDF4F'
-show_always = false
+show_always = true
 
 [cmd_duration]
-min_time = 1000
-# format = ' took [$duration]($style)'
+min_time = 500
+format = ' took [$duration]($style)'
 show_milliseconds = true
-disabled = false
+disabled = true
 
 [directory]
 format = '[$path]($style blue italic)[$lock_symbol]($lock_style)[$read_only]($read_only_style) '
@@ -37,7 +40,8 @@ read_only = ' 🔒'
 read_only_style = "bold #8FBCBB"
 truncate_to_repo = true
 truncation_length = 2
-# fish_style_pwd_dir_length = 1
+truncation_symbol = ''
+fish_style_pwd_dir_length = 0
 
 [hostname]
 ssh_only = true
@@ -57,15 +61,15 @@ truncation_symbol = ''
 [git_status]
 ahead = '⇡${count}(#EBCB8B) '
 diverged = '⇕⇡${ahead_count}⇣${behind_count}(#EBCB8B) '
-behind = '⇣[$count](#EBCB8B) '
+behind = '⇣${count}(#EBCB8B) '
 format = '[$all_status$ahead_behind]($style)'
-conflicted = '=×[$count](#D08770) '
-untracked = '?×[$count](#D79921) '
-stashed = '\$×[$count](#65A290) '
-modified = '!×[$count](#8FBCBB) '
-renamed = '»×[$count](#D3869B) '
-deleted = '✘×[$count](#BF616A) '
-staged = '[++\($count\)](#A0BB8A) '
+conflicted = '†[$count](#D08770) '
+untracked = '?[$count](#D79921) '
+stashed = '\$[$count](#65A290) '
+modified = '![$count](#8FBCBB) '
+renamed = '»[$count](#D3869B) '
+deleted = '✗[$count](#BF616A) '
+staged = '‡[$count](#A0BB8A) '
 disabled = false
 
 [git_commit]
@@ -80,6 +84,7 @@ tag_disabled = false
 added_style = 'bold #90AB79'
 deleted_style = 'bold #BF616A'
 format = '[+$added]($added_style) [-$deleted]($deleted_style) '
+only_nonzero_diffs = false
 disabled = false
 
 [git_state]
@@ -91,7 +96,16 @@ disabled = true
 [aws]
 disabled = true
 
+# [battery]
+# disabled = true
+
 [cmake]
+disabled = true
+
+[cobol]
+disabled = true
+
+[crystal]
 disabled = true
 
 [deno]
@@ -118,6 +132,9 @@ disabled = true
 [elm]
 disabled = true
 
+[gcloud]
+disabled = true
+
 [golang]
 disabled = true
 
@@ -130,10 +147,16 @@ disabled = true
 [java]
 disabled = true
 
+[jobs]
+disabled = false
+
 [julia]
 disabled = true
 
 [kotlin]
+disabled = true
+
+[kubernetes]
 disabled = true
 
 [lua]
@@ -149,6 +172,9 @@ disabled = true
 disabled = true
 
 [ocaml]
+disabled = true
+
+[openstack]
 disabled = true
 
 [package]
@@ -178,6 +204,9 @@ disabled = true
 [rust]
 disabled = true
 
+[scala]
+disabled = true
+
 [swift]
 disabled = true
 
@@ -188,10 +217,16 @@ disabled = true
 disabled = true
 
 [shlvl]
-disabled = false
+threshold = 2
+format = '[$symbol$shlvl]($style) '
 symbol = ''
+repeat = false
+disabled = false
 
 [terraform]
+disabled = true
+
+[time]
 disabled = true
 
 [memory_usage]

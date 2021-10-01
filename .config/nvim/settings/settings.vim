@@ -16,7 +16,7 @@ set inc ic scs hls
 set nuw=1
 set viminfo+=n$HOME/.config/nvim/viminfo
 set viminfo^=!
-set cb+=unnamedplus
+set cb+=unnamedplus,unnamed
 set showcmd nosmd
 set cmdheight=2
 set updatetime=300
@@ -26,25 +26,24 @@ set ttyfast
 set encoding=utf-8
 set fileencoding=utf-8
 set fileencodings=utf-8
-set iskeyword+=$,%,#,-,_	"not to split word"
-set fo+=qlp
+set iskeyword+=$,%,#  "not to split word"
+set fo+=qlpctb
 " q - allow formatting of comments with :gq
 " l - don't format already long lines
-set fo-=cro " dont comment on new lines
+setg fo-=cro " dont comment on new lines
 set spl=en_us
 let $LANG='en_US'
 " set nowrap
-set complete+=k,kspell complete-=i complete-=w ""complete-=b complete-=u complete+=t (tags)
+set complete+=k,kspell,t complete-=i complete-=w ""complete-=b complete-=u complete+=t (tags)
 set sm
 set wmnu
-set cot=menu,longest,preview,noselect
+set cot=menu,longest,preview
 " set wildmode=longest,list,full
 set wim=longest:full,list:full
-" Disable output, vcs, archive, rails, temp and backup
+" Disable output, vcs, archive, rails, temp
 set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
-set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*
-set wildignore+=*.swp,*~,._*
+set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*,*.swp,._*
 set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store,*.pyc
 set confirm
 set sb spr
@@ -54,18 +53,14 @@ set noswapfile nobackup undofile title
 set undolevels=1000
 set undoreload=10000
 set matchpairs+=<:>
-set pastetoggle=<F12>
+set pastetoggle+=<F12>
 set grepprg=ag\ --vimgrep\ $*
 set grepformat=%f:%l:%c:%m
 
 if !has('gui_running')
-  set t_Co=256
+  set t_Co=24
 endif
 set termguicolors
-
-"" Timeout
-" set noto
-set timeoutlen=1000
 
 if &history < 1000
   set history=1000
@@ -76,14 +71,13 @@ if has('path_extra')
 endif
 setglobal tags+=~/.config/nvim/systags;
 
+"" Timeout
+" set noto
+set timeoutlen=1000
+
 " Don't save options in sessions and views
 set sessionoptions-=options
 set viewoptions-=options
-
-" Enable default theme if some other is not set
-" if !exists("g:colors_name")
-"     colorscheme default
-" endif
 
 " Allow for up to 20 opened tabs on Vim start.
 if &tabpagemax < 20
@@ -123,12 +117,8 @@ set lazyredraw
 set redrawtime=10000
 set synmaxcol=250
 
-" Merge signcolumn with number line (if supported)
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+" Merge signcolumn with number line
+set signcolumn=number
 
 if has('conceal')
   set conceallevel=2 concealcursor=niv
@@ -153,30 +143,30 @@ let g:netrw_browse_split=3
 " let g:omni_sql_no_default_maps = 1
 
 "" disable/enable providers
-" let g:loaded_python_provider = 0
-" let g:loaded_python3_provider = 0
+" let g:loaded_python_provider = 1
+" let g:loaded_python3_provider = 1
 " let g:loaded_perl_provider = 0
 " let g:loaded_ruby_provider = 1
-" let g:loaded_node_provider = 0
+" let g:loaded_node_provider = 1
 
 " set python2
-let g:python2_host_prog = expand('$PREFIX/bin/python2')
+let g:python_host_prog = expand('$PREFIX/bin/python2')
 
 " set python3
-let g:python3_host_prog = expand('$PREFIX/bin/python3')
+let g:python3_host_prog = expand('$PREFIX/bin/python')
 
 " tmux clipboard
-" if exists('$TMUX')
-"   let g:clipboard = {
-"         \   'name': 'myClipboard',
-"         \   'copy': {
-"           \      '+': ['tmux', 'load-buffer', '-'],
-"           \      '*': ['tmux', 'load-buffer', '-'],
-"           \    },
-"           \   'paste': {
-"             \      '+': ['tmux', 'save-buffer', '-'],
-"             \      '*': ['tmux', 'save-buffer', '-'],
-"             \   },
-"             \   'cache_enabled': 1,
-"             \ }
-" endif
+if exists('$TMUX')
+  let g:clipboard = {
+        \   'name': 'myClipboard',
+        \   'copy': {
+        \      '+': ['tmux', 'load-buffer', '-'],
+        \      '*': ['tmux', 'load-buffer', '-'],
+        \    },
+        \   'paste': {
+        \      '+': ['tmux', 'save-buffer', '-'],
+        \      '*': ['tmux', 'save-buffer', '-'],
+        \   },
+        \   'cache_enabled': 1,
+        \ }
+endif

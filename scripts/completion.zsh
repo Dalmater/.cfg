@@ -70,6 +70,7 @@ zstyle ':completion:*:git-checkout:*' sort false
 
 # fzf zstyle setup
 zstyle ':fzf-tab:*' show-group full
+zstyle ':fzf-tab:*' fzf-flags --height 80% --min-height 20 --preview-window=border:wrap
 
 # preview directory's content with exa when completing cd
 zstyle ':fzf-tab:complete:cd:*' tag-order local-directories directory-stack path-directories
@@ -89,7 +90,7 @@ zstyle ':fzf-tab:complete:*:rm:*:*' file-patterns '*.o:object-files:object\ file
 # use input as query string when completing zlua
 zstyle ':fzf-tab:complete:z:*' query-string input
 zstyle ':fzf-tab:complete:_zlua:*' query-string input
-zstyle ':fzf-tab:complete:_zlua:*' fzf-flags --keep-right
+zstyle ':fzf-tab:complete:_zlua:*' fzf-flags --keep-right --preview-window=border:3:wrap
 
 # preview when completing env vars (note: only works for exported variables)
 # eval twice, first to unescape the string, second to expand the $variable
@@ -112,7 +113,7 @@ zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
 zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
 
 # preview a `git status` when completing git add
-zstyle ':completion::*:git::git,add,*' fzf-completion-opts --preview='git -c color.status=always status --short'
+# zstyle ':completion::*:git::git,add,*' fzf-completion-opts --preview='git -c color.status=always status --short'
 
 zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
 	'git diff $word | delta'|
@@ -124,14 +125,17 @@ zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
 	'case "$group" in
 	"commit tag") git show --color=always $word ;;
 	*) git show --color=always $word | delta ;;
-	esac'
+	esac' \
+    fzf-flags --preview-window=border:hidden:down:50%:wrap
+
 
 zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 	'case "$group" in
 	"modified file") git diff $word | delta ;;
 	"recent commit object name") git show --color=always $word | delta ;;
 	*) git log --color=always $word ;;
-	esac'
+	esac' \
+    fzf-flags --preview-window=border:hidden:down:50%:wrap
 
 # if other subcommand to git is given, show a git diff or git log
 # zstyle ':completion::*:git::*,[a-z]*' fzf-completion-opts --preview='eval set -- {+1} for arg in "$@"; do { git diff --color=always -- "$arg" | git log --color=always "$arg" } 2>/dev/null done'
@@ -141,10 +145,10 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
 # or for everything
 zstyle ':completion:*' fzf-search-display true
 
-zstyle ':fzf-tab:user-expand:*' fzf-preview 'less ${(Q)word}'
-# zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${realpath}'
+# zstyle ':fzf-tab:user-expand:*' fzf-preview 'less ${(Q)word}'
+zstyle ':fzf-tab:complete:*:*' fzf-preview 'less ${realpath}'
 
-zstyle ':completion:*:expand:*' fzf-preview 'echo ${word}'
+# zstyle ':completion:*:expand:*' fzf-preview 'echo ${word}'
 zstyle ':fzf-tab:complete:*:*' fzf-preview 'echo ${word}'
 zstyle ':fzf-tab:*:*' fzf-flags --preview-window=border:hidden:down:4:wrap
 

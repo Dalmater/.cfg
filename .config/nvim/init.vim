@@ -1,6 +1,6 @@
 " Set mapleader to space by default, early so all mappings by plugins are set
 if !exists("mapleader")
-    let mapleader = "\<Space>"
+    let mapleader = ' '
 endif
 
 set exrc
@@ -14,22 +14,13 @@ set exrc
 "   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 " endif
 
-filetype on
-filetype plugin on
-filetype plugin indent on
-syntax enable
-
-" let g:polyglot_disabled = ['sensible', 'markdown']
+let g:polyglot_disabled = ['sensible', 'markdown']
 let g:vim_markdown_frontmatter = 1
 
 " call plug#begin('~/.config/nvim/plugged')
 call plug#begin('~/.local/share/nvim/plugged')
 " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-update-rc' }
 Plug 'junegunn/fzf.vim'
-" Syntax Highlight & Colorscheme
-Plug 'lifepillar/vim-gruvbox8'
-" Plug 'sheerun/vim-polyglot'
-" Plug 'gisphm/vim-polyglot-min'
 " Covinience
 Plug 'tpope/vim-repeat'
 Plug 'vim-scripts/visualrepeat'
@@ -42,6 +33,10 @@ Plug 'jiangmiao/auto-pairs'
   " let g:AutoPairs['<']='>'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'andymass/vim-matchup'
+  let g:matchup_matchparen_offscreen = {'scrolloff': '1'}
+  let g:matchup_surround_enabled = 1
+  let g:matchup_delim_noskips = 1
 Plug 'editorconfig/editorconfig-vim'
   let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
@@ -52,14 +47,14 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 " Git
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter', { 'on': 'GitGutterToggle', 'for': 'git' }
+Plug 'airblade/vim-gitgutter' ", { 'on': 'GitGutterToggle', 'for': 'git' }
 Plug 'tpope/vim-rhubarb', {'on': 'GBrowse' }
 " Better autocompletion
 Plug 'jayli/vim-easycomplete'
 Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'norcalli/snippets.nvim'
+" Plug 'norcalli/snippets.nvim'
 " Plug 'nvim-lua/completion-nvim'
 " Neovim LSP
 Plug 'neovim/nvim-lspconfig'
@@ -71,13 +66,12 @@ Plug 'tpope/vim-obsession'
 " Plug 'craigemery/vim-autotag'
 "   let g:autotagCtagsCmd='ctags -R --excmd=number -f'
   " let g:autotagTagsFile=
-Plug 'junegunn/vim-peekaboo'
-Plug 'Chiel92/vim-autoformat'
-  noremap <F9>       :Autoformat<CR>
-  noremap <leader>af :Autoformat<CR>
+" Plug 'junegunn/vim-peekaboo'
+" Plug 'Chiel92/vim-autoformat'
+"   noremap <F9>       :Autoformat<CR>
+"   noremap <leader>af :Autoformat<CR>
 Plug 'godlygeek/tabular', {'on': 'Tabularize'}
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-" Plug 'tpope/vim-markdown', {'for': 'markdown'}
 " Plug 'vim-utils/vim-man'
 "   noremap  <leader>m <Plug>(Man)
 Plug 'justinmk/vim-sneak'
@@ -89,6 +83,10 @@ Plug 'norcalli/nvim-colorizer.lua'
 " statusline
 Plug 'itchyny/lightline.vim'
 Plug 'ryanoasis/vim-devicons'
+" Syntax Highlight & Colorscheme
+Plug 'lifepillar/vim-gruvbox8'
+" Plug 'sheerun/vim-polyglot'
+Plug 'gisphm/vim-polyglot-min'
 
 if exists('$TMUX')
   Plug 'tmux-plugins/vim-tmux'
@@ -109,20 +107,34 @@ call plug#end()
 
 "-------------- "Configurations" --------------
 
+" filetype plugin indent on
+" syntax enable
+
 source ~/.config/nvim/settings/settings.vim
 source ~/.config/nvim/settings/lightline.vim
 " source ~/.config/nvim/settings/mystatusline.vim
 
 lua require'colorizer'.setup()
 
-set bg=dark
-colorscheme gruvbox8
-hi Visual gui=reverse guifg=NONE guibg=NONE
+set background=dark
+colorscheme gruvbox8_hard
+let g:gruvbox_filetype_hi_groups = 1
+" let g:gruvbox_plugin_hi_groups = 1
+let g:gruvbox_transp_bg = 1
+
+" Enable default theme if some other is not set
+if !exists("g:colors_name")
+    colorscheme default
+endif
 
 "" Always use terminal background
 " au ColorScheme * hi! Normal ctermbg=none guibg=none
 hi Normal guibg=NONE
-
+hi Visual gui=reverse guifg=NONE guibg=NONE
+hi SignColumn   guibg=#202020
+hi CursorColumn guibg=#202020
+hi CursorLineNr guibg=#202020
+hi CursorLine   guibg=#202020
 " popup menu
 hi Pmenu guibg=#1a1a1a
 hi PmenuSel guifg=#1a1a1a
@@ -141,14 +153,15 @@ let g:optionprefix_improved_warnings = 1
 
 let g:awk_is_gawk = 1
 
-" if executable('rg')
+if executable('rg')
 "   let g:rg_derive_root='true'
-" endif
+    let g:rg_highlight='true'
+endif
 
 " Delete trailing white spaces on save
 autocmd BufWritePre * %s/\s\+$//e
 " autocmd BufWritePre * %s/\n\+\%$//e
-" autocmd BufWritePre *.[ch] %s/\%$/\r/e
+autocmd BufWritePre *.[ch] %s/\%$/\r/e
 
 " remove trailing whitespaces
 command! FixWhitespace :%s/\s\+$//e
@@ -159,11 +172,6 @@ map <leader>fx :FixWhitespace
 "   autocmd!
 "   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 " augroup END
-
-" autocmd BufReadPost *
-"       \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-"       \ |   exe "normal! g`\""
-"       \ | endif
 
 function! ResCur()
   if line("'\"") <= line("$")
@@ -206,9 +214,9 @@ nmap <leader>sp :setlocal invspell<CR>
 " Use spell correction and start in insert mode when we're editing commit messages or markdown files.
 if has('autocmd')
   if has('spell')
-    au BufNewFile,BufRead COMMIT_EDITMSG, markdown setlocal spell
+    au BufNewFile,BufRead COMMIT_EDITMSG, setlocal spell
   endif
-  au BufNewFile,BufRead COMMIT_EDITMSG, markdown call feedkeys('ggi', 't')
+  au BufNewFile,BufRead COMMIT_EDITMSG, call feedkeys('ggi', 't')
 endif
 
 " tmux
@@ -290,52 +298,61 @@ let g:SuperTabContextDiscoverDiscovery =
 
 "" Auto save function
 " function! s:goyo_enter()
-"    let b:quitting = 0
-"    let b:quitting_bang = 0
-"    autocmd QuitPre <buffer> let b:quitting = 1
-"    cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
-"  endfunction
+"   let b:quitting = 0
+"   let b:quitting_bang = 0
+"   autocmd QuitPre <buffer> let b:quitting = 1
+"   cabbrev <buffer> q! let b:quitting_bang = 1 <bar> q!
+" endfunction
 
-"  function! s:goyo_leave()
-"    "" Quit Vim if this is the only remaining buffer
-"    if b:quitting && len(filter(range(1, bufnr('$'))  'buflisted(v:val)')) == 1
-"      if b:quitting_bang
-"        qa!
-"      else
-"        qa
-"      endif
-"    endif
-"  endfunction
+" function! s:goyo_leave()
+"   "" Quit Vim if this is the only remaining buffer
+"   if b:quitting && len(filter(range(1, bufnr('$'))  'buflisted(v:val)')) == 1
+"     if b:quitting_bang
+"       qa!
+"     else
+"       qa
+"     endif
+"   endif
+" endfunction
 
-"  autocmd! User GoyoEnter call <SID>gnoyo_enter()
-"  autocmd! User GoyoLeave call <SID>goyo_leave()
+" autocmd! User GoyoEnter call <SID>gnoyo_enter()
+" autocmd! User GoyoLeave call <SID>goyo_leave()
 
- func! s:goyo_line()
-   set showmode
-   set noshowcmd
-   set scrolloff=999
- endf
+func! s:goyo_line()
+  set showmode
+  set noshowcmd
+  set scrolloff=999
+endf
 
- func! s:goyo_left()
-   set noshowmode
-   set showcmd
-   set scrolloff=3
-   hi Normal guibg=none
- endf
+func! s:goyo_left()
+  set noshowmode
+  set showcmd
+  set scrolloff=3
+  hi Normal guibg=none
+endf
 
- autocmd! User GoyoEnter nested call <SID>goyo_line()
- autocmd! User GoyoLeave nested call <SID>goyo_left()
+autocmd! User GoyoEnter nested call <SID>goyo_line()
+autocmd! User GoyoLeave nested call <SID>goyo_left()
 
 noremap <leader>gy :Goyo \| set linebreak<cr>
 
 ""------------------- "Git" -------------------
-
+highlight GitGutterAdd    guifg=#a1b520 ctermfg=2
+highlight GitGutterChange guifg=#fabd2f ctermfg=3
+highlight GitGutterDelete guifg=#fa3823 ctermfg=1
 let g:gutgutter_enable = 1
 let g:gutgutter_map_keys = 0
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '≈'
+let g:gitgutter_sign_removed = '_'
+let g:gitgutter_highlight_linenrs = 1
+let g:gitgutter_sign_allow_clobber = 1
+" let g:gitgutter_set_sign_backgrounds = 1
+" let g:gitgutter_preview_win_floating = 1
+nmap <leader>gh :GitGutterLineHighlightsToggle<CR>
+nmap <leader>gt :GitGutterToggle<CR>
 nmap )    <Plug>(GitGutterNextHunk)
 nmap (    <Plug>(GitGutterPrevHunk)
-nmap <leader>gt :GitGutterToggle<CR>
-nmap <leader>gh :GitGutterLineHighlightsToggle<CR>
 nmap ghp  <Plug>(GitGutterPreviewHunk)
 nmap ghs  <Plug>(GitGutterStageHunk)
 nmap ghu  <Plug>(GitGutterUndoHunk)
@@ -533,10 +550,10 @@ nnoremap <M-u> viwU<ESC>
 ""nmap <leader>s :!clear && shellcheck %<CR>
 
 "" quick edit & source init.vim & .zshrc
-nnoremap <silent> <leader>i  :tabe ~/.config/nvim/init.vim<cr>
+nnoremap <silent> <leader>i  :tabe $MYVIMRC<cr>
 nnoremap <silent> <leader>so :so $MYVIMRC<CR>:echo 'Config sourced'<cr>
-nnoremap <silent> <leader>zs :tabe ~/.zshrc<CR>
-nnoremap <silent> <leader>sz :!source $HOME/.zshrc<CR>:echo 'Config sourced'<cr>
+nnoremap <silent> <leader>zs :tabe $ZDOTDIR/.zshrc<CR>
+nnoremap <silent> <leader>sz :!source $ZDOTDIR/.zshrc<CR>:echo 'Config sourced'<cr>
 
 "" shortcut for creating shebang
 inoremap <silent> <leader>sb  #!/data/data/com.termux/files/usr/bin
@@ -549,7 +566,7 @@ nmap     <Leader>ta g<C-]>
 nmap     <Leader>T   <C-t>
 
 "" netrw
-nnoremap <silent> <leader>nt :wincmd v<bar> : Ex <bar> :vertical resize 25<CR>
+nnoremap <silent> <leader>nt :tab new<bar> :Ex <bar> :vertical resize 25<CR>
 nnoremap <silent> - :tabe %:h<CR>
 
 "" tpopes vim.repeat

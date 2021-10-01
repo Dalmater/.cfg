@@ -14,7 +14,7 @@ se() { du -a ~/scripts/* ~/.config/* | awk '{print $2}' | fzf --keep-right | xar
 # f 'echo Selected music:' --extention mp3
 # fm rm # To rm files in current directory
 f() {
-  sels=( "${(@f)$(fd "${fd_default[@]}" "${@:2}"| fzf -m)}" )
+  sels=( "${(@f)$(fd -H "${fd_default[@]}" "${@:2}"| fzf -m)}" )
   test -n "$sels" && print -z -- "$1 ${sels[@]:q:q}"
 }
 
@@ -36,7 +36,7 @@ fo() {
   key=$(head -1 <<< "$out")
   file=$(head -2 <<< "$out" | tail -1)
   if [ -n "$file" ]; then
-    [ "$key" = ctrl-o ] && open "$file" || ${EDITOR:-vim} "$file"
+    [ "$key" = ctrl-o ] && termux-open --chooser "$file" || ${EDITOR:-vim} "$file"
   fi
 }
 

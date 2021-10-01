@@ -1,4 +1,4 @@
-#!bin/env zsh
+#!bin/env bash
 alias afs='apt-fzf-search'
 alias crsr="echo -ne '\e[6 q'"
 alias dateformatcodes='date --help | sed -n '\''/^FORMAT/,//p'\'
@@ -9,14 +9,28 @@ alias psf='ps -f'
 alias psg='ps -e | grep '
 alias pp='python -mjson.tool | pygmentize -l js'
 alias reset-colors='tput init'
-alias sb='source ~/.config/.bashrc'
+alias sb='source ~/.bashrc'
 alias sortnr='sort -n -r'
-alias sz='source ~/.zshrc'
+alias sz='source ${ZDOTDIR:-${HOME}}/.zshrc'
 alias s='source'
-alias forgit="source <(curl -sSL git.io/forgit)"
-alias fsh='fast-theme'
-alias zsnapshot='source ~/.zsh/custom/plugins/zsnapshot/__zsnapshot > snap-$(date +%Y.%m.%d_%H:%M:%S)'
-alias fv='nvim "$(fd -H -i -L --type f | fzf +m --keep-right)"'
+alias music='cd /storage/40E6-DFFD/Music/'
+
+# easier to read disk
+alias df='df -h'     # human-readable sizes
+alias free='free -m' # show sizes in MB
+
+# get top process eating memory
+alias psmem='ps auxf | sort -nr -k 4 | head -5'
+
+# get top process eating cpu ##
+alias pscpu='ps auxf | sort -nr -k 3 | head -5'
+
+# gpg encryption
+# verify signature for isos
+alias gpg-check="gpg2 --keyserver-options auto-key-retrieve --verify"
+
+# receive the key of a developer
+alias gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
 
 # apt
 alias \
@@ -28,8 +42,9 @@ alias \
 
 # commands
 alias \
+    apt='noglob apt' \
     HMBs='du -h --max-depth=1 --one-file-system ~' \
-    MBs='du -h --max-depth=1 --one-file-system /data/data/com.termux/files/usr' \
+    MBs='du -h --max-depth=1 --one-file-system $PREFIX' \
     chmod='chmod -v' \
     chown='chown -v' \
     cp='nocorrect cp -i -v' \
@@ -38,33 +53,33 @@ alias \
     dud='du --all -d 1 -h' \
     duf='du -sh *' \
     egrep='egrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.cfg.git,.cache}' \
-    h=history \
+    fgrep='fgrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.cfg.git,.cache}' \
     hgrep='fc -El 0 | grep' \
     man='nocorrect man' \
     md='nocorrect mkdir -pv' \
     mkd='nocorrect mkdir -pv' \
-    ncdu='ncdu --color=dark -L -x' \
-    mkdir='mkdir -pv' \
+    mkdir='nocorrect mkdir -pv' \
     mv='nocorrect mv -i -v' \
+    ncdu='ncdu --color=dark -L -x' \
+    pkg='noglob pkg' \
+    py='python' \
     rm='nocorrect rm -I -v' \
     sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS,.cfg.git,.cache} ' \
     shad="ssh-add ~/.ssh/id_rsa" \
     shag='eval "$(ssh-agent -s)"' \
     wget='wget -r -e --robots=off -nc -np' \
     grep='grep --color=auto' \
-    fgrep='fgrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.cfg.git,.cache}' \
     ffmpeg='ffmpeg -hide_banner'
 
 # special commands
 alias \
     bfarben=spectrum_bls \
     bfrbn=spectrum_bls \
+    farben=spectrum_ls \
+    frbn=spectrum_ls \
     coc='cd ~/.config && ./colors.sh' \
     cof='cd ~/.config && ./fonts.sh' \
     clean='( for ((i=1;i<$LINES;i++)) ; do echo "" ; done ) ; clear' \
-    ddg='web_search duckduckgo' \
-    farben=spectrum_ls \
-    frbn=spectrum_ls \
     fsh='fast-theme' \
     lazymux='cd ~/gitrepos/Lazymux && python lazymux.py' \
     lch=launch \
@@ -72,7 +87,8 @@ alias \
     myip='curl http://ipecho.net/plain; echo' \
     mymap='telnet mapscii.me' \
     ox='onex start' \
-    tb='terbr -b' \
+    starwars='telnet towel.blinkenlights.nl' \
+    tbu='terbr -b' \
     tls='cd ~/gitrepos/Termux-Lazyscript && python2 ls.py' \
     wtr='curl wttr.in/Berlin'
     # pip='$PREFIX/bin/python3 -m pip' \
@@ -93,6 +109,7 @@ alias \
 
 # find & fzf
 alias \
+    fv='nvim "$(fd -H -i -L --type f | fzf +m --keep-right)"' \
     count='find . -type f | wc -l' \
     fzcd='\cd "$(find -L -type d | fzf)"' \
     fdh='fd -H -I -i --color always' \
@@ -108,12 +125,13 @@ alias \
     la='exa -bhHigUmuSaa --git --icons' \
     lart='\ls -1Fcart' \
     ldot='ls -ld .*' \
-    ll='exa -ahlFbG --icons' \
+    llg='ll --git' \
+    ll='exa -ahlFbG@ --icons' \
     l.='exa -d .*' \
     ll.='exa -Fhl -d .*' \
     lld='\ls -D */' \
     lll='exa -ahlT --icons L -R' \
-    llm='exa -lbGF --git --sort=modified --git --icons' \
+    llm='exa -lbGF@ --git --sort=modified  --icons' \
     llt='du -sh * | sort -h' \
     lr='\ls -tRFh' \
     lrt='\ls -1Fcrt' \
@@ -124,47 +142,67 @@ alias \
 
 # Editors
 alias \
+    e.a='${EDITOR} ${HOME}/.aliases' \
     m=micro \
     m.a='micro $HOME/.aliases' \
     m.m='m ~/.zsh/oh-my-zsh.sh' \
     mp='micro $PREFIX/etc/profile' \
-    m.z='micro ${ZDOTDIR:-$HOME}/.zshrc' \
+    m.z='micro ${ZDOTDIR:-$HOME/.config/zsh}/.zshrc' \
     mli='micro $PREFIX/bin/login' \
     mz='micro $PREFIX/etc/zshrc' \
-    zshrc='${=EDITOR} ${ZDOTDIR:-$HOME}/.zshrc' \
     n='nano -mce%' \
     n.a='nano -mce% $HOME/.aliases' \
     n.b='nano -mce% $HOME/.bashrc' \
     n.o='n ~/openssh/open' \
-    n.z='nano -mce% ${ZDOTDIR:-$HOME}/.zshrc' \
+    n.z='nano -mce% ${ZDOTDIR:-$HOME/.config/zsh}/.zshrc' \
     nb='nano -mce $PREFIX/etc/bash.bashrc' \
     np='nano -mce% $PREFIX/etc/profile' \
     nz='nano -mlce% $PREFIX/etc/zshrc' \
-    vim='nvim' \
+    eb='${EDITOR} $PREFIX/etc/bash.bashrc' \
+    ep='${EDITOR} $PREFIX/etc/profile' \
+    ez='${EDITOR} $PREFIX/etc/zshrc' \
+    eli='${EDITOR} $PREFIX/bin/login' \
+    e.b='${EDITOR} $HOME/.bashrc' \
+    e.o='${EDITOR} ~/openssh/open' \
+    vim=nvim \
     v=nvim \
     vimdiff="nvim -d" \
-    init='${=EDITOR} ${ZDOTDIR:-$HOME}/.config/nvim/init.vim'
+    init='${EDITOR} $HOME/.config/nvim/init.vim' \
+    zshrc='${EDITOR} ${ZDOTDIR:-$HOME/.config/zsh}/.zshrc'
+
+# Plugins
+alias \
+    forgit="source <(curl -sSL git.io/forgit)" \
+    fsh='fast-theme' \
+    zsnapshot='source ~/.zsh/custom/plugins/zsnapshot/zsnapshot.plugin.zsh' \
+    loadls='source "/data/data/com.termux/files/home/.local/share/lscolors.sh"' \
+    reloadzsh='source ~/.zsh/plugins/zsh_reload/zsh_reload.plugin.zsh' \
+    aliase='source ~/.zsh/plugins/aliases/aliases.plugin.zsh' \
+    edit='source ~/gitrepos/zsh-edit/zsh-edit.plugin.zsh' \
+    npm-complete='s ~/.zsh/custom/plugins/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh'
 
 # zlua
 alias \
-    zi="_zlua -i"
-#     zb='_zlua -b' \
-#     zbf='_zlua -b -I' \
-#     zbi='_zlua -b -i' \
-#     zc='_zlua -c' \
-#     zf='_zlua -I' \
-#     zh='_zlua -I -t .' \
-#     zzc='zi -c'
+    zz="z -i" \
+    zc='z -c' \
+    zf='z -I' \
+    zb='z -b' \
+    zbf='z -b -I' \
+    zbi='z -b -i' \
+    zh='z -I -t .' \
+    zzc='zz -c'
 
 # Termux
 alias \
     bttry=termux-battery-status \
     cpy=termux-clipboard-set \
+    tcs=termux-clipboard-set \
     foto=termux-camera-photo \
     open='termux-open --chooser "$@"' \
     pst=termux-clipboard-get \
-    t-b='termux-brightness' \
-    t-n=termux-notification \
+    tcg=termux-clipboard-get \
+    tb='termux-brightness' \
+    tn=termux-notification \
     tbs=termux-battery-status \
     tcp=termux-camera-photo \
     tcr=termux-change-repo \
@@ -208,10 +246,12 @@ alias \
     gds="git diff --staged" \
     gc='git clone' \
     gf='git fetch' \
-    g=git \
+    g='\git' \
+    git='git' \
     check='git checkout' \
     pull='git pull origin' \
     push='git push origin' \
+    gs='git status' \
     gss='git status -sb' \
     gps='git push' \
     gpl='git pull' \
@@ -221,5 +261,6 @@ alias \
     grm='git rm' \
     grmc='git rm --cached' \
     grs="git restore --staged" \
-    gmv='git mv'
+    gmv='git mv' \
+    gst='git stash'
 

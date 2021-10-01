@@ -1,8 +1,9 @@
 [user]
     name       = Dalmater
+    email      = 77870538+Dalmater@users.noreply.github.com
 
 [credential]
-    helper     = cache --timeout=6600
+    helper     = cache
 
 [core]
     editor     = nvim
@@ -29,8 +30,8 @@
     cm         = commit -m
     ds         = diff --staged
     check      = checkout
-    pull       = git pull origin
-    push       = git push origin
+    pull       = pull origin
+    push       = push origin
     ss         = status -sb
     s          = status
     r          = remote -v
@@ -103,25 +104,25 @@
     plus-emph-style          = reverse green
     minus-empty-line-marker-style = normal "#4d4b4f"
     plus-empty-line-marker-style  = normal "#3e5c64"
-    line-numbers-zero-style  = "#ffffff"
+    line-numbers-zero-style  = "#dbdbd2"
     line-numbers-minus-style = red
     line-numbers-plus-style  = green
-    plus-style               = "syntax #012800"
-    minus-style              = "syntax #340001"
+    plus-style               = "syntax #113810"
+    minus-style              = "syntax #542021"
     syntax-theme             = gruvbox-dark
     navigate                 = true
     diffFilter               = delta --color-only
     whitespace-error-style   = 22 reverse
 
 [delta "interactive"]
-    keep-plus-minus-markers = false
+    keep-plus-minus-markers  = true
 
 [delta "decorations"]
-    commit-decoration-style = blue ul
-    commit-style = raw
-    file-style = omit
+    commit-decoration-style  = blue ul
+    commit-style             = raw
+    file-style               = omit
     file-decoration-style    = none
-    hunk-header-decoration-style = blue box
-    hunk-header-file-style = red
+    hunk-header-decoration-style  = blue box
+    hunk-header-file-style        = red
     hunk-header-line-number-style = "#067a00"
     hunk-header-style = file line-number syntax

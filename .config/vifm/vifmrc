@@ -1,4 +1,4 @@
-" vim: filetype=vifm :
+" vim: filetype=vifm
 " Sample configuration file for vifm (last updated: 9 September, 2020)
 " You can edit this file by hand.
 " The " character at the beginning of a line comments out the line.
@@ -50,7 +50,7 @@ set sortnumbers
 
 " Maximum number of changes that can be undone.
 
-set undolevels=250
+set undolevels=450
 
 " Use Vim's format of help file (has highlighting and "hyperlinks").
 " If you would rather use a plain text help file set novimhelp.
@@ -92,9 +92,13 @@ set smartcase
 set dotfiles
 set confirm
 set title
+set hlsearch
+set wrap
+set sort=+name
+set sortorder=ascending
 
 " Don't highlight search results automatically
-set nohlsearch
+""set nohlsearch
 
 " Use increment searching (search while typing)
 set incsearch
@@ -106,7 +110,7 @@ set scrolloff=3
 " Don't do too many requests to slow file systems
 
 ""if !has('win')
- ""   set slowfs=curlftpfs
+""    set slowfs=curlftpfs
 ""endif
 
 " Set custom status line look
@@ -406,8 +410,7 @@ filextype */
 
 " What should be saved automatically between vifm sessions."  Drop "savedirs"
 " value if you don't want vifm to remember last visited directories for you. cs ?
-set vifminfo=dhistory,chistory,state,tui,shistory,
-    \phistory,fhistory,dirstack,registers,bookmarks,bmarks
+set vifminfo=dhistory,chistory,state,tui,shistory,phistory,fhistory,dirstack,registers,bookmarks,bmarks,cp
 " :pwd
 " ------------------------------------------------
 
@@ -560,7 +563,7 @@ set findprg='find %s %a -print ,
 "    let &statusline.= ' '.$RIGHTS.' ' " user and group owners of the file
 "    let &statusline.= '%3*%1*'       " right separator
     let &statusline.= ' %5E '          " human readable cumulative file size
-    let &statusline.= '%4*%2*'        " right separator
+    let &statusline.= '%4* %2*'        " right separator
     let &statusline.= '%d'            " file modification date and time
 "else
 "    let &statusline.= ' '
@@ -574,10 +577,10 @@ set findprg='find %s %a -print ,
 " https://github.com/cirala/vifm_devicons
 
 " Filetypes/directories
-set classify=' :dir:/, :exe:, :reg:, :link:,? :?:, ::../::'
+set classify=' :dir:/, :exe:, :reg:, :link:,? :?:, ::../::'
 
 " Specific files
-set classify+=' ::.Xdefaults,,.Xresources,,.bashprofile,,.bash_profile,,.bashrc,,bashrc,,.dmrc,,.d_store,,.fasd,,.gitconfig,,.gitignore,,.jack-settings,,.mime.types,,.nvidia-settings-rc,,.pam_environment,,.profile,,profile,,.recently-used,,.selected_editor,,.xinitpurc,,.zprofile,,.yarnc,,.snclirc,,.tmux.conf,,.urlview,,.config,,.ini,,*.ini,,.user-dirs.dirs,,.mimeapps.list,,.offlineimaprc,,.msmtprc,,.Xauthority,,.zshrc,,zshrc,,.zshenv,,zshenv,,*aliases,,config::'
+set classify+=' ::.Xdefaults,,.Xresources,,.bashprofile,,.bash_profile,,.bashrc,,bashrc,,.dmrc,,.d_store,,.fasd,,.jack-settings,,.mime.types,,.nvidia-settings-rc,,.pam_environment,,.profile,,profile,,.recently-used,,.selected_editor,,.xinitpurc,,.zprofile,,.yarnc,,.snclirc,,.tmux.conf,,.urlview,,.config,,.ini,,*.ini,,.user-dirs.dirs,,.mimeapps.list,,.offlineimaprc,,.msmtprc,,.Xauthority,,.zprofile,,zprofile,,.zshrc,,zshrc,,.zshenv,,zshenv,,*aliases,,.aliases,,.aliasrc,,config::'
 set classify+=' ::dropbox::'
 set classify+=' ::favicon.*,,README,,readme::'
 set classify+=' ::*.vim,,.vim,,.vimrc,,vifmrc,,.gvimrc,,*.vifm::'
@@ -600,7 +603,7 @@ set classify+=' ::*.js::'
 set classify+=' ::*.bmp,,*.gif,,*.ico,,*.jpeg,,*.jpg,,*.png,,*.svg,,*.svgz,,*.tga,,*.tiff,,*.xmb,,*.xcf,,*.xpm,,*.xspf,,*.xwd,,*.cr2,,*.dng,,*.3fr,,*.ari,,*.arw,,*.bay,,*.crw,,*.cr3,,*.cap,,*.data,,*.dcs,,*.dcr,,*drf,,*.eip,,*.erf,,*.fff,,*.gpr,,*.iiq,,*.k25,,*.kdc,,*.mdc,,.*mef,,*.mos,,.*.mrw,,.*.obm,,*.orf,,*.pef,,*.ptx,,*.pxn,,*.r3d,,*.raf,,*.raw,,*.rwl,,*.rw2,,*.rwz,,*.sr2,,*.srf,,*.srf,,*.srw,,*.tif,,*.x3f::'
 set classify+=' ::*.ejs,,*.htm,,*.html,,*.slim,,*.xml::'
 set classify+=' ::*.mustasche::'
-set classify+=' ::*.css,,*.less,,*.bat,,*.conf,,*.ini,,*.rc,,*.yml,,*.cfg,,*.rc::'
+set classify+=' ::*.css,,*.less,,*.bat,,*.conf,,*.ini,,*.rc,,*.yml,,*.yaml,,.*.yml,,*.cfg,,*.rc::'
 set classify+=' ::*.rss::'
 set classify+=' ::*.coffee::'
 set classify+=' ::*.twig::'
@@ -608,6 +611,7 @@ set classify+=' ::*.c++,,*.cpp,,*.cxx,,*.h::'
 set classify+=' ::*.cc,,*.c::'
 set classify+=' ::*.hs,,*.lhs::'
 set classify+=' ::*.lua::'
+set classify+=' ::*.git,,.gitconfig,,.gitignore::'
 set classify+=' ::*.jl::'
 set classify+=' ::*.go::'
 set classify+=' ::*.ts::'

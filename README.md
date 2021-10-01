@@ -6,38 +6,36 @@
 
 This is my setup for **Termux** on **Android**.<br>
 With **zsh, fzf, nvim, vim/lightline, starship, Tmux,
-git, vifm**, micro and some more. <br>
-Oh, and a lot of **aliases and fzf functions**.
+git, vifm**, micro and more. <br>
+A lot of **aliases, fzf functions** and a couple scripts.
 
-I'm using too many plugins but only 2-3 are essential
-to me(fast syntax highlighting, zsh-autosuggestions, fzf-tab).<br>
-I'm using [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh) as a plugin manager with about 10-15 plugins.<br>
-#### ***Zsh startup time on Android 9(Sm-j7) is about 0.8 - 1.2 sec***<br>(0.53s user 0.20s system 80% cpu 0.912 total)
+I'm using too many plugins but only 2 or 3 are essential(fast syntax highlighting, zsh-autosuggestions, fzf-tab).<br>
+[oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)(configured) manages about 10 - 15 plugins.<br>
+***Zsh startup time on Android 9(Sm-j7) is about 0.5 - 0.75 sec***<br>
+(zsh -i -c exit  0.39s user 0.12s system 85% cpu 0.625 total)
 
-#### ***Starship timings***
-- In my home directory<br>
-  - directory   -   2ms  -  ~ <br>
-  - line_break  -  <1ms  -  \n <br>
-  - character   -  <1ms  -  ❯ <br>
-
-- In a git repo (oh-my-zsh)<br>
-  - git_status   -  44ms  -   $×1 ✘×3 !×10<br>
-  - git_metrics  -  41ms  -   +181|-242<br>
-  - directory    -  13ms  -   ~/.zsh<br>
-  - git_commit   -   5ms  -   (6d5b8484)<br>
-  - git_branch   -   5ms  -    master:origin/master<br>
-  - line_break   -  <1ms  -   \n <br>
-  - character    -  <1ms  -   ❯
-
-#### **Essential plugins**<br>
+#### **Essential plugins**
 [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)<br>
 [fast-syntax-highlighting](https://github.com/zdharma/fast-syntax-highlighting)<br>
 [fzf-tab](https://github.com/Aloxaf/fzf-tab)
 
-#### **Prompt**
-[starship](https://github.com/starship/starship)
+#### **Prompt**<br>
+[starship](https://github.com/starship/starship) ***timings***<br>
+- In my home directory
+  - directory   -   2ms  -  ~
+  - line_break  -  <1ms  -  \n
+  - character   -  <1ms  -  ❯
 
-### **TODO**
+- In a git repo (oh-my-zsh)
+  - git_status   -  43ms  -   »×8 !×7
+  - git_metrics  -  38ms  -   +68|-115
+  - directory    -  13ms  -   ~/.zsh
+  - git_commit   -   5ms  -   (93ad3a8)
+  - git_branch   -   5ms  -    master:origin/master
+  - line_break   -  <1ms  -   \n
+  - character    -  <1ms  -   ❯<br>
+![Termux-pic](storage/Termux_Prompt-time.jpg)
+
+### **TODO**<br>
 Migrate to [Zinit](https://github.com/zdharma/zinit)
-<br>
-Clean up .zshrc with a zshenv and .zprofile file.
+or do it without any plugin manager by myself.
