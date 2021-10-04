@@ -19,7 +19,7 @@ let g:vim_markdown_frontmatter = 1
 
 " call plug#begin('~/.config/nvim/plugged')
 call plug#begin('~/.local/share/nvim/plugged')
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-update-rc' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-update-rc' }
 Plug 'junegunn/fzf.vim'
 " Covinience
 Plug 'tpope/vim-repeat'
@@ -57,9 +57,9 @@ Plug 'honza/vim-snippets'
 " Plug 'norcalli/snippets.nvim'
 " Plug 'nvim-lua/completion-nvim'
 " Neovim LSP
-Plug 'neovim/nvim-lspconfig'
+" Plug 'neovim/nvim-lspconfig'
 " Plug 'tjdevries/nlua.nvim'
-Plug 'tjdevries/lsp_extensions.nvim'
+" Plug 'tjdevries/lsp_extensions.nvim'
 " Extras
 " Plug 'majutsushi/tagbar', { 'on': 'TagbarToggle' }
 Plug 'tpope/vim-obsession'
@@ -535,6 +535,8 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 cnoremap <expr> * getcmdline() =~ '.*\*\*$' ? '/*' : '*'
 " cnoreabbr <expr> %% fnameescape(expand('%:p'))
 
+nnoremap <leader>aa :argadd <C-r>=fnameescape(expand('%:p:h'))<CR>/*<C-d>
+
 ""highlight search off
 noremap <silent> <leader><Esc> :noh<CR><Esc>
 
@@ -623,16 +625,16 @@ noremap <silent> <leader>hv  <C-w>t<C-w>K
 "" Tab navigation mappings
 nnoremap   <Tab> gt
 nnoremap <S-Tab> gT
-noremap <silent> <leader>tn :tabn<CR>
+noremap <silent> <leader>tn :tabnext<CR>
 noremap <silent> <leader>tp :tabp<CR>
-noremap <silent> <leader>tm :tabm<CR>
+noremap <silent> <leader>tm :tabmove<CR>
 noremap <silent> <leader>tt :tabnew<CR>
 noremap <silent> <leader>tc :tabclose<CR>
 noremap <silent> <leader>ts :tab split<CR>
 noremap <silent> <leader>sh :<C-u>split<CR>
 noremap <silent> <leader>sv :<C-u>vsplit<CR>
 
-" buffer nav & args "
+" buffer navigation
 nmap    <silent> <leader>w  :update<CR>
 nmap    <silent> <leader>bd :bdelete<CR>
 nmap    <silent> <leader>bu :Buffer <C-d>
@@ -642,8 +644,6 @@ nmap    <silent> <Leader>ba :badd
 nmap    <silent> <Leader>bw :w<CR>
 nmap    <silent> <Leader>bn :bnext<CR>
 nmap    <silent> <Leader>bp :bprevious<CR>
-
-nnoremap <leader>aa :argadd <C-r>=fnameescape(expand('%:p:h'))<CR>/*<C-d>
 
 "--------- "Standart Keybindings" ---------
 
@@ -672,8 +672,8 @@ map <silent> <leader>q  <ESC>:qa<CR>
 
 " -------------- "Copy & paste" --------------
 
-vnoremap <C-c> y
 noremap  <C-c> "+y
+vnoremap <C-c> y
 
 "" Control-P Paste
 " inoremap <C-P> <esc>pa
@@ -684,7 +684,6 @@ noremap  <leader>p "0p
 noremap  <leader>P "0P
 " noremap <leader>pp "+gp<CR>
 noremap  <leader>y "+y<CR>
-noremap  <leader>x "+x<CR>
 
 " Allow for easy copying and pasting
 vnoremap y y`]
@@ -929,7 +928,7 @@ let g:which_key_map = {}
 " let g:which_key_map = { 'e' : 'which_key_ignore' }
 " let g:which_key_map = { '<Esc>' : 'which_key_ignore' }
 let g:which_key_map = { '<C-]>' : 'goto definition' }
-let g:which_key_map['a'] = { 'name': '+f autoformat' }
+" let g:which_key_map['a'] = { 'name': '+f autoformat' }
 let g:which_key_map['b'] = { 'name': '+buffers' }
 let g:which_key_map['c'] = { 'name': '+Commands_History +Colors' }
 let g:which_key_map['f'] = { 'name': '+FZF' }
@@ -941,12 +940,12 @@ let g:which_key_map['s'] = { 'name': '+spell +split' }
 let g:which_key_map['t'] = { 'name': '+tabs +tags' }
 let g:which_key_map['v'] = { 'name': '+change_split' }
 let g:which_key_map['z'] = { 'name': 'edit zshrc' }
-let g:which_key_map['n'] = { 'name': 'which_key_ignore' }
+let g:which_key_map['n'] = { 'name': 'New Netrw Tab' }
 " let g:which_key_map[' '] = { 'name': 'easymotion' }
 let g:which_key_map.e = 'which_key_ignore'
 let g:which_key_map['<Esc>'] = 'which_key_ignore'
 let g:which_key_map['i'] = 'edit init.vim'
-let g:which_key_map['.'] = 'set working direct ory'
+let g:which_key_map['.'] = 'set working directory'
 
 " call which_key#register('space', "g:which_key_map")
 autocmd! User vim-which-key call which_key#register('<Space>', "g:which_key_map")

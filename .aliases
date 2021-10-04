@@ -60,7 +60,7 @@ alias \
     mkd='nocorrect mkdir -pv' \
     mkdir='nocorrect mkdir -pv' \
     mv='nocorrect mv -i -v' \
-    ncdu='ncdu --color=dark -L -x' \
+    ncdu='ncdu -L -e --color=dark' \
     pkg='noglob pkg' \
     py='python' \
     rm='nocorrect rm -I -v' \
@@ -143,6 +143,12 @@ alias \
 # Editors
 alias \
     e.a='${EDITOR} ${HOME}/.aliases' \
+    e.b='${EDITOR} $HOME/.bashrc' \
+    eb='${EDITOR} $PREFIX/etc/bash.bashrc' \
+    ep='${EDITOR} $PREFIX/etc/profile' \
+    ez='${EDITOR} $PREFIX/etc/zshrc' \
+    eli='${EDITOR} $PREFIX/bin/login' \
+    eo='${EDITOR} ~/openssh/open' \
     m=micro \
     m.a='micro $HOME/.aliases' \
     m.m='m ~/.zsh/oh-my-zsh.sh' \
@@ -153,17 +159,10 @@ alias \
     n='nano -mce%' \
     n.a='nano -mce% $HOME/.aliases' \
     n.b='nano -mce% $HOME/.bashrc' \
-    n.o='n ~/openssh/open' \
     n.z='nano -mce% ${ZDOTDIR:-$HOME/.config/zsh}/.zshrc' \
     nb='nano -mce $PREFIX/etc/bash.bashrc' \
     np='nano -mce% $PREFIX/etc/profile' \
     nz='nano -mlce% $PREFIX/etc/zshrc' \
-    eb='${EDITOR} $PREFIX/etc/bash.bashrc' \
-    ep='${EDITOR} $PREFIX/etc/profile' \
-    ez='${EDITOR} $PREFIX/etc/zshrc' \
-    eli='${EDITOR} $PREFIX/bin/login' \
-    e.b='${EDITOR} $HOME/.bashrc' \
-    e.o='${EDITOR} ~/openssh/open' \
     vim=nvim \
     v=nvim \
     vimdiff="nvim -d" \

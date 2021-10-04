@@ -8,7 +8,7 @@ export LSCOLORS="Gxfxcxdxbxegedabagacad"
 export ZLS_COLORS
 
 if [[ -z "$LS_COLORS" ]]; then
-    (( $+commands[dircolors] )) && eval "$(dircolors -b)"
+  (( $+commands[dircolors] )) && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
 # XDG Path

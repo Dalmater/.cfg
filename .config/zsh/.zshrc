@@ -19,9 +19,9 @@ ZSH_CACHE_DIR="$HOME/.cache/zsh"
 
 # Plugins
 plugins=(
-  colorize
   # nice-exit-code
   colored-man-pages
+  colorize
   zsh-hist zsh-autopair title
   dotbare fzf-tab
   you-should-use
@@ -207,7 +207,7 @@ export FZF_ALT_C_OPTS="--ansi --preview 'exa -a1 --icons {}' --preview-window=ri
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :200 {}' \
   --preview-window 'down,60%,border-top,hidden' --bind change:first --keep-right"
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window=down,3,hidden,wrap,border --bind 'alt-t:toggle-preview' --sort --exact"
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window=down,3,hidden,wrap,border --bind 'alt-t:toggle-preview'"
 # export FZF_CTRL_R_OPTS='--sort --exact'
 export FZF_COMPLETION_OPTS="--height 90% --min-height 25 --border --info=inline" # --preview-window=down,3,hidden,wrap,border --preview 'eval eval echo {+}'"
 export FZF_TMUX_OPTS="-d 60% --preview-window 'down,50%:hidden:wrap'"
