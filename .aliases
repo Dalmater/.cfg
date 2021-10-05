@@ -119,25 +119,25 @@ alias \
 
 # ls & exa
 alias \
-    exa='exa --color=always --icons'\
+    exa='exa --colour-scale --color=always --icons'\
     l='exa -b@ --icons --git' \
     lS='exa -1 --icons' \
     la='exa -bhHigUmuSaa --git --icons' \
     lart='\ls -1Fcart' \
-    ldot='ls -ld .*' \
-    llg='ll --git' \
-    ll='exa -ahlFbG@ --icons' \
+    ldot='ls --colour-scale -ld .*' \
+    llg='ll --colour-scale --git' \
+    ll='exa -ahlFbG@ --colour-scale --icons' \
     l.='exa -d .*' \
     ll.='exa -Fhl -d .*' \
     lld='\ls -D */' \
-    lll='exa -ahlT --icons L -R' \
-    llm='exa -lbGF@ --git --sort=modified  --icons' \
+    lll='exa -ahlT --colour-scale --icons L -R' \
+    llm='exa -lbGF@ --git --sort=modified --colour-scale --icons' \
     llt='du -sh * | sort -h' \
     lr='\ls -tRFh' \
     lrt='\ls -1Fcrt' \
-    ls='exa -a --icons --git' \
-    lsa='exa -alFh@T --level=3 --icons | more -f' \
-    lt='exa -alhFt@ --time=changed --icons' \
+    ls='exa -a --colour-scale --icons --git' \
+    lsa='exa -alFh@T --level=3 --colour-scale --icons | more -f' \
+    lt='exa -alhFt@ --time=changed --colour-scale --icons' \
     lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
 
 # Editors
