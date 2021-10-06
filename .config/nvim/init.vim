@@ -77,16 +77,17 @@ Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 Plug 'justinmk/vim-sneak'
 " Plug 'easymotion/vim-easymotion'
 Plug 'romainl/vim-cool'
-Plug 'norcalli/nvim-colorizer.lua'
-" Plug 'skammer/vim-css-color'
-  " let g:cssColorVimDoNotMessMyUpdatetime = 1
 " statusline
 Plug 'itchyny/lightline.vim'
 Plug 'ryanoasis/vim-devicons'
 " Syntax Highlight & Colorscheme
 Plug 'lifepillar/vim-gruvbox8'
-" Plug 'sheerun/vim-polyglot'
-Plug 'gisphm/vim-polyglot-min'
+Plug 'sheerun/vim-polyglot'
+" Plug 'gisphm/vim-polyglot-min'
+" Plug 'ap/vim-css-color'
+Plug 'norcalli/nvim-colorizer.lua'
+" Plug 'skammer/vim-css-color'
+  " let g:cssColorVimDoNotMessMyUpdatetime = 1
 
 if exists('$TMUX')
   Plug 'tmux-plugins/vim-tmux'
