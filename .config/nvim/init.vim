@@ -47,7 +47,7 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 " Git
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter' ", { 'on': 'GitGutterToggle', 'for': 'git' }
+Plug 'airblade/vim-gitgutter', { 'for': 'git' }
 Plug 'tpope/vim-rhubarb', {'on': 'GBrowse' }
 " Better autocompletion
 Plug 'jayli/vim-easycomplete'
@@ -81,13 +81,13 @@ Plug 'romainl/vim-cool'
 Plug 'itchyny/lightline.vim'
 Plug 'ryanoasis/vim-devicons'
 " Syntax Highlight & Colorscheme
-Plug 'lifepillar/vim-gruvbox8'
-Plug 'sheerun/vim-polyglot'
-" Plug 'gisphm/vim-polyglot-min'
-" Plug 'ap/vim-css-color'
 Plug 'norcalli/nvim-colorizer.lua'
+" Plug 'ap/vim-css-color'
 " Plug 'skammer/vim-css-color'
   " let g:cssColorVimDoNotMessMyUpdatetime = 1
+Plug 'lifepillar/vim-gruvbox8'
+" Plug 'sheerun/vim-polyglot'
+Plug 'gisphm/vim-polyglot-min'
 
 if exists('$TMUX')
   Plug 'tmux-plugins/vim-tmux'
@@ -98,7 +98,7 @@ endif
 
 call plug#end()
 
-  let g:CoolTotalMatches = 1
+  " let g:CoolTotalMatches = 1
   " let g:vim_markdown_no_default_key_mappings = 1
   let g:vim_markdown_new_list_item_indent = 2
   let g:vim_markdown_folding_disabled = 1
@@ -108,8 +108,8 @@ call plug#end()
 
 "-------------- "Configurations" --------------
 
-" filetype plugin indent on
-" syntax enable
+filetype plugin indent on
+syntax enable
 
 source ~/.config/nvim/settings/settings.vim
 source ~/.config/nvim/settings/lightline.vim
@@ -150,7 +150,6 @@ set guicursor=n-v:block-Cursor,i-c-ci-ve:ver25-iCursor,r-cr:hor20-lCursor,o:hor5
       \,o:blinkon0
 
 let g:optionprefix_improved_warnings = 1
-" let g:gruvbox_plugin_hi_groups = 1
 
 let g:awk_is_gawk = 1
 
@@ -161,12 +160,12 @@ endif
 
 " Delete trailing white spaces on save
 autocmd BufWritePre * %s/\s\+$//e
-" autocmd BufWritePre * %s/\n\+\%$//e
+autocmd BufWritePre * %s/\n\+\%$//e
 autocmd BufWritePre *.[ch] %s/\%$/\r/e
 
 " remove trailing whitespaces
 command! FixWhitespace :%s/\s\+$//e
-map <leader>fx :FixWhitespace
+map <leader>fx :FixWhitespace<CR>
 
 " Remember cursor position
 " augroup vimrc-remember-cursor-position
@@ -769,7 +768,7 @@ let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %
 let g:fzf_tags_command = 'ctags --excmd=number -R'
 
 " Expect expression for direct command execution
-let g:fzf_commands_expect = 'ctrl-space'
+let g:fzf_commands_expect = 'alt-enter'
 
 " fzf-history
 let g:fzf_history_dir = '~/.local/share/fzf-history'
@@ -859,19 +858,19 @@ inoremap <expr> <c-x><c-x> fzf#vim#complete(fzf#wrap({
       \ 'reducer': { lines -> join(split(lines[0], ':\zs')[2:], '') }}))
 
 "" Reducer example
-function! s:make_sentence(lines)
-  return substitute(join(a:lines), '^.', '\=toupper(submatch(0))', '').'.'
-endfunction
+" function! s:make_sentence(lines)
+"   return substitute(join(a:lines), '^.', '\=toupper(submatch(0))', '').'.'
+" endfunction
 
-function! s:build_quickfix_list(lines)
-  call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
-  copen
-  cc
-endfunction
+" function! s:build_quickfix_list(lines)
+"   call setqflist(map(copy(a:lines), '{ "filename": v:val }'))
+"   copen
+"   cc
+" endfunction
+"      \ 'alt-q'  : function('s:build_quickfix_list'),
 
 let g:fzf_action = {
       \ 'ctrl-e' : 'edit',
-      \ 'alt-q'  : function('s:build_quickfix_list'),
       \ 'ctrl-n' : 'tab new',
       \ 'ctrl-t' : 'tab split',
       \ 'ctrl-s' : 'split',
@@ -943,6 +942,7 @@ let g:which_key_map['v'] = { 'name': '+change_split' }
 let g:which_key_map['z'] = { 'name': 'edit zshrc' }
 let g:which_key_map['n'] = { 'name': 'New Netrw Tab' }
 " let g:which_key_map[' '] = { 'name': 'easymotion' }
+let g:which_key_map.d = 'which_key_ignore'
 let g:which_key_map.e = 'which_key_ignore'
 let g:which_key_map['<Esc>'] = 'which_key_ignore'
 let g:which_key_map['i'] = 'edit init.vim'

@@ -19,7 +19,7 @@ ZSH_CACHE_DIR="$HOME/.cache/zsh"
 
 # Plugins
 plugins=(
-  # nice-exit-code
+  nice-exit-code
   colored-man-pages
   colorize
   zsh-hist zsh-autopair title
@@ -36,7 +36,10 @@ plugins=(
   # zui zbrowse
 )
 
+# zstyle :omz:plugins:ssh-agent agent-forwarding on
 # zstyle :omz:plugins:keychain agents gpg,ssh
+# zstyle :omz:plugins:ssh-agent identities
+# zstyle :omz:plugins:ssh-agent lazy yes
 
 source $ZSH/oh-my-zsh.sh
 
@@ -60,7 +63,7 @@ FORGIT_COPY_CMD='termux-clipboard-set'
 
 # eval "$(lua5.3 ~/.zsh/custom/plugins/z.lua/z.lua --init zsh enhanced once)"
 _evalcache lua5.3 ~/.zsh/custom/plugins/z.lua/z.lua --init zsh
-export _ZL_EXCLUDE_DIRS="buffers,.git,node_modules,'_*'"
+export _ZL_EXCLUDE_DIRS="buffers,.git,node_modules,'_*','*_'"
 export _ZL_DATA="~/.cache/zsh/.zlua"
 export _ZL_ADD_ONCE=1
 export _ZL_MATCH_MODE=1
@@ -146,17 +149,19 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 # keybindings
 bindkey -s '^[R' 'ranger_cd \n'
 bindkey -s '^[V' 'vifm \n'
-bindkey    '^Z' list-choices
+bindkey    '^Z'   list-choices
 bindkey    '^[[H' beginning-of-line
 bindkey    '^[[F' end-of-line
 bindkey    '^[[1;3C' kill-word
 bindkey    '^[[1;3D' backward-kill-word
-bindkey    '^[v' vi-cmd-mode
+bindkey    '^[v'  vi-cmd-mode
 
 # source "${EXTERNAL_STORAGE}/termuxlauncher/.apps-launcher"
 lazyload launch -- 'source "${EXTERNAL_STORAGE}/termuxlauncher/.apps-launcher"'
 
 source /sdcard/Termux/launch-completion.bash
+
+# source ~/.local/share/lscolors.sh
 
 # source ~/.config/ranger/shell_automatic_cd.sh
 lazyload ranger_cd -- 'source "${HOME}/.config/ranger/shell_automatic_cd.sh"'
@@ -187,10 +192,10 @@ source "/data/data/com.termux/files/home/.fzf/shell/key-bindings.zsh"
 export FZF_BASE='~/.fzf'
 #export FZF_BASE='$PREFIX/share/fzf'
 # export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude .cache'
-export FZF_DEFAULT_COMMAND='ag -l --hidden --nocolor -S -U -g "" --ignore .git'
+export FZF_DEFAULT_COMMAND='ag -l --hidden -S -U -g "" --ignore .git'
 export FZF_DEFAULT_OPTS="--height 90% --min-height 25 --color=bg:-1,bg+:#32302f,fg:#dbcba2,fg+:#dbcba2 \
-  --color=gutter:-1,info:#d79921,border:001,spinner:#fb4934,hl:#db3924:bold,hl+:#db3924:bold \
-  --color=header:#8ec07c:italic,pointer:#cd241d,prompt:#689d6a,marker:#78970a \
+  --color=gutter:-1,info:#d79921,border:#0000d7,spinner:#fb4934,hl:#928374,hl+:#db3924 \
+  --color=header:#8ec07c,pointer:#cd241d,prompt:#689d6a,marker:#78970a \
   --pointer='❯' --marker='√' --border --cycle --filepath-word --ansi -0 \
   --layout=reverse --info=inline --preview-window=down,60%,border-top,hidden \
   --bind 'alt--:+toggle-preview,alt-s:+toggle-sort,alt-j:jump' \
@@ -203,14 +208,16 @@ export FZF_DEFAULT_OPTS="--height 90% --min-height 25 --color=bg:-1,bg+:#32302f,
   --preview '([[ -f {} ]] && (bat --style=numbers --color=always --line-range :200 {})) || ([[ -d {} ]] && (tree -a -L 4 -C {} | less)) || echo {} 2> /dev/null | head -200'"
 export FZF_ALT_C_COMMAND='fd --type d . -a -L --color=always --hidden --no-ignore-vcs --base-directory /data/data/com.termux/files'
 export FZF_ALT_C_OPTS="--ansi --preview 'exa -a1 --icons {}' --preview-window=right,40%:border \
-  --keep-right --bind=alt-t:toggle-preview --bind change:first --history=$HOME/.local/share/fzf-history/alt-c-history"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+  --keep-right --bind change:first --history=$HOME/.local/share/fzf-history/alt-c-history"
+# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_CTRL_T_COMMAND='fd --type f --hidden --follow --color always --exclude .git'
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :200 {}' \
   --preview-window 'down,60%,border-top,hidden' --bind change:first --keep-right"
-export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window=down,3,hidden,wrap,border --bind 'alt-t:toggle-preview'"
+  export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window=down,3,hidden,wrap,border \
+    --bind change:first --sort --exact"
 # export FZF_CTRL_R_OPTS='--sort --exact'
-export FZF_COMPLETION_OPTS="--height 90% --min-height 25 --border --info=inline" # --preview-window=down,3,hidden,wrap,border --preview 'eval eval echo {+}'"
-export FZF_TMUX_OPTS="-d 60% --preview-window 'down,50%:hidden:wrap'"
+export FZF_COMPLETION_OPTS="--height 85% --min-height 20 --no-border --info=inline" # --preview-window=down,3,hidden,wrap,border --preview 'eval eval echo {+}'"
+# export FZF_TMUX_OPTS="-d 60% --preview-window 'down,50%:hidden:wrap'"
 export FZF_TMUX=1
 export FZF_HISTORY_DIR='~/.local/share/fzf-history'
 export DOTBARE_DIR="$HOME/.cfg.git"
@@ -221,6 +228,7 @@ export DOTBARE_KEY="--bind=alt-j:jump,alt-w:toggle-preview-wrap"
 # alias dotbare="$HOME/.zsh/custom/plugins/dotbare/dotbare"
 bindkey -s '^Xx' 'dotbare fedit \n'
 _dotbare_completion_cmd #dotbare
+# _dotbare_completion_git dot
 
 # FZF Function Examples
 

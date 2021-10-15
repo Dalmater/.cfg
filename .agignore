@@ -1,0 +1,15 @@
+.cache/
+cache/
+node_modules/
+_*/
+*_/
+.git/
+.cfg.git/
+buffers/
+.config/micro/backups/
+storage/shared/
+40E6-DFFD/.android_secure/
+.config/micro/plug/
+Android/data/
+vim-easycomplete/
+undo/

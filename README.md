@@ -34,7 +34,8 @@ I'm using too many plugins but only 2 or 3 are essential(fast syntax highlightin
   - git_branch   -   5ms  -    master:origin/master
   - line_break   -  <1ms  -   \n
   - character    -  <1ms  -   ❯<br>
-![Termux-pic](storage/Termux_Prompt-time.jpg)
+
+  ![Termux-pic](storage/Termux_Prompt-time.jpg)
 
 ### **TODO**<br>
 Migrate to [Zinit](https://github.com/zdharma/zinit)

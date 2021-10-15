@@ -88,3 +88,20 @@ function __calc_plugin {
 }
 aliases[calc]='noglob __calc_plugin'
 aliases[=]='noglob __calc_plugin'
+
+
+# Usage: palette
+palette() {
+  local -a colors
+  for i in {000..255}; do
+    colors+=("%F{$i}$i%f")
+  done
+  print -cP $colors
+}
+
+
+# Usage: printc COLOR_CODE
+printc() {
+  local color="%F{$1}"
+  echo -E ${(qqqq)${(%)color}}
+}

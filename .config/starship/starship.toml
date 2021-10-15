@@ -59,9 +59,9 @@ truncation_length = 20
 truncation_symbol = ''
 
 [git_status]
-ahead = '⇡${count}(#EBCB8B) '
+ahead = '⇡[$count](#EBCB8B) '
 diverged = '⇕⇡${ahead_count}⇣${behind_count}(#EBCB8B) '
-behind = '⇣${count}(#EBCB8B) '
+behind = '⇣[$count](#EBCB8B) '
 format = '[$all_status$ahead_behind]($style)'
 conflicted = '†[$count](#D08770) '
 untracked = '?[$count](#D79921) '

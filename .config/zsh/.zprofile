@@ -4,11 +4,10 @@ autoload -Uz colors && colors
 # Enable ls colors
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
 
-# ZLS_COLORS=true
-export ZLS_COLORS
+# source ~/.exacolors
 
 if [[ -z "$LS_COLORS" ]]; then
-  (( $+commands[dircolors] )) && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  (( $+commands[dircolors] )) && test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
 # XDG Path
@@ -67,4 +66,3 @@ setopt mark_dirs
 setopt no_beep
 setopt rc_quotes
 setopt transient_rprompt
-

@@ -22,7 +22,7 @@
     lg         = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --decorate
     lb         = branch --sort=-authordate --format '%(align:width=18)%(authordate:format:%Y-%m-%d %H:%M)%(end) %(align:width=14,position=right)%(authordate:relative)%(end) %(objectname:short) %(HEAD) %(if)%(HEAD)%(then)%(color:green)%(end)%(refname:short)'
     search     = ! git branch -a | sed '/->/d' | sed 's/\\*//' | xargs git grep -n -I
-    save       = !git add -A && git commit -m 'chore: commit save point
+    save       = !git add -A && git commit -m 'chore: commit save point'
     ll         = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
     stags      = !git for-each-ref --format='%(*committerdate:raw)%(committerdate:raw) %(refname) %(*objectname) %(objectname)' refs/tags | sort -n | cut -d'/' -f 3 | cut -d' ' -f 1
     aa         = add --all

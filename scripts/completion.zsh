@@ -72,7 +72,7 @@ zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':fzf-tab:*' show-group full
 # zstyle ':fzf-tab:*' default-color $'\033[97m'
 zstyle ':fzf-tab:*' prefix ''
-zstyle ':fzf-tab:*' fzf-flags --height 80% --min-height 20 --preview-window=down:45%:border:wrap
+zstyle ':fzf-tab:complete:*' fzf-flags --height 80% --min-height 20 --preview-window=down:45%:border:wrap
 
 # preview directory's content with exa when completing cd
 zstyle ':fzf-tab:complete:cd:*' tag-order local-directories directory-stack path-directories
@@ -173,3 +173,11 @@ zstyle ':fzf-tab:*' switch-group '1' '2'
 # zstyle ':fzf-tab:*' continuous-trigger '/'
 # zstyle ':fzf-tab:complete:*' fzf-bindings \
 #   'ctrl-o:execute-silent({_FTB_INIT_}nvim "$realpath")'
+
+# Group colors
+# FZF_TAB_GROUP_COLORS=(
+#     $'\033[94m' $'\033[32m' $'\033[33m' $'\033[35m' $'\033[31m' $'\033[38;5;27m' $'\033[36m' \
+#     $'\033[38;5;100m' $'\033[38;5;98m' $'\033[91m' $'\033[38;5;80m' $'\033[92m' \
+#     $'\033[38;5;214m' $'\033[38;5;165m' $'\033[38;5;124m' $'\033[38;5;120m'
+# )
+# zstyle ':fzf-tab:*' group-colors $FZF_TAB_GROUP_COLORS
