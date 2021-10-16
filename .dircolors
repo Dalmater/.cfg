@@ -67,8 +67,8 @@ TERM xterm*
 
 ## Special files
 
-NORMAL			38;5;248	# other information than filename
-# FILE			38;5;254	# regular file: use no color at all
+# NORMAL			38;5;248	# other information than filename
+# FILE			00	# regular file: use no color at all
 # #RESET			0		# reset to "normal" color
 DIR			01;34		# directory
 LINK			38;5;123	# symbolic link.  (If you set this to 'target' instead of a
