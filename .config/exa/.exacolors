@@ -5,7 +5,7 @@ export EXA_COLORS="${LS_COLORS//=9/=1;3}"
 # Normal file
 EXA_COLORS+="fi=0:"
 # Directory
-EXA_COLORS+="di=01;34;3:"
+EXA_COLORS+="di=01;34:"
 # Executable file
 EXA_COLORS+="ex=38;5;002;1:"
 # Named pipe
@@ -99,7 +99,7 @@ EXA_COLORS+="xx=0:"
 # Timestamp
 EXA_COLORS+="da=34:"
 # File inode
-EXA_COLORS+="in=37:"
+EXA_COLORS+="in=35:"
 # Number of blocks
 EXA_COLORS+="bl=36:"
 # Table header row

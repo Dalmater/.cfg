@@ -130,7 +130,7 @@ alias \
     l.='exa -d .*' \
     ll.='exa -Fhl -d .*' \
     lld='\ls -D */' \
-    lll='exa -ahlT --colour-scale --icons L -R' \
+    lll='exa -ahlT --colour-scale --icons -L 3 -R' \
     llm='exa -lbGF@ --git --sort=modified --colour-scale --icons' \
     llt='du -sh * | sort -h' \
     lr='\ls -tRFh' \
