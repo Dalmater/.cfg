@@ -117,7 +117,7 @@ cookie_file=~/.config/lynx/.lynx_cookies
 # be applied.  A domain with loose checking will be allowed to set cookies
 # with an invalid path or domain attribute.  All domains will default to
 # querying the user for an invalid path or domain.
-cookie_loose_invalid_domains=google.com
+cookie_loose_invalid_domains=
 
 cookie_query_invalid_domains=
 
@@ -133,7 +133,7 @@ dir_list_order=ORDER_BY_NAME
 # (if implemented).  The default is "MIXED_STYLE", which sorts both
 # files and directories together.  "FILES_FIRST" lists files first and
 # "DIRECTORIES_FIRST" lists directories first.
-dir_list_style=DIRECTORIES_FIRST
+dir_list_style=MIXED_STYLE
 
 # If emacs_keys is to "on" then the normal EMACS movement keys:
 #   ^N = down    ^P = up
@@ -323,7 +323,7 @@ sub_bookmarks=STANDARD
 # commands.  Set user_mode to "INTERMEDIATE" to turn off the extra info.
 # Use "ADVANCED" to see the URL of the currently selected link at the
 # bottom of the screen.
-user_mode=NOVICE
+user_mode=ADVANCED
 
 # If verbose_images is "on", lynx will print the name of the image
 # source file in place of [INLINE], [LINK] or [IMAGE]

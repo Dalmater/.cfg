@@ -41,8 +41,11 @@ fo() {
 }
 
 # search for all scripts and dotfiles, then open them with editor of choice
-files=(~/.bashrc ~/.config/{bat,configstore,git,htop,lynx,mpv,neofetch,npm,nvim,pip,pulse,tmux,ranger,vifm,w3m,wget,zsh}
-  ~/.lynxrc ~/scripts/* ~/bin/* ~/.local/bin/* $PREFIX/etc/* ~/documents/*)
+files=(~/.aliases ~/.bashrc ~/.zshenv ~/.gitconfig ~/.dircolors ~/.gemrc
+  ~/.config/{bat,configstore,ctags,fd,git,glow,htop,lynx,mpv,neofetch,npm,nvim,pip,pulse,ranger,starship,vifm,w3m,wget,zsh}
+  ~/.config/micro/bindings.json ~/.config/micro/settings.json ~/.config/tmux/tmux.conf
+  ~/.lynxrc ~/scripts/* ~/.local/bin/* ~/documents/*
+  $PREFIX/etc/{bash.bashrc,inputrc,nanorc,profile,tmux.conf,zshrc})
 
 dotf() {
   find $files -type f |
@@ -114,55 +117,55 @@ is_in_dot_repo() {
 }
 
 fzf-down() {
-fzf --height 50% --min-height 20 --border --bind alt--:toggle-preview "$@"
+fzf --height 80% --min-height 18 --border --preview-window=down,60%,border "$@"
 }
 
 fzf_gf() {
-    is_in_dot_repo || return
-    dot -c color.status=always status --short |
-        fzf-down -m --ansi --nth 2..,.. \
-        --preview '(git diff --color=always -- {-1} | sed 1,4d; cat {-1})' |
-        cut -c4- | sed 's/.* -> //'
-    }
+  is_in_dot_repo || return
+  dot -c color.status=always status --short |
+    fzf-down -m --ansi --nth 2..,.. \
+    --preview '(git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME diff --color=always -- {-1} | sed 1,4d; cat {-1})' |
+    cut -c4- | sed 's/.* -> //'
+  }
 
 fzf_gb() {
-    is_in_dot_repo || return
-    dot branch -a --color=always | grep -v '/HEAD\s' | sort |
-        fzf-down --ansi --multi --tac --preview-window right:70% \
-        --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' |
-        sed 's/^..//' | cut -d' ' -f1 |
-        sed 's#^remotes/##'
-    }
+  is_in_dot_repo || return
+  dot branch -a --color=always | grep -v '/HEAD\s' | sort |
+    fzf-down --ansi --multi --tac --preview-window right:70% \
+    --preview 'git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' |
+    sed 's/^..//' | cut -d' ' -f1 |
+    sed 's#^remotes/##'
+  }
 
 fzf_gt() {
-    is_in_dot_repo || return
-    dot tag --sort -version:refname |
-        fzf-down --multi --preview-window right:70% \
-        --preview 'git show --color=always {}'
-    }
+  is_in_dot_repo || return
+  dot tag --sort -version:refname |
+    fzf-down --multi --preview-window right:70%:nohidden \
+    --preview 'git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME show --color=always {}'
+  }
 
 fzf_gh() {
-    is_in_dot_repo || return
-    dot log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
-        fzf-down --ansi --no-sort --reverse --multi --bind 'alt-s:toggle-sort' \
-        --header 'Press ALT-S to toggle sort' \
-        --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always' |
-        grep -o "[a-f0-9]\{7,\}"
-    }
+  is_in_dot_repo || return
+  dot log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
+    fzf-down --ansi --no-sort --reverse --multi --bind 'alt-s:toggle-sort' \
+    --header 'Press ALT-S to toggle sort' \
+    --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME show --color=always' |
+    grep -o "[a-f0-9]\{7,\}"
+  }
 
 fzf_gr() {
-    is_in_dot_repo || return
-    dot remote -v | awk '{print $1 "\t" $2}' | uniq |
-        fzf-down --tac \
-        --preview 'git log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1}' |
-        cut -d$'\t' -f1
-    }
+  is_in_dot_repo || return
+  dot remote -v | awk '{print $1 "\t" $2}' | uniq |
+    fzf-down --tac \
+    --preview 'git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME log --oneline --graph --date=short --pretty="format:%C(auto)%cd %h%d %s" {1}' |
+    cut -d$'\t' -f1
+  }
 
 fzf_gs() {
-    is_in_dot_repo || return
-    dot stash list | fzf-down --reverse -d: --preview 'git show --color=always {1}' |
-        cut -d: -f1
-    }
+  is_in_dot_repo || return
+  dot stash list | fzf-down --reverse -d: --preview 'git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME show --color=always {1}' |
+    cut -d: -f1
+  }
 
 # Git dot Keybindings
 
@@ -176,9 +179,9 @@ done
 bind-git-helper() {
 local c
 for c in $@; do
-    eval "fzf-g$c-widget() { local result=\$(fzf_g$c | join-lines); zle reset-prompt; LBUFFER+=\$result }"
-    eval "zle -N fzf-g$c-widget"
-    eval "bindkey '^h$c' fzf-g$c-widget"
+    eval "fzf-h$c-widget() { local result=\$(fzf_g$c | join-lines); zle reset-prompt; LBUFFER+=\$result }"
+    eval "zle -N fzf-h$c-widget"
+    eval "bindkey '^h$c' fzf-h$c-widget"
 done
 }
 bind-git-helper f b t h r s
@@ -207,7 +210,7 @@ _gb() {
 _gt() {
   is_in_git_repo || return
   git tag --sort -version:refname |
-    fzf-down --multi --preview-window right:70% \
+    fzf-down --multi --preview-window right:70%:nohidden \
     --preview 'git show --color=always {}'
   }
 

@@ -19,7 +19,7 @@ let g:vim_markdown_frontmatter = 1
 
 " call plug#begin('~/.config/nvim/plugged')
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-update-rc' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin --no-update-rc' }
 Plug 'junegunn/fzf.vim'
 " Covinience
 Plug 'tpope/vim-repeat'
@@ -47,7 +47,7 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 " Git
 Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter', { 'for': 'git' }
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-rhubarb', {'on': 'GBrowse' }
 " Better autocompletion
 Plug 'jayli/vim-easycomplete'
@@ -142,6 +142,8 @@ hi PmenuSel guifg=#1a1a1a
 " hi PmenuSbar guibg=#444444
 " hi PmenuThumb guibg=#5d5d5d
 
+au TextYankPost * silent! lua vim.highlight.on_yank {higroup="Visual", timeout=500, on_visual=false}
+
 " Set cursor style
 " n-v-c-sm:block,i-ci-ve:ver25-Cursor,r-cr-o:hor20
 set guicursor=n-v:block-Cursor,i-c-ci-ve:ver25-iCursor,r-cr:hor20-lCursor,o:hor50-nCursor
@@ -160,7 +162,7 @@ endif
 
 " Delete trailing white spaces on save
 autocmd BufWritePre * %s/\s\+$//e
-autocmd BufWritePre * %s/\n\+\%$//e
+" autocmd BufWritePre * %s/\n\+\%$//e
 autocmd BufWritePre *.[ch] %s/\%$/\r/e
 
 " remove trailing whitespaces
@@ -168,22 +170,22 @@ command! FixWhitespace :%s/\s\+$//e
 map <leader>fx :FixWhitespace<CR>
 
 " Remember cursor position
-" augroup vimrc-remember-cursor-position
-"   autocmd!
-"   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
-" augroup END
-
-function! ResCur()
-  if line("'\"") <= line("$")
-    normal! g`"
-    return 1
-  endif
-endfunction
-
-augroup resCur
+augroup vimrc-remember-cursor-position
   autocmd!
-  autocmd BufWinEnter * call ResCur()
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 augroup END
+
+" function! ResCur()
+"   if line("'\"") <= line("$")
+"     normal! g`"
+"     return 1
+"   endif
+" endfunction
+
+" augroup resCur
+"   autocmd!
+"   autocmd BufWinEnter * call ResCur()
+" augroup END
 
 " auto save folds
 " augroup AutoSaveFolds
@@ -553,12 +555,13 @@ nnoremap <M-u> viwU<ESC>
 
 "" quick edit & source init.vim & .zshrc
 nnoremap <silent> <leader>i  :tabe $MYVIMRC<cr>
-nnoremap <silent> <leader>so :so $MYVIMRC<CR>:echo 'Config sourced'<cr>
+nnoremap <silent> <leader>so :so $MYVIMRC<CR>:echo 'Vim Config sourced'<cr>
 nnoremap <silent> <leader>zs :tabe $ZDOTDIR/.zshrc<CR>
 nnoremap <silent> <leader>sz :!source $ZDOTDIR/.zshrc<CR>:echo 'Config sourced'<cr>
 
-"" shortcut for creating shebang
+"" shortcuts for creating shebang
 inoremap <silent> <leader>sb  #!/data/data/com.termux/files/usr/bin
+nnoremap <silent> <leader>sb  i#!/data/data/com.termux/files/usr/bin
 
 " ctag goto definition/declaration
 nnoremap <Leader><C-]> <C-w><C-]><C-w>T
@@ -656,7 +659,6 @@ nmap k gk
 " Control-S & W Save
 nnoremap <silent> W          :update<CR>
 vnoremap <silent> W     <ESC>:update<CR>
-inoremap <silent> W    W<ESC>:update<CR>a
 " nnoremap <silent> <C-S>      :up<cr>
 " vnoremap <silent> <C-S> <esc>:up<cr>
 " inoremap <silent> <C-S> <esc>:up<cr>
@@ -933,20 +935,22 @@ let g:which_key_map['b'] = { 'name': '+buffers' }
 let g:which_key_map['c'] = { 'name': '+Commands_History +Colors' }
 let g:which_key_map['f'] = { 'name': '+FZF' }
 let g:which_key_map['g'] = { 'name': '+git +goyo' }
-let g:which_key_map['h'] = { 'name': 'hsearch + fzf' }
+let g:which_key_map['h'] = { 'name': 'hsearch + fzf & hor→vert split' }
 let g:which_key_map['l'] = { 'name': '+fzf_ls' }
 let g:which_key_map['o'] = { 'name': '+(c+l)open' }
-let g:which_key_map['s'] = { 'name': '+spell +split' }
+let g:which_key_map['s'] = { 'name': '+split +spell +source +shebang' }
 let g:which_key_map['t'] = { 'name': '+tabs +tags' }
-let g:which_key_map['v'] = { 'name': '+change_split' }
+let g:which_key_map['v'] = { 'name': 'vert→hor split' }
 let g:which_key_map['z'] = { 'name': 'edit zshrc' }
 let g:which_key_map['n'] = { 'name': 'New Netrw Tab' }
 " let g:which_key_map[' '] = { 'name': 'easymotion' }
 let g:which_key_map.d = 'which_key_ignore'
 let g:which_key_map.e = 'which_key_ignore'
+let g:which_key_map.q = 'which_key_ignore'
 let g:which_key_map['<Esc>'] = 'which_key_ignore'
 let g:which_key_map['i'] = 'edit init.vim'
 let g:which_key_map['.'] = 'set working directory'
+" let g:which_key_map['q'] = 'quit all'
 
 " call which_key#register('space', "g:which_key_map")
 autocmd! User vim-which-key call which_key#register('<Space>', "g:which_key_map")

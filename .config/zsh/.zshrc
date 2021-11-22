@@ -16,24 +16,29 @@ export ZSH="$HOME/.zsh"
 HIST_STAMPS="dd.mm.yyyy"
 ZSH_CUSTOM="$HOME/.zsh/custom"
 ZSH_CACHE_DIR="$HOME/.cache/zsh"
+ZSH_EVALCACHE_DIR="$HOME/.cache/evalcache"
+HISTFILE="$HOME/.cache/zsh/.zsh_history"
+ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump-${ZSH_VERSION}"
 
 # Plugins
 plugins=(
-  nice-exit-code
-  colored-man-pages
   colorize
-  zsh-hist zsh-autopair title
-  dotbare fzf-tab
+  colored-man-pages
+  zsh-hist
+  zsh-autopair
+  title
+  dotbare
+  fzf-tab
   you-should-use
   # ssh-agent gpg-agent zsh-handy-helpers
   # keychain
   zsh-lazyload
+  evalcache
   # zsnapshot
   # zhooks
-  evalcache
-  zsh-autosuggestions
-  fast-syntax-highlighting
-  # zui zbrowse
+  # zsh-autosuggestions
+  # fast-syntax-highlighting
+  # zui zbrowse zzcomplete
 )
 
 # zstyle :omz:plugins:ssh-agent agent-forwarding on
@@ -53,7 +58,7 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=58"
 ZSH_AUTOSUGGEST_USE_ASYNC=true
 
 export YSU_MODE=ALL
-# export YSU_MESSAGE_POSITION=after
+export YSU_MESSAGE_POSITION=after
 export YSU_IGNORED_ALIASES=( "g" "gc" "iaf" "cfg" )
 export YSU_MESSAGE_FORMAT="${BOLD}${YELLOW}\
 Found %alias_type for ${PURPLE}"%command"${YELLOW}. \
@@ -79,8 +84,8 @@ export MANPATH=$PREFIX/share/man
 # export MANPAGER="nvim -R -c 'set ft=man' -"
 export OPENER="xdg-open"
 export BROWSER="lynx"
-export FILE="vifm"
-# less_termcap[mb]="${fg_bold[blue]}"
+export WWW_HOME="duckduckgo.com"
+# export FILE="vifm"
 
 # For a full list of active aliases, run `alias`
 # Example aliases
@@ -161,20 +166,22 @@ lazyload launch -- 'source "${EXTERNAL_STORAGE}/termuxlauncher/.apps-launcher"'
 
 source /sdcard/Termux/launch-completion.bash
 
-# source ~/.local/share/lscolors.sh
-
 # source ~/.config/ranger/shell_automatic_cd.sh
 lazyload ranger_cd -- 'source "${HOME}/.config/ranger/shell_automatic_cd.sh"'
 
 # sticky notes
 autoload -Uz sticky-note
     zle -N sticky-note
-zstyle :sticky-note notefile ~/documents/notes/notes
+zstyle :sticky-note notefile $HOME/documents/notes/notes
 zstyle :sticky-note maxnotes 500
 zstyle :sticky-note theme \
     bg black \
     fg $fg_bold[yellow]
 bindkey '^s' sticky-note
+
+autoload -Uz history-beginning-search-menu
+zle -N history-beginning-search-menu
+bindkey '^X^S' history-beginning-search-menu
 
 ############# >FZF Base< #############
 
@@ -184,17 +191,19 @@ bindkey -s '^fd' 'dotf \n'
 bindkey -s '^fn' 'live_search_notes \n'
 bindkey -s '^ff' 'fuz \n'
 bindkey    '^ft' 'toggle-fzf-tab'
+bindkey -s '^[r' 'rg-fzf \n'
+bindkey    '^X,' 'toggle-fzf-tab'
 
 source "/data/data/com.termux/files/home/.fzf/shell/key-bindings.zsh"
 # source "$ZDOTDIR/fzf-cfg.zsh"
-# source "$HOME/scripts/fzf_functions.zsh"
+source "$HOME/scripts/fzf_functions.zsh"
 
 export FZF_BASE='~/.fzf'
 #export FZF_BASE='$PREFIX/share/fzf'
 # export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude .cache'
 export FZF_DEFAULT_COMMAND='ag -l --hidden -S -U -g "" --ignore .git'
 export FZF_DEFAULT_OPTS="--height 90% --min-height 25 --color=bg:-1,bg+:#32302f,fg:#dbcba2,fg+:#dbcba2 \
-  --color=gutter:-1,info:#d79921,border:#0000d7,spinner:#fb4934,hl:#928374,hl+:#db3924 \
+  --color=gutter:-1,info:#d79921,border:1,spinner:#fb4934,hl:underline:#928374,hl+:#db3924 \
   --color=header:#8ec07c,pointer:#cd241d,prompt:#689d6a,marker:#78970a \
   --pointer='❯' --marker='√' --border --cycle --filepath-word --ansi -0 \
   --layout=reverse --info=inline --preview-window=down,60%,border-top,hidden \
@@ -205,7 +214,7 @@ export FZF_DEFAULT_OPTS="--height 90% --min-height 25 --color=bg:-1,bg+:#32302f,
   --bind 'ctrl-d:reload(fd --type d . -L --color=always --hidden),ctrl-f:reload($FZF_DEFAULT_COMMAND)' \
   --bind 'alt-l:execute(less& -f {}),alt-y:execute-silent(echo {+} | termux-clipboard-set)' \
   --bind 'alt-o:execute(echo {+} | xargs -o $EDITOR)' --bind '?:preview:echo {}' \
-  --preview '([[ -f {} ]] && (bat --style=numbers --color=always --line-range :200 {})) || ([[ -d {} ]] && (tree -a -L 4 -C {} | less)) || echo {} 2> /dev/null | head -200'"
+  --preview '([[ -f {} ]] && (bat -A --style=numbers --color=always --line-range :200 {})) || ([[ -d {} ]] && (tree -a -L 4 -C {} | less)) || echo {} 2> /dev/null | head -200'"
 export FZF_ALT_C_COMMAND='fd --type d . -a -L --color=always --hidden --no-ignore-vcs --base-directory /data/data/com.termux/files'
 export FZF_ALT_C_OPTS="--ansi --preview 'exa -a1 --icons {}' --preview-window=right,40%:border \
   --keep-right --bind change:first --history=$HOME/.local/share/fzf-history/alt-c-history"
@@ -213,8 +222,8 @@ export FZF_ALT_C_OPTS="--ansi --preview 'exa -a1 --icons {}' --preview-window=ri
 export FZF_CTRL_T_COMMAND='fd --type f --hidden --follow --color always --exclude .git'
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :200 {}' \
   --preview-window 'down,60%,border-top,hidden' --bind change:first --keep-right"
-  export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window=down,3,hidden,wrap,border \
-    --bind change:first --sort --exact"
+export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window=down,3,hidden,wrap,border \
+  --bind change:first --exact"
 # export FZF_CTRL_R_OPTS='--sort --exact'
 export FZF_COMPLETION_OPTS="--height 85% --min-height 20 --no-border --info=inline" # --preview-window=down,3,hidden,wrap,border --preview 'eval eval echo {+}'"
 # export FZF_TMUX_OPTS="-d 60% --preview-window 'down,50%:hidden:wrap'"
@@ -247,7 +256,7 @@ bindkey '^[j' fzf_cd
 # unalias z 2> /dev/null
 # unalias zz 2> /dev/null
 
-# j() {
+# z() {
 #     [ $# -gt 0 ] && _zlua "$*" && return
 #     "$(_zlua -l 2>&1 | fzf --keep-right --height 85% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
 # }
@@ -267,10 +276,10 @@ jj() {
 }
 
 # run npm script (requires jq)
-fns() {
-  local script
-  script=$(cat $HOME/package.json | jq -r '.scripts | keys[] ' | sort ) && npm run $(echo "$script")
-}
+# fns() {
+#   local script
+#   script=$(cat $HOME/package.json | jq -r '.scripts | keys[] ' | sort ) && npm run $(echo "$script")
+# }
 
 # ftags - search ctags with preview
 # only works if tags-file was generated with --excmd=number
@@ -296,3 +305,7 @@ envs() {
 
 # eliminates duplicates in *paths
 # typeset -gU fpath path
+
+#Last but not least
+source ~/.zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+source ~/.zsh/custom/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh

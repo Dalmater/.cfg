@@ -22,7 +22,8 @@
     lg         = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --decorate
     lb         = branch --sort=-authordate --format '%(align:width=18)%(authordate:format:%Y-%m-%d %H:%M)%(end) %(align:width=14,position=right)%(authordate:relative)%(end) %(objectname:short) %(HEAD) %(if)%(HEAD)%(then)%(color:green)%(end)%(refname:short)'
     search     = ! git branch -a | sed '/->/d' | sed 's/\\*//' | xargs git grep -n -I
-    save       = !git add -A && git commit -m 'chore: commit save point'
+    saveall    = !git add -A && git commit -m 'chore: commit save point'
+    save       = !git commit -a -m 'chore: commit save point'
     ll         = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
     stags      = !git for-each-ref --format='%(*committerdate:raw)%(committerdate:raw) %(refname) %(*objectname) %(objectname)' refs/tags | sort -n | cut -d'/' -f 3 | cut -d' ' -f 1
     aa         = add --all
@@ -42,62 +43,64 @@
     templatedir = ~/.config/git/template
 
 [merge]
-    tool       = nvim
+    tool        = nvim
+[pull]
+    ff          = only
 
 [mergetool]
-    prompt     = false
+    prompt      = false
 
 [color "decorate"]
     HEAD         = 6 normal bold italic
     remotebranch = 5 normal bold
-    grafted     = 1 0 bold
-    tag         = 3 0 bold
-    stash       = normal
-    branch      = 6 normal bold
+    grafted      = 1 0 bold
+    tag          = 3 0 bold
+    stash        = normal
+    branch       = 6 normal bold
 
 [color "diff"]
-    whitespace  = normal
-    commit      = 3 0
-    func        = 2 normal bold
+    whitespace   = normal
+    commit       = 3 0
+    func         = 2 normal bold
 
 [color "grep"]
-    filename    = 7 normal
-    function    = 2 normal bold
-    column      = normal
-    linenumber  = normal
+    filename     = 7 normal
+    function     = 2 normal bold
+    column       = normal
+    linenumber   = normal
 
 [color "interactive"]
-    header      = normal
-    help        = normal
-    error       = 1 0 bold
+    header       = normal
+    help         = normal
+    error        = 1 0 bold
 
 [color "status"]
-    changed     = 3 normal
-    unmerged    = 1 normal
-    nobranch    = 1 0 bold
-    updated     = 2 normal
-    localbranch = 6 normal bold
-    added       = 2 normal
-    untracked   = normal dim
-    header      = normal
+    changed      = 3 normal
+    unmerged     = 1 normal
+    nobranch     = 1 0 bold
+    updated      = 2 normal
+    localbranch  = 6 normal bold
+    added        = 2 normal
+    untracked    = normal dim
+    header       = normal
     remotebranch = 5 normal bold
-    branch      = 6 normal bold
+    branch       = 6 normal bold
 
 [color "branch"]
-    remote      = 5 normal bold
-    upstream    = 5 normal bold
-    plain       = 6 normal bold
-    current     = 6 normal bold reverse
-    local       = 6 normal bold
+    remote       = 5 normal bold
+    upstream     = 5 normal bold
+    plain        = 6 normal bold
+    current      = 6 normal bold reverse
+    local        = 6 normal bold
 
 [color "remote"]
-    success     = 2 normal
-    error       = 1 normal
-    hint        = normal dim
-    warning     = 3 normal
+    success      = 2 normal
+    error        = 1 normal
+    hint         = normal dim
+    warning      = 3 normal
 
 [delta]
-    features = side-by-side line-numbers decorations
+    features                 = line-numbers decorations
     minus-non-emph-style     = red
     minus-emph-style         = reverse red
     plus-non-emph-style      = green
@@ -126,3 +129,18 @@
     hunk-header-file-style        = red
     hunk-header-line-number-style = "#067a00"
     hunk-header-style = file line-number syntax
+
+[advice]
+    addInoredFile = false
+
+[pull]
+    ff        = only
+
+[diff]
+    tool      = vimdiff
+
+[rebase]
+    autoStash = false
+
+[pull]
+    rebase    = false

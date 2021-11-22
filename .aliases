@@ -4,7 +4,7 @@ alias crsr="echo -ne '\e[6 q'"
 alias dateformatcodes='date --help | sed -n '\''/^FORMAT/,//p'\'
 alias dfc='date --help | sed -n '\''/^FORMAT/,//p'\'
 alias null='>/dev/null 2>&1 &'
-alias opn='m /data/data/com.termux/files/home/openssh/open'
+alias opn='${EDITOR} /data/data/com.termux/files/home/openssh/open'
 alias psf='ps -f'
 alias psg='ps -e | grep '
 alias pp='python -mjson.tool | pygmentize -l js'
@@ -60,7 +60,7 @@ alias \
     mkd='nocorrect mkdir -pv' \
     mkdir='nocorrect mkdir -pv' \
     mv='nocorrect mv -i -v' \
-    ncdu='ncdu -L -e --color=dark' \
+    ncdu='ncdu -e --color=dark' \
     pkg='noglob pkg' \
     py='python' \
     rm='nocorrect rm -I -v' \
@@ -99,10 +99,13 @@ alias \
     back='$PREFIX' \
     bbin='$PREFIX/bin' \
     betc='$PREFIX/etc' \
-    blbxc='$PREFIX/libexec' \
+    bncld='$PREFIX/include' \
     blib='$PREFIX/lib' \
+    blbxc='$PREFIX/libexec' \
     bshr='$PREFIX/share' \
-    storage='cd /storage/40E6-DFFD' \
+    btmp='$PREFIX/tmp' \
+    bvar='$PREFIX/var' \
+    storage='/storage/40E6-DFFD' \
     strg='cd /storage/40E6-DFFD' \
     sdcard=/sdcard \
     sdcrd='cd /storage/emulated/0'
@@ -122,7 +125,7 @@ alias \
     exa='exa --colour-scale --color=always --icons'\
     l='exa -b@ --icons --git' \
     lS='exa -1 --icons' \
-    la='exa -bhHigUmuSaa --git --icons' \
+    la='exa -bhHimuSaa --git --icons' \
     lart='\ls -1Fcart' \
     ldot='ls --colour-scale -ld .*' \
     llg='ll --colour-scale --git' \
@@ -138,7 +141,7 @@ alias \
     ls='exa -a --colour-scale --icons --git' \
     lsa='exa -alFh@T --level=3 --colour-scale --icons | more -f' \
     lt='exa -alhFt@ --time=changed --colour-scale --icons' \
-    lx='exa -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
+    lx='exa -lbhHimuSa@ --time-style=long-iso --git --color-scale'
 
 # Editors
 alias \
@@ -175,7 +178,6 @@ alias \
     fsh='fast-theme' \
     zsnapshot='source ~/.zsh/custom/plugins/zsnapshot/zsnapshot.plugin.zsh' \
     loadls='source "/data/data/com.termux/files/home/.local/share/lscolors.sh"' \
-    reloadzsh='source ~/.zsh/plugins/zsh_reload/zsh_reload.plugin.zsh' \
     aliase='source ~/.zsh/plugins/aliases/aliases.plugin.zsh' \
     edit='source ~/gitrepos/zsh-edit/zsh-edit.plugin.zsh' \
     npm-complete='s ~/.zsh/custom/plugins/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh'
@@ -222,6 +224,7 @@ alias \
     dotb='dot branch -a' \
     dotch='dot checkout' \
     dotc='dot commit' \
+    dotca='dot commit -a' \
     dotcm='dot commit -m' \
     dotd='dot diff' \
     dotps='dot push' \
@@ -241,6 +244,7 @@ alias \
     gaa='git add --all' \
     gb='git branch -a' \
     gcm='git commit -m' \
+    gca='git commit -a' \
     gdf='git diff' \
     gds="git diff --staged" \
     gc='git clone' \

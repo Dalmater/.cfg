@@ -29,7 +29,7 @@ export GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 # make less more friendly for non-text input files, see lesspipe(1)
 # [ -x /$PREFIX/bin/lesspipe ] && eval "$(SHELL=$PREFIX/bin/sh lesspipe)"
 
-export LESSCOLORIZER=highlight
+export LESSCOLORIZER=pygmentize
 export LESSHISTFILE="-"
 # export LESSOPEN='|/data/data/com.termux/files/usr/bin/lesspipe.sh %s'
 

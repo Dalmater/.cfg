@@ -59,7 +59,7 @@ truncation_length = 20
 truncation_symbol = ''
 
 [git_status]
-ahead = '⇡[$count](#EBCB8B) '
+ahead = '⇡${count}(#EBCB8B) '
 diverged = '⇕⇡${ahead_count}⇣${behind_count}(#EBCB8B) '
 behind = '⇣[$count](#EBCB8B) '
 format = '[$all_status$ahead_behind]($style)'
@@ -77,7 +77,7 @@ style = '#FABD2F'
 commit_hash_length = 7
 disabled = false
 only_detached = false
-tag_symbol = '🔖 '
+tag_symbol = ' 🔖'
 tag_disabled = false
 
 [git_metrics]
@@ -243,5 +243,3 @@ disabled = true
 
 [zig]
 disabled = true
-
-
