@@ -1,0 +1,21 @@
+set autoindent
+set constantshow
+set historylog
+set mouse
+set multibuffer
+set nonewlines
+set positionlog
+set quickblank
+set showcursor
+set smarthome
+set stateflags
+set suspendable
+set tabsize 2
+set tabstospaces
+set trimblanks
+set wordbounds
+set zap
+set fill 0
+set softwrap
+set titlecolor bold,italic,yellow,lagoon
+unset emptyline

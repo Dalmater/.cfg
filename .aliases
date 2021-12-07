@@ -112,13 +112,12 @@ alias \
 
 # find & fzf
 alias \
-    fv='nvim "$(fd -H -i -L --type f | fzf +m --keep-right)"' \
+    fv='nvim "$(fd -H -i --type f | fzf --keep-right)"' \
     count='find . -type f | wc -l' \
     fzcd='\cd "$(find -L -type d | fzf)"' \
     fdh='fd -H -I -i --color always' \
     ff='find . -type f -name' \
     iaf=interactive_fzf
-
 
 # ls & exa
 alias \
@@ -159,13 +158,13 @@ alias \
     m.z='micro ${ZDOTDIR:-$HOME/.config/zsh}/.zshrc' \
     mli='micro $PREFIX/bin/login' \
     mz='micro $PREFIX/etc/zshrc' \
-    n='nano -mce%' \
-    n.a='nano -mce% $HOME/.aliases' \
-    n.b='nano -mce% $HOME/.bashrc' \
-    n.z='nano -mce% ${ZDOTDIR:-$HOME/.config/zsh}/.zshrc' \
-    nb='nano -mce $PREFIX/etc/bash.bashrc' \
-    np='nano -mce% $PREFIX/etc/profile' \
-    nz='nano -mlce% $PREFIX/etc/zshrc' \
+    n='nano' \
+    n.a='nano -% $HOME/.aliases' \
+    n.b='nano -% $HOME/.bashrc' \
+    n.z='nano -% ${ZDOTDIR:-$HOME/.config/zsh}/.zshrc'\
+    nb='nano -% $PREFIX/etc/bash.bashrc' \
+    np='nano -% $PREFIX/etc/profile' \
+    nz='nano -% $PREFIX/etc/zshrc' \
     vim=nvim \
     v=nvim \
     vimdiff="nvim -d" \
@@ -176,10 +175,9 @@ alias \
 alias \
     forgit="source <(curl -sSL git.io/forgit)" \
     fsh='fast-theme' \
-    zsnapshot='source ~/.zsh/custom/plugins/zsnapshot/zsnapshot.plugin.zsh' \
-    loadls='source "/data/data/com.termux/files/home/.local/share/lscolors.sh"' \
+    zsnap='source ~/.zsh/custom/plugins/zsnapshot/zsnapshot.plugin.zsh' \
     aliase='source ~/.zsh/plugins/aliases/aliases.plugin.zsh' \
-    edit='source ~/gitrepos/zsh-edit/zsh-edit.plugin.zsh' \
+    zsh-edit='source ~/gitrepos/zsh-edit/zsh-edit.plugin.zsh' \
     npm-complete='s ~/.zsh/custom/plugins/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh'
 
 # zlua
@@ -197,10 +195,12 @@ alias \
 alias \
     bttry=termux-battery-status \
     cpy=termux-clipboard-set \
+    copy=termux-clipboard-set \
     tcs=termux-clipboard-set \
     foto=termux-camera-photo \
     open='termux-open --chooser "$@"' \
     pst=termux-clipboard-get \
+    paste=termux-clipboard-get \
     tcg=termux-clipboard-get \
     tb='termux-brightness' \
     tn=termux-notification \
@@ -215,25 +215,25 @@ alias \
     tuo=termux-url-opener \
     twe=termux-wifi-enable
 
-
 # git
 alias \
     dot='$PREFIX/bin/git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME' \
     dota='dot add' \
-    dotaa='dot add --all' \
     dotb='dot branch -a' \
     dotch='dot checkout' \
     dotc='dot commit' \
     dotca='dot commit -a' \
     dotcm='dot commit -m' \
     dotd='dot diff' \
+    dotf='dot fetch' \
+    dotl='dot log' \
     dotps='dot push' \
     dotpl='dot pull' \
-    dotl='dot log' \
     dots='dot status' \
-    dotr='dot remote -v' \
+    dotrv='dot remote -v' \
     dotrm='dot rm' \
     dotrmc='dot rm --cached' \
+    dotr='dot restore' \
     dotrs='dot restore --staged' \
     dotmv='dot mv' \
     cfg=dotbare

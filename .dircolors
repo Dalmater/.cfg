@@ -67,15 +67,15 @@ TERM xterm*
 
 ## Special files
 
-NORMAL		38;5;248	# other information than filename
+NORMAL		00	# other information than filename
 FILE			00	# regular file: use no color at all
 # RESET			0		# reset to "normal" color
 DIR			  01;34		# directory
 LINK			38;5;123	# symbolic link.  (If you set this to 'target' instead of a
 					# numerical value, the color is as for the file pointed to.)
 MULTIHARDLINK		01;38;5;212	# regular file with more than one link
-FIFO			  01;31;44	# pipe
-SOCK			  01;31;44	# socket
+FIFO			  01;31;44;04	# pipe
+SOCK			  01;31;44	 # socket
 DOOR			  01;31;44	# door
 BLK			    01;44		# block device driver
 CHR			    01;44		# character device driver
@@ -120,15 +120,15 @@ EXEC			  01;32		# This is for files with execute permission
 *ignore 38;5;246
 
 # Temp-Files, Swap-Files, Backup-Files, Undo-files:
+.tmp		38;5;160
+.swp		38;5;160
+.swo    38;5;160
+.sassc  38;5;160
+
 *~  		38;5;244
 *$  		38;5;244
 *#  		38;5;244
 *-  		38;5;244
-
-.tmp		38;5;196
-.swp		38;5;196
-.swo    38;5;196
-.sassc  38;5;196
 
 .backup 38;5;244
 .bak		38;5;244
@@ -203,21 +203,19 @@ EXEC			  01;32		# This is for files with execute permission
 # *ChangeLog	01;38;5;220
 *CHANGELOG	01;38;5;220
 *LICENSE    38;5;220
-*info	  	  38;5;184
-*Info	  	  38;5;184
-*INFO	  	  38;5;184
 *install	  01;38;5;220
 *Install	  01;38;5;220
 *INSTALL	  01;38;5;220
-*HISTORY    01;38;5;220
+*HISTORY    38;5;220
+*history    38;5;220
 *CONTRIBUTORS 01;38;5;220
 *PATENTS    38;5;220
 *VERSION    38;5;220
 *NOTICE     38;5;220
-*readme		  01;38;5;11
-*Readme		  01;38;5;11
-# *ReadMe		  01;38;5;11
-*README		  01;38;5;11
+*readme		  38;5;220;4
+*Readme		  38;5;220;4
+*ReadMe		  38;5;220;4
+*README		  38;5;220;4
 .log        38;5;190
 
 *todo	  	  38;5;184
@@ -230,6 +228,9 @@ EXEC			  01;32		# This is for files with execute permission
 *RELEASE	  38;5;184
 *problems	  38;5;184
 *PROBLEMS	  38;5;184
+*info	  	  38;5;184
+*Info	  	  38;5;184
+*INFO	  	  38;5;184
 
 .me	  	    38;5;11
 .1st		    38;5;11
@@ -238,20 +239,20 @@ EXEC			  01;32		# This is for files with execute permission
 .proj		    38;5;11
 
 # Markup
-.md	    	  01;38;5;11;4
-.mdk    	  01;38;5;11;4
-.markdown   01;38;5;11;4
+.md	    	  38;5;220;4
+.mdk    	  38;5;220;4
+.markdown   38;5;220;4
 .adoc       38;5;184
 .asciidoc   38;5;184
 .etx        38;5;184
 .nfo        38;5;184
 .pod        38;5;184
-.rst        01;38;5;11
+.rst        38;5;220;4
 .tex        38;5;184
 .textile    38;5;184
 
-*package.json	 01;38;5;11;4
-*composer.json 01;38;5;11;4
+*package.json	 38;5;220;4
+*composer.json 38;5;220;4
 
 # key-value, non-relational data
 .bib      38;5;178
@@ -307,14 +308,14 @@ EXEC			  01;32		# This is for files with execute permission
 *lock     38;5;248
 
 # error logs
-.err      01;38;5;160
-.error    01;38;5;160
-.stderr   01;38;5;160
+.err      01;38;5;196
+.error    01;38;5;196
+.stderr   01;38;5;196
 
 # hosts
 # /etc/hosts.{deny,allow}
-.allow       38;5;112
-.deny        38;5;196
+.allow    01;38;5;112
+.deny     01;38;5;196
 
 # systemd
 .service     38;5;45
@@ -473,7 +474,7 @@ EXEC			  01;32		# This is for files with execute permission
 # Google golang
 .go     38;5;81
 # fortran
-# .f      38;5;74
+.f      38;5;74
 # .F      38;5;74
 # .for    38;5;74
 # .ftn    38;5;74
@@ -602,104 +603,105 @@ EXEC			  01;32		# This is for files with execute permission
 .xpi    38;5;202
 
 # Archives:
-# .a01		01;38;5;196
-# .a02		01;38;5;196
-# .a03		01;38;5;196
-# .a04		01;38;5;196
-# .a05		01;38;5;196
-# .a06		01;38;5;196
-# .a07		01;38;5;196
-# .a08		01;38;5;196
-# .a09		01;38;5;196
-# .j	  	01;38;5;196
-# .j01		01;38;5;196
-# .j02		01;38;5;196
-# .j03		01;38;5;196
-# .j04		01;38;5;196
-# .j05		01;38;5;196
-# .j06		01;38;5;196
-# .j07		01;38;5;196
-# .j08		01;38;5;196
-# .j09		01;38;5;196
-.arz		01;38;5;196
-.taz		01;38;5;196
-.tgz		01;38;5;196
-.gz		  01;38;5;196
-.tbr		01;38;5;196
-.br	  	01;38;5;196
-.bro		01;38;5;196
-.brotli	01;38;5;196
-.zst		01;38;5;196
-.zstd		01;38;5;196
-.tzs		01;38;5;196
-.tzst		01;38;5;196
-.tzstd	01;38;5;196
-.tbz		01;38;5;196
-.bz	  	01;38;5;196
-.bz2		01;38;5;196
-.tbz2		01;38;5;196
-.lzma		01;38;5;196
-.lzm		01;38;5;196
-.lzo		01;38;5;196
-.lz	  	01;38;5;196
-.tlz		01;38;5;196
-.lz4		01;38;5;196
-.tz4		01;38;5;196
-.tl4		01;38;5;196
-.tlz4		01;38;5;196
-.xz	  	01;38;5;196
-.txz		01;38;5;196
-.lrz		01;38;5;196
-.tlr		01;38;5;196
-.tlrz		01;38;5;196
-.7z	  	01;38;5;196
-.t7z		01;38;5;196
-.z	  	01;38;5;196
-.dz	  	01;38;5;196
-.tz	  	01;38;5;196
-.tzo		01;38;5;196
-.arc		01;38;5;196
-.zip		01;38;5;196
-.lzh		01;38;5;196
-.lha		01;38;5;196
-.zoo		01;38;5;196
-.ice		01;38;5;196
-.tar		01;38;5;196
-.dar		01;38;5;196
-.uc2		01;38;5;196
-.rar		01;38;5;196
-.q	  	01;38;5;196
-.lim		01;38;5;196
-.acb		01;38;5;196
-.ace		01;38;5;196
-.x	  	01;38;5;196
-.yc	  	01;38;5;196
-.dir		01;38;5;196
-.gfb		01;38;5;196
-.hpk		01;38;5;196
-.cpt		01;38;5;196
-.sit		01;38;5;196
-.pit		01;38;5;196
-.dwc		01;38;5;196
-.hyp		01;38;5;196
-.hap		01;38;5;196
-.ha	  	01;38;5;196
-.sar		01;38;5;196
-.alz		01;38;5;196
-.crate	01;38;5;196
-.cra		01;38;5;196
-.rz	  	01;38;5;196
-.cpi		01;38;5;196
-.cpio		01;38;5;196
-.sfs		01;38;5;196
-.sqf		01;38;5;196
-.sqfs		01;38;5;196
-.wim    01;38;5;196
-.swm    01;38;5;196
-.dwm    01;38;5;196
-.esd		01;38;5;196
-*.warc  01;38;5;196
-*.WARC  01;38;5;196
+.a		  38;5;160
+# .a01		38;5;160
+# .a02		38;5;160
+# .a03		38;5;160
+# .a04		38;5;160
+# .a05		38;5;160
+# .a06		38;5;160
+# .a07		38;5;160
+# .a08		38;5;160
+# .a09		38;5;160
+.j	  	38;5;160
+# .j01		38;5;160
+# .j02		38;5;160
+# .j03		38;5;160
+# .j04		38;5;160
+# .j05		38;5;160
+# .j06		38;5;160
+# .j07		38;5;160
+# .j08		38;5;160
+# .j09		38;5;160
+.arz		38;5;160
+.taz		38;5;160
+.tgz		38;5;160
+.gz		  38;5;160
+.tbr		38;5;160
+.br	  	38;5;160
+.bro		38;5;160
+.brotli	38;5;160
+.zst		38;5;160
+.zstd		38;5;160
+.tzs		38;5;160
+.tzst		38;5;160
+.tzstd	38;5;160
+.tbz		38;5;160
+.bz	  	38;5;160
+.bz2		38;5;160
+.tbz2		38;5;160
+.lzma		38;5;160
+.lzm		38;5;160
+.lzo		38;5;160
+.lz	  	38;5;160
+.tlz		38;5;160
+.lz4		38;5;160
+.tz4		38;5;160
+.tl4		38;5;160
+.tlz4		38;5;160
+.xz	  	38;5;160
+.txz		38;5;160
+.lrz		38;5;160
+.tlr		38;5;160
+.tlrz		38;5;160
+.7z	  	38;5;160
+.t7z		38;5;160
+.z	  	38;5;160
+.dz	  	38;5;160
+.tz	  	38;5;160
+.tzo		38;5;160
+.arc		38;5;160
+.zip		38;5;160
+.lzh		38;5;160
+.lha		38;5;160
+.zoo		38;5;160
+.ice		38;5;160
+.tar		38;5;160
+.dar		38;5;160
+.uc2		38;5;160
+.rar		38;5;160
+.q	  	38;5;160
+.lim		38;5;160
+.acb		38;5;160
+.ace		38;5;160
+.x	  	38;5;160
+.yc	  	38;5;160
+.dir		38;5;160
+.gfb		38;5;160
+.hpk		38;5;160
+.cpt		38;5;160
+.sit		38;5;160
+.pit		38;5;160
+.dwc		38;5;160
+.hyp		38;5;160
+.hap		38;5;160
+.ha	  	38;5;160
+.sar		38;5;160
+.alz		38;5;160
+.crate	38;5;160
+.cra		38;5;160
+.rz	  	38;5;160
+.cpi		38;5;160
+.cpio		38;5;160
+.sfs		38;5;160
+.sqf		38;5;160
+.sqfs		38;5;160
+.wim    38;5;160
+.swm    38;5;160
+.dwm    38;5;160
+.esd		38;5;160
+*.warc  38;5;160
+*.WARC  38;5;160
 
 .r[0-9]{0,2}  38;5;239
 .zx[0-9]{0,2} 38;5;239

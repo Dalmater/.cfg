@@ -51,7 +51,7 @@ style = '#4FDF4F'
 disabled = false
 
 [git_branch]
-format = '[$symbol](yellow bold)[$branch]($style bold 014):[$remote_name $remote_branch]($style)'
+format = '[$symbol](yellow bold)[$branch]($style bold 014):[$remote_name]($style)[/](5)[$remote_branch]($style)'
 symbol = ' '
 always_show_remote = true
 only_attached = false
@@ -59,32 +59,34 @@ truncation_length = 20
 truncation_symbol = ''
 
 [git_status]
-ahead = '⇡${count}(#EBCB8B) '
-diverged = '⇕⇡${ahead_count}⇣${behind_count}(#EBCB8B) '
-behind = '⇣[$count](#EBCB8B) '
 format = '[$all_status$ahead_behind]($style)'
-conflicted = '†[$count](#D08770) '
-untracked = '?[$count](#D79921) '
-stashed = '\$[$count](#65A290) '
-modified = '![$count](#8FBCBB) '
-renamed = '»[$count](#D3869B) '
+ahead = '⇡[$count](#EBCB8B) '
+diverged = '⇕⇡[$ahead_count]⇣[$$behind_count](#EBCB8B) '
+behind = '⇣[$count](#EBCB8B) '
+# up_to_date = '[√](bold green)'
+conflicted = '≈[$count](#D3869B) '
+untracked = '?[$count](#8FBCBB) '
+stashed = '\$[$count](#458588) '
+modified = '![$count](#D79921) '
+renamed = '»[$count](#8ec07c) '
 deleted = '✗[$count](#BF616A) '
-staged = '‡[$count](#A0BB8A) '
+staged = '+[$count](#88971a) '
 disabled = false
 
 [git_commit]
+format = '[\($hash$tag\)]($style) '
 style = '#FABD2F'
 commit_hash_length = 7
 disabled = false
 only_detached = false
-tag_symbol = ' 🔖'
+tag_symbol = ' 🏷'
 tag_disabled = false
 
 [git_metrics]
 added_style = 'bold #90AB79'
 deleted_style = 'bold #BF616A'
-format = '[+$added]($added_style) [-$deleted]($deleted_style) '
-only_nonzero_diffs = false
+format = '[+$added]($added_style)[/](3)[-$deleted]($deleted_style) '
+only_nonzero_diffs = true
 disabled = false
 
 [git_state]

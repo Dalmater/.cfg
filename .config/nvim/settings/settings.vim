@@ -48,7 +48,7 @@ set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store,*.pyc
 set confirm
 set sb spr
 set magic
-set textwidth=54
+" set textwidth=54
 set noswapfile nobackup undofile title
 set undolevels=1000
 set undoreload=10000
@@ -58,13 +58,15 @@ set grepprg=ag\ --vimgrep\ $*
 set grepformat=%f:%l:%c:%m
 
 if !has('gui_running')
+  set t_Co=255
+else
   set t_Co=24
 endif
 set termguicolors
 
-if &history < 1000
+" if &history < 1000
   set history=1000
-endif
+" endif
 
 if has('path_extra')
   setglobal tags-=./tags tags-=./tags; tags^=./tags;
@@ -85,7 +87,7 @@ if &tabpagemax < 20
 endif
 
 " Disable strange Vi defaults.
-set nocp
+" set nocp
 
 " Auto read file if it was changed elsewhere
 set autoread
@@ -108,7 +110,7 @@ set nofoldenable
 "" --------- performance tweaks ---------
 
 " set nornu nonu
-set nocursorline
+set cursorline
 set nocursorcolumn
 set so=3
 set siso=5
@@ -158,15 +160,15 @@ let g:python3_host_prog = expand('$PREFIX/bin/python')
 " tmux clipboard
 if exists('$TMUX')
   let g:clipboard = {
-        \   'name': 'myClipboard',
-        \   'copy': {
-        \      '+': ['tmux', 'load-buffer', '-'],
-        \      '*': ['tmux', 'load-buffer', '-'],
-        \    },
-        \   'paste': {
-        \      '+': ['tmux', 'save-buffer', '-'],
-        \      '*': ['tmux', 'save-buffer', '-'],
-        \   },
-        \   'cache_enabled': 1,
-        \ }
+      \   'name': 'myClipboard',
+      \   'copy': {
+      \      '+': ['tmux', 'load-buffer', '-'],
+      \      '*': ['tmux', 'load-buffer', '-'],
+      \    },
+      \   'paste': {
+      \      '+': ['tmux', 'save-buffer', '-'],
+      \      '*': ['tmux', 'save-buffer', '-'],
+      \   },
+      \   'cache_enabled': 1,
+      \ }
 endif

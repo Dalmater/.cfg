@@ -1,10 +1,26 @@
-
 #----------------- FZF & GIT -------------------
 
-vf() { fzf | xargs -r -I % $EDITOR % ;}
+# vf() { fzf --keep-right -m | xargs -r -I % $EDITOR -p % ;}
+
+# vf - fuzzy open with vim from anywhere
+# ex: vf word1 word2 ... (even part of a file name)
+# zsh autoload function
+vf() {
+  local files
+
+  files=(${(f)"$(locate -Ai -0 $@ | grep -z -vE '~$' | fzf --read0 -0 -1 --keep-right -m)"})
+
+  if [[ -n $files ]]
+  then
+    vim -- $files
+    print -l $files[1]
+  fi
+}
 
 # search for configs and scripts
-se() { du -a ~/scripts/* ~/.config/* | awk '{print $2}' | fzf --keep-right | xargs -r $EDITOR ;}
+se() { du .aliases ~/*ignore ~/scripts/* ~/.config/* ~/.zshenv ~/.termux/* *colors \
+  --exclude='*complete*' --exclude='plug*' --exclude='font*' \
+  | awk '{print $2}' | fzf -m --keep-right | xargs -r $EDITOR -p ;}
 
 # Use fd and fzf to get the args to a command.
 # Works only with zsh
@@ -25,7 +41,7 @@ fm() f "$@" --max-depth 1
 #   - Bypass fuzzy finder if there's only one match (--select-1) - Exit if there's no match (--exit-0)
 fe() {
   IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
-  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
+  [[ -n "$files" ]] && ${EDITOR:-vim} -p "${files[@]}"
 }
 
 # Modified version where you can press
@@ -40,17 +56,44 @@ fo() {
   fi
 }
 
-# search for all scripts and dotfiles, then open them with editor of choice
-files=(~/.aliases ~/.bashrc ~/.zshenv ~/.gitconfig ~/.dircolors ~/.gemrc
-  ~/.config/{bat,configstore,ctags,fd,git,glow,htop,lynx,mpv,neofetch,npm,nvim,pip,pulse,ranger,starship,vifm,w3m,wget,zsh}
-  ~/.config/micro/bindings.json ~/.config/micro/settings.json ~/.config/tmux/tmux.conf
-  ~/.lynxrc ~/scripts/* ~/.local/bin/* ~/documents/*
-  $PREFIX/etc/{bash.bashrc,inputrc,nanorc,profile,tmux.conf,zshrc})
+# fuzzy grep open via ag
+# vg() {
+#   local file
 
+#   file="$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print $1}')"
+
+#   if [[ -n $file ]]
+#   then
+#     vim $file
+#   fi
+# }
+
+# fuzzy grep open via ag with line number
+vg() {
+  local file
+  local line
+
+  read -r file line <<<"$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print $1, $2}')"
+
+  if [[ -n $file ]]
+  then
+    vim $file +$line
+  fi
+}
+
+# search for all scripts and dotfiles, then open them with editor of choice
 dotf() {
-  find $files -type f |
-    fzf --keep-right --preview 'bat --color=always --line-range :200 {}' --bind=alt-t:toggle-preview | xargs -r "$EDITOR"
- }
+  local files
+
+  files=(~/.aliases ~/.bashrc ~/.zshenv ~/.gitconfig ~/.dircolors ~/.gemrc
+    ~/.config/{bat,configstore,ctags,fd,git,glow,htop,lynx,mpv,neofetch,npm,nvim,pip,pulse,ranger,starship,vifm,w3m,wget,zsh}
+    ~/.config/micro/bindings.json ~/.config/micro/settings.json ~/.config/tmux/tmux.conf
+    ~/.lynxrc ~/scripts/* ~/.local/bin/* ~/documents/*
+    $PREFIX/etc/{bash.bashrc,inputrc,nanorc,profile,tmux.conf,zshrc})
+
+    find $files -type f |
+      fzf --keep-right --preview 'bat --color=always --line-range :200 {}' | xargs -r "$EDITOR"
+    }
 
 # search for all notes and open selected one in editor
 notes() {
@@ -65,20 +108,28 @@ live_search_notes() {
 
 # search for all git repos in folders I care, then cd into selected one.
 all_git() {
-  dir=$(find ~/{.zsh,gitrepos,documents} -type d -name .git | sed 's/\/.git//' |
+  dir=$(find ~/{.zsh,gitrepos} -type d -name .git | sed 's/\/.git//' |
     fzf --keep-right --cycle --preview 'tree -C {} | head -50'
       ) && cd $dir && git status
     }
 
-# fd - cd into any hidden directory of the current folder
+# find - cd into any directory of the current folder
 fcd() {
-  dir=$(find "${1:-.}" -type d 2>/dev/null | fzf --ansi +m) && "$dir" || exit
+  local dir
+  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
 }
 
 # cdf - cd into the directory of the selected file
 cdf() {
-  file=$(find "${1:-.}" -type f | fzf +m -q "$1") && dir=$(dirname "$file") && "$dir" || exit
+  file=$(find "${1:-.}" -type f | fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir" || exit
 }
+
+# using ripgrep combined with preview
+# find-in-file - usage: fif <searchTerm>
+# fif() {
+#   if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
+#   rg --files-with-matches --no-messages "$1" | fzf --preview-window=nohidden --preview "highlight -O ansi -l sh {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
+# }
 
 # man-find() {
 # f=$(fd . $MANPATH/man${1:-1} -t f -x echo {/.} | fzf) && man $f
@@ -109,11 +160,11 @@ bindkey '\ek' fzf-locate-widget
 # https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
 # https://github.com/junegunn/fzf/blob/master/ADVANCED.md#ripgrep-integration
 is_in_git_repo() {
-    git rev-parse HEAD >/dev/null 2>&1
+  git rev-parse HEAD >/dev/null 2>&1
 }
 
 is_in_dot_repo() {
-    dot rev-parse HEAD >/dev/null 2>&1
+  dot rev-parse HEAD >/dev/null 2>&1
 }
 
 fzf-down() {
@@ -172,16 +223,16 @@ fzf_gs() {
 join-lines() {
 local item
 while read item; do
-    echo -n "${(q)item} "
+  echo -n "${(q)item} "
 done
 }
 
 bind-git-helper() {
 local c
 for c in $@; do
-    eval "fzf-h$c-widget() { local result=\$(fzf_g$c | join-lines); zle reset-prompt; LBUFFER+=\$result }"
-    eval "zle -N fzf-h$c-widget"
-    eval "bindkey '^h$c' fzf-h$c-widget"
+  eval "fzf-h$c-widget() { local result=\$(fzf_g$c | join-lines); zle reset-prompt; LBUFFER+=\$result }"
+  eval "zle -N fzf-h$c-widget"
+  eval "bindkey '^h$c' fzf-h$c-widget"
 done
 }
 bind-git-helper f b t h r s

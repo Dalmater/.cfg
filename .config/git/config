@@ -19,12 +19,12 @@
     diffFilter = delta --color-only --features=interactive
 
 [alias]
-    lg         = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --decorate
-    lb         = branch --sort=-authordate --format '%(align:width=18)%(authordate:format:%Y-%m-%d %H:%M)%(end) %(align:width=14,position=right)%(authordate:relative)%(end) %(objectname:short) %(HEAD) %(if)%(HEAD)%(then)%(color:green)%(end)%(refname:short)'
+    lg         = log --graph --pretty=format:'%C(yellow)%C(yellow)%h%Creset -%C(bold magenta)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --decorate
+    lb         = branch --sort=-authordate --format '%(align:width=18)%(color:red)%(authordate:format:%d-%m-%Y %H:%M)%(end) %(align:width=8,position=right)%(color:green) %(authordate:relative) %(end) %(color:3) %(objectname:short)%(color:6) %(HEAD) %(if)%(HEAD)%(then)%(color:bold magenta)%(end)%(refname:short)'
     search     = ! git branch -a | sed '/->/d' | sed 's/\\*//' | xargs git grep -n -I
     saveall    = !git add -A && git commit -m 'chore: commit save point'
-    save       = !git commit -a -m 'chore: commit save point'
-    ll         = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
+    save       = !git commit -a -m 'Commit save point'
+    ll         = log --pretty=format:"%C(yellow)%h%C(13)%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
     stags      = !git for-each-ref --format='%(*committerdate:raw)%(committerdate:raw) %(refname) %(*objectname) %(objectname)' refs/tags | sort -n | cut -d'/' -f 3 | cut -d' ' -f 1
     aa         = add --all
     ba         = branch -a
@@ -44,8 +44,10 @@
 
 [merge]
     tool        = nvim
+
 [pull]
     ff          = only
+    rebase      = false
 
 [mergetool]
     prompt      = false
@@ -111,7 +113,7 @@
     line-numbers-minus-style = red
     line-numbers-plus-style  = green
     plus-style               = "syntax #113810"
-    minus-style              = "syntax #542021"
+    minus-style              = "syntax #900000"
     syntax-theme             = gruvbox-dark
     navigate                 = true
     diffFilter               = delta --color-only
@@ -122,25 +124,20 @@
 
 [delta "decorations"]
     commit-decoration-style  = blue ul
-    commit-style             = raw
+    commit-style             = yellow
     file-style               = omit
     file-decoration-style    = none
     hunk-header-decoration-style  = blue box
-    hunk-header-file-style        = red
+    hunk-header-file-style        = yellow
     hunk-header-line-number-style = "#067a00"
     hunk-header-style = file line-number syntax
 
 [advice]
-    addInoredFile = false
-
-[pull]
-    ff        = only
+    addInoredFile    = false
+    addEmptyPathspec = false
 
 [diff]
-    tool      = vimdiff
+    tool          = nvimdiff
 
 [rebase]
-    autoStash = false
-
-[pull]
-    rebase    = false
+    autoStash     = true

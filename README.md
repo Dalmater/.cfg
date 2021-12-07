@@ -38,5 +38,5 @@ I'm using too many plugins but only 2 or 3 are essential(fast syntax highlightin
   ![Termux-pic](storage/Termux_Prompt-time.jpg)
 
 ### **TODO**<br>
-Migrate to [Zinit](https://github.com/zdharma/zinit)
+Migrate to [Zinit](https://github.com/zdharma-continuum/zinit)
 or do it without any plugin manager by myself.

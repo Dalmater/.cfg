@@ -551,20 +551,20 @@ set findprg='find %s %a -print ,
 "if $VIFMRC_HAS_RICH_FONT
     let &statusline.= ''
 "    if $SL_PREFIX != ''
-        let &statusline.= '%2*'.$SL_PREFIX.'%4*'
+        let &statusline.= '%2*'.$SL_PREFIX.'%4*|'
 "    endif
     let &statusline.= '%1*'            " left separator
     let &statusline.= ' %t'            " file name
-    let &statusline.= ''              " left separator
+    let &statusline.= ' '              " left separator
     let &statusline.= '%='             " fill the whole status line
-    let &statusline.= ''              " right separato
+    let &statusline.= ' '              " right separato
     let &statusline.= '%A'             " file attributes
 "    let &statusline.= '%4*%2*'       " right separator
 "    let &statusline.= ' '.$RIGHTS.' ' " user and group owners of the file
 "    let &statusline.= '%3*%1*'       " right separator
     let &statusline.= ' %5E '          " human readable cumulative file size
-    let &statusline.= '%4* %2*'        " right separator
-    let &statusline.= '%d'            " file modification date and time
+    let &statusline.= '%4* %2*'        " right separator
+    let &statusline.= '%d|'            " file modification date and time
 "else
 "    let &statusline.= ' '
 "    if $SL_PREFIX != ''

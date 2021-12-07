@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/data/data/com.termux/files/usr/bin/env zsh
 #
 # Use fzf to filter apt-cache search results
 #
@@ -27,12 +27,13 @@ function has() {
 
 if has apt-cache; then
   apt-cache search "$@" | \
-  sort | \
-  cut --delimiter ' ' --fields 1 | \
-  fzf --multi --cycle --reverse --preview-window=down,border --preview 'apt-cache show {1}' | \
-  xargs -r pkg install -y
-else
-  fail "Cannot find apt in $PATH.
+    sort | \
+    cut --delimiter ' ' --fields 1 | \
+    fzf -m --cycle --reverse --preview-window=down,border,nohidden,wrap \
+    --preview 'apt-cache show {1}' | \
+    xargs -r pkg install -y
+    else
+      fail "Cannot find apt in $PATH.
 
-Are you sure you're on a Debian or Ubuntu system?"
+      Are you sure you're on a Debian or Ubuntu system?"
 fi

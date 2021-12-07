@@ -1,5 +1,3 @@
-#!/data/data/com.termux/files/usr/bin/env zsh
-
 # zmodload zsh/zprof
 
 ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"

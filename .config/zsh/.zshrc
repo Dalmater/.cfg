@@ -5,7 +5,6 @@ export ZSH="$HOME/.zsh"
 
 # custom prompt
 # bildin zsh prompt
-# setopt prompt_subst
 # autoload -U promptinit
 # promptinit
 # prompt -s astro-z
@@ -16,9 +15,10 @@ export ZSH="$HOME/.zsh"
 HIST_STAMPS="dd.mm.yyyy"
 ZSH_CUSTOM="$HOME/.zsh/custom"
 ZSH_CACHE_DIR="$HOME/.cache/zsh"
+ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump-${ZSH_VERSION}"
+
 ZSH_EVALCACHE_DIR="$HOME/.cache/evalcache"
 HISTFILE="$HOME/.cache/zsh/.zsh_history"
-ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump-${ZSH_VERSION}"
 
 # Plugins
 plugins=(
@@ -49,22 +49,22 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # Plugin configuration
-ZSH_COLORIZE_STYLE="gruvbox-dark"
-# ZSH_COLORIZE_CHROMA_FORMATTER=terminal256
+export ZSH_COLORIZE_STYLE="gruvbox-dark"
+export ZSH_COLORIZE_TOOL="pygmentize"
+export ZSH_COLORIZE_FORMATTER="terminal256"
+export ZSH_COLORIZE_CHROMA_FORMATTER="terminal256"
 
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=50
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="50"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=58"
-ZSH_AUTOSUGGEST_USE_ASYNC=true
+export ZSH_AUTOSUGGEST_USE_ASYNC="true"
 
 export YSU_MODE=ALL
 export YSU_MESSAGE_POSITION=after
 export YSU_IGNORED_ALIASES=( "g" "gc" "iaf" "cfg" )
 export YSU_MESSAGE_FORMAT="${BOLD}${YELLOW}\
-Found %alias_type for ${PURPLE}"%command"${YELLOW}. \
+Found %alias_type for ${PURPLE}"%command"${YELLOW} \
 \nYou should use: ${RED}"%alias"${NONE}"
-
-FORGIT_COPY_CMD='termux-clipboard-set'
 
 # eval "$(lua5.3 ~/.zsh/custom/plugins/z.lua/z.lua --init zsh enhanced once)"
 _evalcache lua5.3 ~/.zsh/custom/plugins/z.lua/z.lua --init zsh
@@ -72,24 +72,25 @@ export _ZL_EXCLUDE_DIRS="buffers,.git,node_modules,'_*','*_'"
 export _ZL_DATA="~/.cache/zsh/.zlua"
 export _ZL_ADD_ONCE=1
 export _ZL_MATCH_MODE=1
-export _ZL_NO_CHECK=1
+# export _ZL_NO_CHECK=1
 
 # User configuration
 
 export EDITOR="nvim"
 export VISUAL="nvim"
 export PAGER="bat -p --paging=always"
+export MANPAGER="bat -p --paging=always"
 export MANPATH=$PREFIX/share/man
-# export MANPATH=$HOME/.fzf/man:$MANPATH
-# export MANPAGER="nvim -R -c 'set ft=man' -"
+export MANPATH=$HOME/.fzf/man:$MANPATH
 export OPENER="xdg-open"
 export BROWSER="lynx"
 export WWW_HOME="duckduckgo.com"
-# export FILE="vifm"
+export FILE="vifm"
+export BAT_THEME="gruvbox"
 
 # For a full list of active aliases, run `alias`
 # Example aliases
-alias ohmyzsh="vim ~/.zsh/oh-my-zsh.sh"
+alias ohmyzsh="nvim ~/.zsh/oh-my-zsh.sh"
 
 source ~/.aliases
 
@@ -104,7 +105,7 @@ setopt multios
 # Enable comments in interactive mode
 setopt interactive_comments
 # Safe rm. Wait 10 seconds before executing "rm *"
-setopt rm_star_wait
+# setopt rm_star_wait
 setopt no_rm_star_silent
 
 # Directories
@@ -115,15 +116,18 @@ setopt pushd_to_home
 setopt pushd_silent
 # setopt pushd_minus
 # setopt pushd_ignore_dups
+# setopt cdable_vars
 
 # History
 setopt hist_append
 setopt hist_expand
-setopt hist_ignore_all_dups
+setopt hist_no_store
 setopt hist_lex_words
 select hist_save_no_dups
 setopt inc_append_history
+setopt hist_ignore_all_dups
 setopt no_hist_reduce_blanks
+setopt inc_append_history_time
 
 export PROMPT_TITLE='%~ | ${COLUMNS}x${LINES} | %! | %? | %y |'
 
@@ -198,35 +202,36 @@ source "/data/data/com.termux/files/home/.fzf/shell/key-bindings.zsh"
 # source "$ZDOTDIR/fzf-cfg.zsh"
 source "$HOME/scripts/fzf_functions.zsh"
 
-export FZF_BASE='~/.fzf'
+# export FZF_BASE='~/.fzf'
 #export FZF_BASE='$PREFIX/share/fzf'
-# export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude .cache'
-export FZF_DEFAULT_COMMAND='ag -l --hidden -S -U -g "" --ignore .git'
-export FZF_DEFAULT_OPTS="--height 90% --min-height 25 --color=bg:-1,bg+:#32302f,fg:#dbcba2,fg+:#dbcba2 \
-  --color=gutter:-1,info:#d79921,border:1,spinner:#fb4934,hl:underline:#928374,hl+:#db3924 \
-  --color=header:#8ec07c,pointer:#cd241d,prompt:#689d6a,marker:#78970a \
-  --pointer='❯' --marker='√' --border --cycle --filepath-word --ansi -0 \
+# export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow -c always --exclude .git'
+export FZF_DEFAULT_COMMAND='ag --hidden --follow -g ""'
+export FZF_DEFAULT_OPTS="--height 90% --min-height 20 --color=fg:#dbcba2 \
+  --color=gutter:-1,info:#d79921,border:1,hl:underline:#928374,hl+:#fb4934 \
+  --color=header:#8ec07c,pointer:#cc241d,prompt:#689d6a,marker:#78970a \
+  --pointer='❯' --marker='√' --border --cycle --filepath-word --ansi \
   --layout=reverse --info=inline --preview-window=down,60%,border-top,hidden \
-  --bind 'alt--:+toggle-preview,alt-s:+toggle-sort,alt-j:jump' \
+  --bind 'alt-t:toggle-preview,alt-s:+toggle-sort,alt-j:jump,?:preview:echo {}' \
   --bind 'alt-w:toggle-preview-wrap,alt-right:+kill-word,alt-left:+backward-kill-word' \
-  --bind 'alt-a:+toggle-all,tab:+toggle+down,alt-bs:+toggle-up,alt-u:deselect-all' \
-  --bind 'backward-eof:abort,ctrl-h:delete-char/eof,alt-t:+toggle-preview' \
-  --bind 'ctrl-d:reload(fd --type d . -L --color=always --hidden),ctrl-f:reload($FZF_DEFAULT_COMMAND)' \
-  --bind 'alt-l:execute(less& -f {}),alt-y:execute-silent(echo {+} | termux-clipboard-set)' \
-  --bind 'alt-o:execute(echo {+} | xargs -o $EDITOR)' --bind '?:preview:echo {}' \
-  --preview '([[ -f {} ]] && (bat -A --style=numbers --color=always --line-range :200 {})) || ([[ -d {} ]] && (tree -a -L 4 -C {} | less)) || echo {} 2> /dev/null | head -200'"
-export FZF_ALT_C_COMMAND='fd --type d . -a -L --color=always --hidden --no-ignore-vcs --base-directory /data/data/com.termux/files'
-export FZF_ALT_C_OPTS="--ansi --preview 'exa -a1 --icons {}' --preview-window=right,40%:border \
-  --keep-right --bind change:first --history=$HOME/.local/share/fzf-history/alt-c-history"
+  --bind 'alt-a:+toggle-all,tab:toggle+down,alt-bs:+toggle-up,alt-u:deselect-all' \
+  --bind 'backward-eof:abort,ctrl-h:delete-char/eof,alt-|:preview:file {}' \
+  --bind 'ctrl-d:change-prompt(Directories> )+reload(fd --type d . -L --color=always --hidden)' \
+  --bind 'ctrl-f:change-prompt(Files> )+reload(fd -tf -H -L --no-ignore-vcs --color=always)' \
+  --bind 'alt-l:execute(less& -f {}),alt-y:execute-silent(printf {+} | cut -f 2- | termux-clipboard-set)' \
+  --preview '([[ -f {} ]] && (bat --color=always --line-range :200 {})) || ([[ -d {} ]] && (tree -a -L 4 -C {} | less)) || echo {}' \
+  --bind 'alt--:change-preview-window(70%|right,60%,border-left|),alt-o:execute(echo {+} | xargs -o $EDITOR)'"
+export FZF_ALT_C_COMMAND='fd --type d -HLa -c always --base-directory /data/data/com.termux/files'
+export FZF_ALT_C_OPTS="--preview 'exa -a1 --icons {}' --preview-window=right,40%:border \
+  --keep-right --bind change:first"
 # export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_COMMAND='fd --type f --hidden --follow --color always --exclude .git'
+export FZF_CTRL_T_COMMAND='fd -tf . -HL -c always'
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :200 {}' \
-  --preview-window 'down,60%,border-top,hidden' --bind change:first --keep-right"
+  --preview-window 'down,60%,hidden' --keep-right --bind change:first"
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window=down,3,hidden,wrap,border \
   --bind change:first --exact"
 # export FZF_CTRL_R_OPTS='--sort --exact'
-export FZF_COMPLETION_OPTS="--height 85% --min-height 20 --no-border --info=inline" # --preview-window=down,3,hidden,wrap,border --preview 'eval eval echo {+}'"
-# export FZF_TMUX_OPTS="-d 60% --preview-window 'down,50%:hidden:wrap'"
+# export FZF_COMPLETION_OPTS="--height 85% --min-height 20 --no-border --info=inline --preview-window=down,3,hidden,wrap,border --preview 'eval eval echo {+}'"
+export FZF_TMUX_OPTS="-d 60% --preview-window 'down,50%:hidden:wrap'"
 export FZF_TMUX=1
 export FZF_HISTORY_DIR='~/.local/share/fzf-history'
 export DOTBARE_DIR="$HOME/.cfg.git"
@@ -238,6 +243,8 @@ export DOTBARE_KEY="--bind=alt-j:jump,alt-w:toggle-preview-wrap"
 bindkey -s '^Xx' 'dotbare fedit \n'
 _dotbare_completion_cmd #dotbare
 # _dotbare_completion_git dot
+# export FORGIT_FZF_DEFAULT_OPTS="--preview-window 'down,70%'"
+# FORGIT_COPY_CMD='termux-clipboard-set'
 
 # FZF Function Examples
 
