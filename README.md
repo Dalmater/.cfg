@@ -24,7 +24,6 @@ I'm using too many plugins but only 2 or 3 are essential<br>
 #### **Prompt**
 
 [starship](https://github.com/starship/starship) **timings**
-
 - In my home directory
   - directory   -   2ms  -  ~
   - line_break  -   1ms  -  \n
@@ -37,7 +36,7 @@ I'm using too many plugins but only 2 or 3 are essential<br>
   - git_branch  -   5ms  -   master:origin/master
   - line_break  -   1ms  -  \n
   - character   -   1ms  -  ❯
-  ![Termux-pic](storage/Termux_Prompt-time.jpg)
+![Termux-pic](storage/Termux_Prompt-time.jpg)
 
 ### **TODO**
 
