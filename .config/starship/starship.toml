@@ -1,5 +1,5 @@
 format = '$shlvl$username$hostname$directory$git_branch$git_commit$git_state$git_metrics$git_status$custom$cmd_duration$line_break$jobs$status$character'
-right_format = ''
+# right_format = '$cmd_duration'
 # scan_timeout = 10
 # command_timeout = 500
 add_newline = false # no new line before prompt
@@ -9,11 +9,11 @@ disabled = false
 
 [character]
 success_symbol = '[❯](bold green)'
-error_symbol = '[❮](bold red)' # ✗
+error_symbol = '[❮](bold #cc241d)' # ✗
 vicmd_symbol = '[](#A3BE8C)'
 
 [status]
-style = "red bold"
+style = "#cc241d bold"
 symbol = "💥 " # 💣
 format = '[\[$symbol$status\]]($style)'
 disabled = false
@@ -21,7 +21,7 @@ map_symbol = true
 recognize_signal_code = true
 pipestatus = true
 success_symbol = ''
-pipestatus_separator = ''
+pipestatus_separator = '|'
 
 [username]
 format = '[$user]($style)@'
@@ -31,27 +31,29 @@ show_always = true
 [cmd_duration]
 min_time = 500
 format = ' took [$duration]($style)'
-show_milliseconds = true
-disabled = true
+show_milliseconds = false
+show_notifications = true
+disabled = false
 
 [directory]
-format = '[$path]($style blue italic)[$lock_symbol]($lock_style)[$read_only]($read_only_style) '
+format = '[$path]($style)[$lock_symbol]($lock_style)[$read_only]($read_only_style) '
+style = '#83a098 bold italic'
 read_only = ' 🔒'
-read_only_style = "bold #8FBCBB"
-truncate_to_repo = true
+read_only_style = '#458588' #
+truncate_to_repo = false
 truncation_length = 2
 truncation_symbol = ''
-fish_style_pwd_dir_length = 0
+fish_style_pwd_dir_length = 1
 
 [hostname]
 ssh_only = true
-format = '[$hostname in]($style) '
+format = '[$hostname] in($style) '
 trim_at = '-'
 style = '#4FDF4F'
 disabled = false
 
 [git_branch]
-format = '[$symbol](yellow bold)[$branch]($style bold 014):[$remote_name]($style)[/](5)[$remote_branch]($style)'
+format = '[$symbol](yellow bold)[$branch]($style 014):[$remote_name]($style)[/](5)[$remote_branch]($style)'
 symbol = ' '
 always_show_remote = true
 only_attached = false
@@ -60,17 +62,17 @@ truncation_symbol = ''
 
 [git_status]
 format = '[$all_status$ahead_behind]($style)'
-ahead = '⇡[$count](#EBCB8B) '
-diverged = '⇕⇡[$ahead_count]⇣[$$behind_count](#EBCB8B) '
-behind = '⇣[$count](#EBCB8B) '
+ahead = '⇡[$count](#FABD2F) '
+diverged = '⇕⇡[$ahead_count]⇣[$$behind_count](#FABD2F) '
+behind = '⇣[$count](#FABD2F) '
 # up_to_date = '[√](bold green)'
 conflicted = '≈[$count](#D3869B) '
-untracked = '?[$count](#8FBCBB) '
-stashed = '\$[$count](#458588) '
+untracked = '?[$count](#a89984) '
+stashed = '\$[$count](#458588) ' ##8FBCBB
 modified = '![$count](#D79921) '
 renamed = '»[$count](#8ec07c) '
-deleted = '✗[$count](#BF616A) '
-staged = '+[$count](#88971a) '
+deleted = '✗[$count](#FA4934) '
+staged = '+[$count](#91971a) '
 disabled = false
 
 [git_commit]

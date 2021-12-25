@@ -4,15 +4,16 @@
 set shell=$SHELL
 set backspace=indent,eol,start
 set hid
-set shm+=cI
-set pumheight=10
+set shm+=acIt
+set pumheight=15
 set path=.,/data/data/com.termux/files
-set path+=/data/data/com.termux/files/usr/include
-set path+=**
+" set path+=/data/data/com.termux/files/usr/include
+set path+=.,**
 set tabstop=2 softtabstop=2 shiftwidth=2
 set et smarttab
-set ai si
-set inc ic scs hls
+set ai smartindent
+set inc hls
+set ignorecase scs
 set nuw=1
 set viminfo+=n$HOME/.config/nvim/viminfo
 set viminfo^=!
@@ -24,17 +25,21 @@ set guioptions+='d'
 set ttyfast
 " Formating
 set encoding=utf-8
-set fileencoding=utf-8
-set fileencodings=utf-8
+" set fileencoding=utf-8
+" set fileencodings+=utf-8
 set iskeyword+=$,%,#  "not to split word"
-set fo+=qlpctb
-" q - allow formatting of comments with :gq
-" l - don't format already long lines
-setg fo-=cro " dont comment on new lines
+set fo+=qlptb
+setg fo-=croa
 set spl=en_us
 let $LANG='en_US'
 " set nowrap
-set complete+=k,kspell,t complete-=i complete-=w ""complete-=b complete-=u complete+=t (tags)
+" set lbr
+" set brk+=_\\\|=~\#\ /\$\~{}\()<>[]""''
+set bri
+set showbreak=≥
+set cpt=.,w,b,u,t,k,kspell ""complete-=w complete-=b complete-=u complete-=t (tags)
+
+" set cpt+=k~/.config/nvim/spell/*
 set sm
 set wmnu
 set cot=menu,longest,preview
@@ -49,13 +54,15 @@ set confirm
 set sb spr
 set magic
 " set textwidth=54
-set noswapfile nobackup undofile title
+set noswapfile nobackup nowritebackup
+set undofile title
 set undolevels=1000
 set undoreload=10000
 set matchpairs+=<:>
 set pastetoggle+=<F12>
 set grepprg=ag\ --vimgrep\ $*
 set grepformat=%f:%l:%c:%m
+" set mousemodel popup
 
 if !has('gui_running')
   set t_Co=255
@@ -65,13 +72,13 @@ endif
 set termguicolors
 
 " if &history < 1000
-  set history=1000
+set history=1000
 " endif
 
 if has('path_extra')
   setglobal tags-=./tags tags-=./tags; tags^=./tags;
 endif
-setglobal tags+=~/.config/nvim/systags;
+" setglobal tags+=~/.config/nvim/systags;
 
 "" Timeout
 " set noto
@@ -95,6 +102,9 @@ set autoread
 " Auto reload if file was changed somewhere else
 au CursorHold * checktime
 
+" Disable automatic commenting on newline:
+autocmd FileType * setlocal fo-=cro
+
 " Disable any annoying beeps on errors.
 set noeb
 set vb
@@ -102,12 +112,12 @@ set vb
 " Don't parse modelines —> vim modeline vulnerability
 set nomodeline
 
+"" --------- performance tweaks ---------
+
 " Do not fold by default. But if, do it up to 3 level
-set foldmethod=manual
+set foldmethod=indent
 set foldnestmax=3
 set nofoldenable
-
-"" --------- performance tweaks ---------
 
 " set nornu nonu
 set cursorline
@@ -142,7 +152,7 @@ let g:netrw_sizestyle="H"
 let g:netrw_browse_split=3
 
 " sql omni completion
-" let g:omni_sql_no_default_maps = 1
+let g:omni_sql_no_default_maps = 1
 
 "" disable/enable providers
 " let g:loaded_python_provider = 1
@@ -160,15 +170,15 @@ let g:python3_host_prog = expand('$PREFIX/bin/python')
 " tmux clipboard
 if exists('$TMUX')
   let g:clipboard = {
-      \   'name': 'myClipboard',
-      \   'copy': {
-      \      '+': ['tmux', 'load-buffer', '-'],
-      \      '*': ['tmux', 'load-buffer', '-'],
-      \    },
-      \   'paste': {
-      \      '+': ['tmux', 'save-buffer', '-'],
-      \      '*': ['tmux', 'save-buffer', '-'],
-      \   },
-      \   'cache_enabled': 1,
-      \ }
+        \ 'name': 'myClipboard',
+        \ 'copy': {
+          \ '+': ['tmux', 'load-buffer', '-'],
+          \ '*': ['tmux', 'load-buffer', '-'],
+          \ },
+          \ 'paste': {
+            \ '+': ['tmux', 'save-buffer', '-'],
+            \ '*': ['tmux', 'save-buffer', '-'],
+            \ },
+            \ 'cache_enabled': 1,
+            \ }
 endif

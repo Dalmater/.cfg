@@ -105,3 +105,41 @@ printc() {
   local color="%F{$1}"
   echo -E ${(qqqq)${(%)color}}
 }
+
+# Usage: command(Ctrl-X Ctrl-S)
+autoload -Uz history-beginning-search-menu
+zle -N history-beginning-search-menu
+bindkey '^X^S' history-beginning-search-menu
+
+# ALT-k - Paste the selected entry from locate output into the command line
+fzf-locate-widget() {
+local selected
+if selected=$(locate / | fzf --keep-right -q "$LBUFFER"); then
+  LBUFFER=$selected
+fi
+zle redisplay
+}
+zle     -N    fzf-locate-widget
+bindkey '\ek' fzf-locate-widget
+
+# sticky notes
+autoload -Uz sticky-note
+    zle -N sticky-note
+zstyle :sticky-note notefile $HOME/documents/notes/notes
+zstyle :sticky-note maxnotes 500
+zstyle :sticky-note theme \
+    bg black \
+    fg $fg_bold[yellow]
+bindkey '^s' sticky-note
+
+autoload -Uz history-beginning-search-menu
+zle -N history-beginning-search-menu
+bindkey '^X^S' history-beginning-search-menu
+
+fzf-history-widget-accept() {
+    fzf-history-widget
+    zle accept-line
+}
+zle -N fzf-history-widget-accept
+bindkey '^X^R' fzf-history-widget-accept
+

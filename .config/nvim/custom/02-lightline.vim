@@ -3,28 +3,41 @@
 let g:lightline = {
       \ 'colorscheme': 'gruvboxdark',
       \ 'active': {
-        \   'left': [ ['bufnum', 'mode', 'paste', 'spell'],
-        \             ['filename', 'gitbranch'] ],
-        \   'right': [ ['percent' ],
-        \              ['lineinfo' ],
-        \              ['fileformat','fileencoding','filetype' ] ],
+        \ 'left': [ ['bufnum', 'mode', 'paste'],
+        \           ['filename', 'gitbranch'],
+        \           ['spell'] ],
+        \ 'right': [ ['percent'],
+        \            ['lineinfo'],
+        \            ['fileformat','fileencoding','filetype' ] ],
+        \ 'warning': [ ['%WarningMsg#'] ],
         \ },
         \ 'component_function': {
-          \   'gitbranch': 'GitInfo',
-          \   'fileformat': 'MyFileformat',
-          \   'filename': 'LightlineFilename',
-          \   'filetype': 'MyFiletype',
-          \   'fileencoding': 'MyFileencoding',
+          \ 'gitbranch': 'GitInfo',
+          \ 'fileformat': 'MyFileformat',
+          \ 'filename': 'LightlineFilename',
+          \ 'filetype': 'MyFiletype',
+          \ 'fileencoding': 'MyFileencoding',
+          \ 'mode': 'LightlineMode',
+          \ '%#WarningMsg#': 'StatuslineTabWarning',
           \ },
-          \ }
+          \ 'component_expand': {
+            \ '%#WarningMsg#': 'StatuslineTabWarning',
+            \ },
+            \ }
+
+function! LightlineMode()
+  let fname = expand('%:t')
+  return fname =~# '^__Tagbar__' ? 'Tagbar' :
+        \ lightline#mode()
+endfunction
 
 let g:lightline.inactive = {
       \ 'colorscheme': 'gruvboxdark',
-        \   'left': [ [ 'filename' ] ],
-        \   'right': [ [ 'percent' ],
-        \              [ 'lineinfo' ],
-        \              [ 'filetype' ] ],
-        \ }
+      \ 'left': [ [ 'filename' ] ],
+      \ 'right': [ [ 'percent' ],
+      \            [ 'lineinfo' ],
+      \            [ 'filetype' ] ],
+      \ }
 
 function! GitInfo()
   let git = fugitive#head()
@@ -35,15 +48,31 @@ function! GitInfo()
   endif
 endf
 
+let g:tagbar_status_func = 'TagbarStatusFunc'
+
+function! TagbarStatusFunc(current, sort, fname, ...) abort
+  return lightline#statusline(0)
+endfunction
+
 " function! LightlineFileformat()
 "   return winwidth(0) > 60 ? &fileformat : ''
 " endfunction
 
+" function! LightlineFilename()
+"   return &filetype ==# 'startify' ? '' : ''
+" endf
+
 function! LightlineFilename()
+  if &filetype == 'startify'
+    return &filetype ==# 'startify' ? 'Startify' : ''
+  elseif &filetype == 'fzf'
+    return &ft ==# 'fzf' ? 'fzf' : ''
+  else
   let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
   let modified = &modified ? ' +' : ''
   let readonly = &readonly ? ' ' : ''
   return filename . modified . readonly
+endif
 endfunction
 
 function! LightlineFiletype()
@@ -65,9 +94,33 @@ function! MyFileencoding()
   return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
 endf
 
+"" Find if there are mixed indentings.
+function! StatuslineTabWarning()
+  if !exists('b:statusline_tab_warning')
+    "" If the file is unmodifiable, do not warn.
+    if !&modifiable
+      let b:statusline_trailing_space_warning = ''
+      return b:statusline_trailing_space_warning
+    endif
+
+    let has_leading_tabs = search('^\t\+', 'nw') != 0
+    let has_leading_spaces = search('^ \+', 'nw') != 0
+
+    if has_leading_tabs && has_leading_spaces
+      let b:statusline_tab_warning = ' [mixed-indenting]'
+    elseif has_leading_tabs
+      let b:statusline_tab_warning = ' [tabbed-indenting]'
+    else
+      let b:statusline_tab_warning = ''
+    endif
+  endif
+
+  return b:statusline_tab_warning
+endfunction
+
 let g:lightline.tab = {
       \ 'active': ['tabnum', 'filename', 'ficolorsme', 'modified' ],
-      \ 'inactive': ['filename', 'ficolorsme', 'modified' ] }
+      \ 'inactive': ['filename', 'ficolorsme', 'modified' ], }
 
 let g:lightline.enable = {
       \ 'statusline': 1,
@@ -75,10 +128,10 @@ let g:lightline.enable = {
       \ }
 
 let g:lightline.separator = {
-      \   'left': '', 'right': ''
+      \ 'left': '', 'right': ''
       \ }
 let g:lightline.subseparator = {
-      \   'left': '', 'right': ''
+      \ 'left': '', 'right': ''
       \ }
 
 let g:lightline.tabline_separator = g:lightline.separator
@@ -155,5 +208,5 @@ function! s:lightline_colorschemes(...) abort
         \ "\n")
 endfunction
 
-command! -nargs=1 -complete=custom,s:lightline_colorschemes LightlineColorscheme
+command! -nargs=1 -complete=custom,s:lightline_colorschemes LightlineColors
       \ call s:set_lightline_colorscheme(<q-args>)

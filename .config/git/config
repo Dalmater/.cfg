@@ -125,9 +125,9 @@
 [delta "decorations"]
     commit-decoration-style  = blue ul
     commit-style             = yellow
-    file-style               = omit
-    file-decoration-style    = none
-    hunk-header-decoration-style  = blue box
+    file-style               = normal yellow bold
+    file-decoration-style    = yellow box
+    hunk-header-decoration-style  = magenta box
     hunk-header-file-style        = yellow
     hunk-header-line-number-style = "#067a00"
     hunk-header-style = file line-number syntax

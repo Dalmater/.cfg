@@ -67,9 +67,9 @@ TERM xterm*
 
 ## Special files
 
-NORMAL		00	# other information than filename
+# NORMAL		38;5;248	# other information than filename
 FILE			00	# regular file: use no color at all
-# RESET			0		# reset to "normal" color
+RESET			0		# reset to "normal" color
 DIR			  01;34		# directory
 LINK			38;5;123	# symbolic link.  (If you set this to 'target' instead of a
 					# numerical value, the color is as for the file pointed to.)
@@ -79,8 +79,8 @@ SOCK			  01;31;44	 # socket
 DOOR			  01;31;44	# door
 BLK			    01;44		# block device driver
 CHR			    01;44		# character device driver
-ORPHAN			30;48;5;212	# orphaned symlinks
-MISSING			35;48;5;212	# ... and the files they point to
+ORPHAN			01;38;5;123;48;5;124	# orphaned symlinks
+MISSING			01;38;5;125;48;5;212	# ... and the files they point to
 SETUID			48;5;197	# file that is setuid (u+s)
 SETGID			48;5;90		# file that is setgid (g+s)
 CAPABILITY	01;31;46	# file with capability

@@ -1,6 +1,6 @@
 #----------------- FZF & GIT -------------------
 
-# vf() { fzf --keep-right -m | xargs -r -I % $EDITOR -p % ;}
+nf() { fzf --keep-right -m | xargs -r -I % $EDITOR -p % ;}
 
 # vf - fuzzy open with vim from anywhere
 # ex: vf word1 word2 ... (even part of a file name)
@@ -18,8 +18,8 @@ vf() {
 }
 
 # search for configs and scripts
-se() { du .aliases ~/*ignore ~/scripts/* ~/.config/* ~/.zshenv ~/.termux/* *colors \
-  --exclude='*complete*' --exclude='plug*' --exclude='font*' \
+se() { du .aliases ~/*ignore ~/scripts/* ~/.config/*/* ~/.zshenv ~/.termux/* \
+  --exclude='*complet*' --exclude='plug*' --exclude='font*' --exclude='.config/colors/*' \
   | awk '{print $2}' | fzf -m --keep-right | xargs -r $EDITOR -p ;}
 
 # Use fd and fzf to get the args to a command.
@@ -85,8 +85,8 @@ vg() {
 dotf() {
   local files
 
-  files=(~/.aliases ~/.bashrc ~/.zshenv ~/.gitconfig ~/.dircolors ~/.gemrc
-    ~/.config/{bat,configstore,ctags,fd,git,glow,htop,lynx,mpv,neofetch,npm,nvim,pip,pulse,ranger,starship,vifm,w3m,wget,zsh}
+  files=(~/.agignore ~/.aliases ~/.bashrc ~/.zshenv ~/.gitconfig ~/.gitignore ~/.dircolors ~/.gemrc
+    ~/.config/{bat,ctags,fd,git,glow,htop,lynx,neofetch,npm,nvim,pip,ranger/rc.conf,starship,vifm,w3m,wget,zsh}
     ~/.config/micro/bindings.json ~/.config/micro/settings.json ~/.config/tmux/tmux.conf
     ~/.lynxrc ~/scripts/* ~/.local/bin/* ~/documents/*
     $PREFIX/etc/{bash.bashrc,inputrc,nanorc,profile,tmux.conf,zshrc})
@@ -107,8 +107,8 @@ live_search_notes() {
 }
 
 # search for all git repos in folders I care, then cd into selected one.
-all_git() {
-  dir=$(find ~/{.zsh,gitrepos} -type d -name .git | sed 's/\/.git//' |
+fzf_git() {
+  dir=$(find ~/ -type d -name .git | sed 's/\/.git//' |
     fzf --keep-right --cycle --preview 'tree -C {} | head -50'
       ) && cd $dir && git status
     }
@@ -121,15 +121,15 @@ fcd() {
 
 # cdf - cd into the directory of the selected file
 cdf() {
-  file=$(find "${1:-.}" -type f | fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir" || exit
+  file=$(find "${1:-.}" -type f | fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir" || return
 }
 
 # using ripgrep combined with preview
 # find-in-file - usage: fif <searchTerm>
-# fif() {
-#   if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
-#   rg --files-with-matches --no-messages "$1" | fzf --preview-window=nohidden --preview "highlight -O ansi -l sh {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
-# }
+fif() {
+  if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
+  rg --files-with-matches --no-messages "$1" | fzf --preview-window=nohidden --preview "highlight -O ansi -l sh {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
+}
 
 # man-find() {
 # f=$(fd . $MANPATH/man${1:-1} -t f -x echo {/.} | fzf) && man $f
@@ -144,17 +144,6 @@ cdf() {
 #   man -k . | fzf -q "$1" --prompt='man> '  --preview $'echo {} | tr -d \'()\' | awk \'{printf "%s ", $2} {print $1}\' | xargs -r man' | tr -d '()' | awk '{printf "%s ", $2} {print $1}' | xargs -r man
 # }
 
-# ALT-k - Paste the selected entry from locate output into the command line
-fzf-locate-widget() {
-local selected
-if selected=$(locate / | fzf --keep-right -q "$LBUFFER"); then
-  LBUFFER=$selected
-fi
-zle redisplay
-}
-zle     -N    fzf-locate-widget
-bindkey '\ek' fzf-locate-widget
-
 # GIT --bare functions
 # source:
 # https://gist.github.com/junegunn/8b572b8d4b5eddd8b85e5f4d40f17236
@@ -168,7 +157,7 @@ is_in_dot_repo() {
 }
 
 fzf-down() {
-fzf --height 80% --min-height 18 --border --preview-window=down,60%,border "$@"
+fzf --height 80% --min-height 18 --preview-window=down,60%,border-top "$@"
 }
 
 fzf_gf() {

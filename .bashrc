@@ -59,9 +59,12 @@ export COLORTERM="truecolor"
 export MICRO_TRUECOLOR=1
 export HISTIGNORE="&:l:ls *:ll:la:cd *"
 export BAT_THEME="gruvbox-dark"
-export STARSHIP_CONFIG=~/.config/starship/starship.toml
 export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/.wgetrc"
 export LESSHISTFILE="-"
+
+# Starship prompt
+eval "$(starship init bash)"
+export STARSHIP_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/starship/starship.toml"
 
 source "${EXTERNAL_STORAGE}/termuxlauncher/.apps-launcher"
 source /sdcard/Termux/launch-completion.bash
@@ -148,6 +151,7 @@ alias \
     mkd='mkdir -pv' \
     mkdir='mkdir -pv' \
     mv='mv -i -v' \
+    rm='rm -I -v' \
     pkg='pkg'
 
 # enable programmable completion features (you don't need to enable
@@ -182,13 +186,16 @@ export DOTBARE_TREE="$HOME"
 export DOTBARE_FZF_DEFAULT_OPTS="--preview-window 'down,70%' --keep-right"
 export DOTBARE_DIFF_PAGER="delta --diff-so-fancy --line-numbers"
 export DOTBARE_KEY="--bind=alt-j:jump,alt-w:toggle-preview-wrap"
-alias dotbare="$HOME/.zsh/custom/plugins/dotbare/dotbare"
-_dotbare_completion_cmd
-bind -x '"\C-xx":"dotbare fedit"'
+# alias dotbare="$HOME/.zsh/custom/plugins/dotbare/dotbare"
+_dotbare_completion_cmd cfg
+bind -x '"\C-fd":"dotbare fedit"'
+bind -x '"\C-Xx":"dotbare fedit"'
 
 # fzf functions examples
 # search for configs and scripts
-se() { du -a ~/scripts/* ~/.config/* | awk '{print $2}' | fzf --keep-right | xargs -r $EDITOR ;}
+se() { du .aliases ~/*ignore ~/scripts/* ~/.config/* ~/.zshenv ~/.termux/* *colors \
+  --exclude='*complete*' --exclude='plug*' --exclude='font*' \
+  | awk '{print $2}' | fzf -m --keep-right | xargs -r $EDITOR -p ;}
 
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Bypass fuzzy finder if there's only one match (--select-1) - Exit if there's no match (--exit-0)
@@ -207,6 +214,17 @@ fo() {
   if [ -n "$file" ]; then
     [ "$key" = ctrl-o ] && termux-open --chooser "$file" || ${EDITOR:-vim} "$file"
   fi
+}
+
+# find - cd into any directory of the current folder
+fcd() {
+  local dir
+  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+}
+
+# cdf - cd into the directory of the selected file
+cdf() {
+  file=$(find "${1:-.}" -type f | fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir" || return
 }
 
 # cd-jump by zlua

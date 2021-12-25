@@ -34,15 +34,17 @@ alias gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
 
 # apt
 alias \
+    apt='noglob apt' \
     apti='apt install' \
     aptp='apt purge' \
-    aptr='apt remove' \
+    aptrm='apt remove' \
+    aptar='apt autoremove' \
     aptri='apt reinstall' \
+    pkgri='pkg reinstall' \
     aptu='apt update -yy && apt full-upgrade -qq'
 
 # commands
 alias \
-    apt='noglob apt' \
     HMBs='du -h --max-depth=1 --one-file-system ~' \
     MBs='du -h --max-depth=1 --one-file-system $PREFIX' \
     chmod='chmod -v' \
@@ -67,29 +69,39 @@ alias \
     sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS,.cfg.git,.cache} ' \
     shad="ssh-add ~/.ssh/id_rsa" \
     shag='eval "$(ssh-agent -s)"' \
+    ta='tmux attach -d' \
     wget='wget -r -e --robots=off -nc -np' \
     grep='grep --color=auto' \
+    rg='rg --colors 'match:bg:yellow' --ignore-case --pretty' \
     ffmpeg='ffmpeg -hide_banner'
 
 # special commands
 alias \
+    afs='apt-fzf-search' \
     bfarben=spectrum_bls \
     bfrbn=spectrum_bls \
     farben=spectrum_ls \
     frbn=spectrum_ls \
+    ffe='fzf-find-edit' \
+    fgb='fzf-git-branch' \
+    fgc='fzf-git-checkout' \
+    fge='fzf-grep-edit' \
     coc='cd ~/.config && ./colors.sh' \
     cof='cd ~/.config && ./fonts.sh' \
     clean='( for ((i=1;i<$LINES;i++)) ; do echo "" ; done ) ; clear' \
     fsh='fast-theme' \
-    lazymux='cd ~/gitrepos/Lazymux && python lazymux.py' \
+    fkill='fzf-kill' \
+    lazymux='cd ~/repos/Lazymux && python lazymux.py' \
     lch=launch \
-    lmux='cd ~/gitrepos/Lazymux && python lazymux.py' \
+    lmux='cd ~/repos/Lazymux && python lazymux.py' \
     myip='curl http://ipecho.net/plain; echo' \
     mymap='telnet mapscii.me' \
     ox='onex start' \
     starwars='telnet towel.blinkenlights.nl' \
     tbu='terbr -b' \
-    tls='cd ~/gitrepos/Termux-Lazyscript && python2 ls.py' \
+    tls='cd ~/repos/Termux-Lazyscript && python2 ls.py' \
+    tmk='tmux-kill' \
+    tms='tmux-search' \
     wtr='curl wttr.in/Berlin'
     # pip='$PREFIX/bin/python3 -m pip' \
     # pip2='$PREFIX/bin/python2 -m pip'
@@ -175,10 +187,10 @@ alias \
 alias \
     forgit="source <(curl -sSL git.io/forgit)" \
     fsh='fast-theme' \
-    zsnap='source ~/.zsh/custom/plugins/zsnapshot/zsnapshot.plugin.zsh' \
+    zsnap='source $ZDOTDIR/plugins/zsnapshot/zsnapshot.plugin.zsh' \
     aliase='source ~/.zsh/plugins/aliases/aliases.plugin.zsh' \
-    zsh-edit='source ~/gitrepos/zsh-edit/zsh-edit.plugin.zsh' \
-    npm-complete='s ~/.zsh/custom/plugins/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh'
+    zsh-edit='source ~/repos/zsh-edit/zsh-edit.plugin.zsh' \
+    npm-complete='s $ZDOTDIR/plugins/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh'
 
 # zlua
 alias \
@@ -193,14 +205,13 @@ alias \
 
 # Termux
 alias \
-    bttry=termux-battery-status \
+    battry=termux-battery-status \
     cpy=termux-clipboard-set \
     copy=termux-clipboard-set \
     tcs=termux-clipboard-set \
     foto=termux-camera-photo \
     open='termux-open --chooser "$@"' \
     pst=termux-clipboard-get \
-    paste=termux-clipboard-get \
     tcg=termux-clipboard-get \
     tb='termux-brightness' \
     tn=termux-notification \
@@ -217,22 +228,23 @@ alias \
 
 # git
 alias \
-    dot='$PREFIX/bin/git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME' \
+    dot="$PREFIX/bin/git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME" \
     dota='dot add' \
+    dotu='dot add -u' \
     dotb='dot branch -a' \
     dotch='dot checkout' \
     dotc='dot commit' \
     dotca='dot commit -a' \
     dotcm='dot commit -m' \
     dotd='dot diff' \
-    dotf='dot fetch' \
+    dotfe='dot fetch' \
     dotl='dot log' \
     dotps='dot push' \
     dotpl='dot pull' \
     dots='dot status' \
-    dotrv='dot remote -v' \
+    dotr='dot remote -v' \
     dotrm='dot rm' \
-    dotrmc='dot rm --cached' \
+    dotrc='dot rm --cached' \
     dotr='dot restore' \
     dotrs='dot restore --staged' \
     dotmv='dot mv' \
@@ -242,6 +254,7 @@ alias \
 alias \
     gad='git add' \
     gaa='git add --all' \
+    gau='git add -u' \
     gb='git branch -a' \
     gcm='git commit -m' \
     gca='git commit -a' \
@@ -266,3 +279,25 @@ alias \
     grs="git restore --staged" \
     gmv='git mv' \
     gst='git stash'
+
+# falias () {
+#     local out
+#     out=$(alias | fzf)
+#     echo -n "$(echo -n "${out}" | cut -d= -f2 | termux-clipboard-set)" }
+
+falias () {
+    local out
+    out=$(alias | fzf)
+    echo -n "$(echo -n "${out}" | sed 's+=.*++g' | termux-clipboard-set)" }
+
+fbind () {
+    local out
+    out=$(bindkey | fzf)
+    echo -n "$(echo -n "${out}" | sed 's/.*"*" //g' | termux-clipboard-set)"
+    }
+
+vbind () {
+    local out
+    out=$(bindkey -a | fzf)
+    echo -n "$(echo -n "${out}" | sed 's/.*"*" //g' | termux-clipboard-set)"
+    }
