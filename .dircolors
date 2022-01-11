@@ -72,7 +72,7 @@ FILE			00	# regular file: use no color at all
 RESET			0		# reset to "normal" color
 DIR			  01;34		# directory
 LINK			38;5;123	# symbolic link.  (If you set this to 'target' instead of a
-					# numerical value, the color is as for the file pointed to.)
+# numerical value, the color is as for the file pointed to.)
 MULTIHARDLINK		01;38;5;212	# regular file with more than one link
 FIFO			  01;31;44;04	# pipe
 SOCK			  01;31;44	 # socket
@@ -101,22 +101,22 @@ EXEC			  01;32		# This is for files with execute permission
 # (and any comments you want to add after a '#')
 
 # Config files
-.cfg		 1
-.conf		 1
-*config	 1
-*rc      1
-*shenv   1
-*profile 1
-*login   1
-*logout  1
-.pcf     1
-.psf     1
-.plist   1
-.tmTheme 1
-.ini	   1
-.new	   1
+.cfg             1
+.conf	           1
+*config	         1
+*rc              1
+*shenv           1
+*profile         1
+*login           1
+*logout          1
+.pcf             1
+.psf             1
+.plist           1
+.tmTheme         1
+.ini             1
+.new             1
 *authorized_keys 1
-*known_hosts 1
+*known_hosts     1
 *ignore 38;5;246
 
 # Temp-Files, Swap-Files, Backup-Files, Undo-files:
@@ -298,8 +298,8 @@ EXEC			  01;32		# This is for files with execute permission
 .out      38;5;242
 .SKIP     38;5;242
 # patch files
-.diff	    48;5;196;38;5;236;1
-.patch    48;5;196;38;5;236;1
+.diff	    48;5;196;38;5;235;1
+.patch    48;5;196;38;5;235;1
 
 # state files
 .pid      38;5;248
@@ -490,8 +490,8 @@ EXEC			  01;32		# This is for files with execute permission
 # .nim    38;5;67
 # .nimble 38;5;67
 # pascal
-.s      01;31;46
-.S      01;31;46
+.s      01;38;5;160;46
+.S      01;38;5;160;46
 # Rust
 .rs     38;5;81
 # AppleScript

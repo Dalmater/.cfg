@@ -55,7 +55,7 @@ zstyle ':completion:*:jobs' numbers true
 # zstyle ':completion:*' special-dirs true
 zstyle ':completion:*:cd:*' ignore-parents parent pwd
 
-# zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
+zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
 zstyle ':completion:*:*:cd:*:directory-stack' menu yes select
 zstyle ':completion:*:-tilde-:*' group-order 'named-directories' 'path-directories' 'users' 'expand'
 
@@ -88,7 +88,7 @@ zstyle ':completion:*:git-checkout:*' sort false
 # zstyle ':fzf-tab:*' show-group full
 # zstyle ':fzf-tab:*' default-color $'\033[37m'
 zstyle ':fzf-tab:*' prefix ''
-zstyle ':fzf-tab:*' fzf-flags --height 90% --min-height 20 --no-border --preview-window=down:45%:border:wrap
+zstyle ':fzf-tab:*' fzf-flags --height 90% --min-height 20 --no-border -1 --preview-window=down:45%:border:wrap
 
 # preview directory's content with exa when completing cd
 zstyle ':fzf-tab:complete:*:cd:*' tag-order local-directories directory-stack path-directories
@@ -119,7 +119,7 @@ zstyle ':fzf-tab:complete:_zlua:*' fzf-flags --keep-right --no-border \
 # eval twice, first to unescape the string, second to expand the $variable
 zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}'
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
-	fzf-preview 'echo ${(P)word}'
+  fzf-preview 'echo ${(P)word}'
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
   fzf-flags --no-border --preview-window=hidden:down:3:wrap
 
@@ -142,24 +142,24 @@ zstyle ':fzf-tab:complete:(\\|*/|)man:*' fzf-preview 'man $word'
 # zstyle ':completion::*:git::git,add,*' fzf-completion-opts --preview='git -c color.status=always status --short'
 
 zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
-	'git diff $word | delta'|
+  'git diff $word | delta'|
 zstyle ':fzf-tab:complete:git-log:*' fzf-preview \
-	'git log --color=always $word'
+  'git log --color=always $word'
 zstyle ':fzf-tab:complete:git-help:*' fzf-preview \
-	'git help $word | bat -plman --color=always'
+  'git help $word | bat -plman --color=always'
 zstyle ':fzf-tab:complete:git-show:*' fzf-preview \
-	'case "$group" in
-	"commit tag") git show --color=always $word ;;
-	*) git show --color=always $word | delta ;;
-	esac'
+  'case "$group" in
+  "commit tag") git show --color=always $word ;;
+  *) git show --color=always $word | delta ;;
+esac'
 zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-flags --height 80% --min-height 20 --no-border --preview-window=down:45%:border
 
 zstyle ':fzf-tab:complete:git-checkout:*' fzf-preview \
-	'case "$group" in
-	"modified file") git diff $word | delta ;;
-	"recent commit object name") git show --color=always $word | delta ;;
-	*) git log --color=always $word ;;
-	esac'
+  'case "$group" in
+  "modified file") git diff $word | delta ;;
+  "recent commit object name") git show --color=always $word | delta ;;
+  *) git log --color=always $word ;;
+  esac'
 zstyle ':fzf-tab:complete:git--checkout:*' fzf-flags --height 80% --min-height 20 --no-border --preview-window=down:45%:border
 
 # if other subcommand to git is given, show a git diff or git log
@@ -189,12 +189,13 @@ zstyle ':fzf-tab:*' switch-group ',' '.'
 # zstyle ':fzf-tab:*' accept-line enter
 # zstyle ':fzf-tab:*' continuous-trigger '/'
 # zstyle ':fzf-tab:complete:*' fzf-bindings \
+#   'alt-y:execute-silent(printf {+} | termux-clipboard-set)'
 #   'ctrl-o:execute-silent({_FTB_INIT_}nvim "$realpath")'
 
 # Group colors
 FZF_TAB_GROUP_COLORS=(
-    $'\033[94m' $'\033[32m' $'\033[33m' $'\033[35m' $'\033[31m' $'\033[38;5;27m' $'\033[96m' \
+  $'\033[94m' $'\033[32m' $'\033[33m' $'\033[35m' $'\033[31m' $'\033[38;5;27m' $'\033[96m' \
     $'\033[38;5;100m' $'\033[38;5;98m' $'\033[91m' $'\033[38;5;80m' $'\033[92m' \
     $'\033[38;5;214m' $'\033[38;5;165m' $'\033[38;5;124m' $'\033[38;5;120m'
-)
+  )
 zstyle ':fzf-tab:*' group-colors $FZF_TAB_GROUP_COLORS

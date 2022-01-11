@@ -3,7 +3,7 @@
     email      = 77870538+Dalmater@users.noreply.github.com
 
 [credential]
-    helper     = cache
+    helper     = cache 30758400
 
 [core]
     editor     = nvim
@@ -27,8 +27,10 @@
     ll         = log --pretty=format:"%C(yellow)%h%C(13)%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
     stags      = !git for-each-ref --format='%(*committerdate:raw)%(committerdate:raw) %(refname) %(*objectname) %(objectname)' refs/tags | sort -n | cut -d'/' -f 3 | cut -d' ' -f 1
     aa         = add --all
+    au         = add -u
     ba         = branch -a
     cm         = commit -m
+    ca         = commit -a
     ds         = diff --staged
     check      = checkout
     pull       = pull origin

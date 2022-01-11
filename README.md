@@ -1,4 +1,3 @@
-
 # Termux dotfiles
 
 For **Termux** & **Nvim** on **Android**,with full setup.
@@ -6,14 +5,14 @@ For **Termux** & **Nvim** on **Android**,with full setup.
 ### **Dotbare configs**
 
 **Zsh, nvim, fzf, tmux, starship, git, dotbare, vim/lightline, vifm**, micro and more.<br>
-A lot of **plugins, aliases, fzf functions** and a couple scripts.
+A lot of **plugins, aliases, fzf functions** and some scripts.
 ![picture](storage/Screenshot_Termux.jpg)
 
 I'm using too many plugins but only 2 or 3 are essential<br>
 (fast syntax highlighting, zsh-autosuggestions & fzf-tab).<br>
 [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)(configured) manages about 10 - 15 plugins.<br>
-***The zsh startup time on Android 9(Sm-j7) is about 0.5 - 0.75 sec***<br>
-(zsh -i -c exit  0.39s user 0.12s system 85% cpu 0.625 total)
+***The zsh startup time on Android 9(Sm-j7) is about 0.5 - 0.7 sec***<br>
+(zsh -i -c exit  0.40s user 0.10s system 87% cpu 0.600 total)
 
 #### **Essential plugins**
 
@@ -37,7 +36,7 @@ I'm using too many plugins but only 2 or 3 are essential<br>
   - line_break  -   1ms  -  \n
   - character   -   1ms  -  ❯<br>
 
-  ![Termux-pic](storage/Termux_Prompt-time.jpg)
+![Termux-pic](storage/Termux_Prompt-time.jpg)
 
 ### **TODO**
 

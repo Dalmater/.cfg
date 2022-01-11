@@ -1,6 +1,6 @@
 #!/data/data/com.termux/files/usr/bin/env bash
 
-# script to toggle on/off executable bit of files
+# script to toggle on/off executable files
 
 file=$1
 

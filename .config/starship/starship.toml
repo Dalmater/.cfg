@@ -1,4 +1,5 @@
-format = '$shlvl$username$hostname$directory$git_branch$git_commit$git_state$git_metrics$git_status$custom$cmd_duration$line_break$jobs$status$character'
+# format = '$all'
+format = '$shlvl$username$hostname$directory$git_branch$git_commit$git_state$git_metrics$git_status$custom$cmd_duration$line_break$jobs$time$status$character'
 # right_format = '$cmd_duration'
 # scan_timeout = 10
 # command_timeout = 500
@@ -9,19 +10,21 @@ disabled = false
 
 [character]
 success_symbol = '[❯](bold green)'
-error_symbol = '[❮](bold #cc241d)' # ✗
+error_symbol = ' [❮](bold #CC241D)'
 vicmd_symbol = '[](#A3BE8C)'
 
 [status]
-style = "#cc241d bold"
-symbol = "💥 " # 💣
+style = 'bold #CC241D'
+symbol = '💥' # 💣
+signal_symbol = '☇'
 format = '[\[$symbol$status\]]($style)'
 disabled = false
 map_symbol = true
 recognize_signal_code = true
+pipestatus_format = '$pipestatus => [$symbol$common_meaning$signal_name$maybe_int]($style)'
 pipestatus = true
 success_symbol = ''
-pipestatus_separator = '|'
+pipestatus_separator = ''
 
 [username]
 format = '[$user]($style)@'
@@ -30,16 +33,16 @@ show_always = true
 
 [cmd_duration]
 min_time = 500
-format = ' took [$duration]($style)'
+format = 'took [$duration]($style)'
 show_milliseconds = false
 show_notifications = true
 disabled = false
 
 [directory]
 format = '[$path]($style)[$lock_symbol]($lock_style)[$read_only]($read_only_style) '
-style = '#83a098 bold italic'
+style = '#83A098 bold'
 read_only = ' 🔒'
-read_only_style = '#458588' #
+read_only_style = '#458588'
 truncate_to_repo = false
 truncation_length = 2
 truncation_symbol = ''
@@ -67,12 +70,12 @@ diverged = '⇕⇡[$ahead_count]⇣[$$behind_count](#FABD2F) '
 behind = '⇣[$count](#FABD2F) '
 # up_to_date = '[√](bold green)'
 conflicted = '≈[$count](#D3869B) '
-untracked = '?[$count](#a89984) '
+untracked = '?[$count](#A89984) '
 stashed = '\$[$count](#458588) ' ##8FBCBB
 modified = '![$count](#D79921) '
-renamed = '»[$count](#8ec07c) '
+renamed = '»[$count](#8EC07C) '
 deleted = '✗[$count](#FA4934) '
-staged = '+[$count](#91971a) '
+staged = '+[$count](#91971A) '
 disabled = false
 
 [git_commit]
@@ -152,6 +155,10 @@ disabled = true
 disabled = true
 
 [jobs]
+threshold = 1
+symbol_threshold = 1
+number_threshold = 2
+# style = "#FACD2F"
 disabled = false
 
 [julia]
@@ -224,14 +231,18 @@ disabled = true
 threshold = 2
 format = '[$symbol$shlvl]($style) '
 symbol = ''
-repeat = false
+# repeat = false
 disabled = false
 
 [terraform]
 disabled = true
 
 [time]
-disabled = true
+format = '[$time ]($style)'
+time_format = "%T"
+utc_time_offset = "+1"
+time_range = "23:00:00-06:00:00"
+disabled = false
 
 [memory_usage]
 disabled = true

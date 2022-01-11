@@ -3,16 +3,26 @@ autoload -Uz colors && colors
 
 # Enable ls colors
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
+export EXA_COLORS="${LS_COLORS//=9/=1;3}"
 
 if [[ -z "$LS_COLORS" ]]; then
   (( $+commands[dircolors] )) && test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
+Red=$(printf '\033[31m')
+Green=$(printf '\033[32m')
+Yellow=$(printf '\033[33m')
+Blue=$(printf '\033[34m')
+Magenta=$(printf '\033[35m')
+Cyan=$(printf '\033[36m')
+Bold=$(printf '\033[1m')
+Reset=$(printf '\033[m')
+
 # XDG Path
 export XDG_CONFIG_HOME=$HOME/.config
 export XDG_CACHE_HOME=$HOME/.cache
 export XDG_DATA_HOME=$HOME/.local/share
-export TMP_CACHE=$PREFIX/tmp/zsh_tmp_cache
+# export TMP_CACHE=$PREFIX/tmp/zsh_tmp_cache
 
 # Keydelay + disable right prompt indent
 export KEYTIMEOUT=100 # 1sec
@@ -20,7 +30,7 @@ ZLE_RPROMPT_INDENT=0
 
 # Allow GnuPG to use console for authentication
 export GPG_TTY="$(tty)"
-export USERNAME
+# export USERNAME
 # export GITHUB_USER=Dalmater
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 
@@ -31,7 +41,7 @@ export GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 # export LESSCOLORIZER="pygmentize"
 export LESSHISTFILE="-"
 
-export LANG=en_US.UTF-8
+# export LANG=en_US.UTF-8
 # export LC_ALL=en_US.UTF-8
 # export LC_CTYPE=UTF-8
 export COLORTERM="truecolor"
@@ -39,27 +49,29 @@ export CLICOLOR=1
 export MICRO_TRUECOLOR=1
 # export TMUX_TMPDIR="/data/data/com.termux/files/usr/var/run"
 export FZF_TMPDIR="/data/data/com.termux/files/usr/var/run"
-export HISTIGNORE="&:l:ls :ll:la:cd "
+# export HISTIGNORE="&:l:ls :ll:la:cd "
 export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/.wgetrc"
+export PIP_DISABLE_PIP_VERSION_CHECK=1
 
 # Job Control
-setopt auto_resume
-# setopt long_list_jobs
+# setopt auto_resume
+# setopt long_list_jobs # (set by ohmyzsh)
 # setopt no_bg_nice
 
 # Completion, expansion and globbing
-# setopt always_to_end
+# setopt always_to_end # (set by ohmyzsh)
 # setopt extended_glob
+# setopt no_case_glob
 setopt glob_complete
-# setopt glob_star_short
-setopt list_packed
+# setopt complete_in_word # (set by ohmyzsh)
+setopt dot_glob
+setopt glob_star_short
+# setopt list_packed
 # setopt list_rows_first
-# setopt mark_dirs
-# setopt no_nomatch
-# setopt no_menu_complete
 setopt no_beep
-# setopt rc_quotes
+# setopt null_glob
+# setopt hash_all
+
+# Prompt
 # setopt transient_rprompt
 # setopt prompt_subst
-# setopt no_auto_remove_slash
-setopt numeric_glob_sort

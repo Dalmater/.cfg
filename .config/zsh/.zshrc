@@ -1,4 +1,4 @@
-
+# source fzf + completion
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Path to oh-my-zsh installation.
@@ -9,7 +9,7 @@ export ZSH="$HOME/.zsh"
 # autoload -U promptinit
 # promptinit
 # prompt -s astro-z
-# ENABLE_COMMAND_TIP=true
+ENABLE_COMMAND_TIP=true
 
 # oh-my-zsh settings
 # COMPLETION_WAITING_DOTS="true"
@@ -20,6 +20,8 @@ ZSH_COMPDUMP="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompdump-${ZSH_VERSION}"
 
 ZSH_EVALCACHE_DIR="$HOME/.cache/evalcache"
 HISTFILE="$HOME/.cache/zsh/.zsh_history"
+HISTSIZE=120000
+SAVEHIST=30000
 
 # Plugins
 plugins=(
@@ -31,7 +33,8 @@ plugins=(
   # dotbare
   fzf-tab
   # you-should-use
-  # ssh-agent gpg-agent zsh-handy-helpers
+  # ssh-agent gpg-agent
+  # zsh-handy-helpers
   # keychain
   zsh-lazyload
   evalcache
@@ -41,14 +44,16 @@ plugins=(
   # fast-syntax-highlighting
   # zui zbrowse zzcomplete
 )
+
 # zstyle :omz:plugins:ssh-agent agent-forwarding on
 # zstyle :omz:plugins:keychain agents gpg,ssh
 # zstyle :omz:plugins:ssh-agent identities
 # zstyle :omz:plugins:ssh-agent lazy yes
 
+# zstyle ':hist:*' expand-aliases yes
+
 source $ZSH/oh-my-zsh.sh
 
-# _evalcache dircolors -b ~/.dircolors
 # Plugin configuration
 # export ZSH_COLORIZE_STYLE="gruvbox-dark"
 # export ZSH_COLORIZE_TOOL="pygmentize"
@@ -61,19 +66,19 @@ ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=58"
 ZSH_AUTOSUGGEST_USE_ASYNC="true"
 
 source $ZDOTDIR/plugins/you-should-use/you-should-use.plugin.zsh
-export YSU_MODE=ALL
+# export YSU_MODE=ALL
 export YSU_MESSAGE_POSITION=after
-export YSU_IGNORED_ALIASES=( "g" "gc" "iaf" "cfg" )
+export YSU_IGNORED_ALIASES=( "g" "gc" "iaf" "cfg" "py" )
 export YSU_MESSAGE_FORMAT="${BOLD}${YELLOW}\
 Found %alias_type for ${PURPLE}"%command"${YELLOW} \
 \nYou should use: ${RED}"%alias"${NONE}"
 
-# eval "$(lua5.3 ~/.zsh/custom/plugins/z.lua/z.lua --init zsh enhanced once)"
-_evalcache lua5.3 ~/.config/zsh/plugins/z.lua/z.lua --init zsh
-export _ZL_EXCLUDE_DIRS="buffers,.git,node_modules,'_*','*_'"
-export _ZL_DATA="~/.cache/zsh/.zlua"
+# eval "$(lua ~/.zsh/custom/plugins/z.lua/z.lua --init zsh enhanced once)"
+_evalcache lua ~/.config/zsh/plugins/z.lua/z.lua --init zsh enhanced once
+export _ZL_EXCLUDE_DIRS="buffers,.git,'_*','*_'"
+export _ZL_DATA="$HOME/.cache/zsh/.zlua"
 export _ZL_ADD_ONCE=1
-export _ZL_MATCH_MODE=1
+# export _ZL_MATCH_MODE=1
 # export _ZL_NO_CHECK=1
 
 # User configuration
@@ -84,26 +89,28 @@ export PAGER="bat -p --paging=always"
 export MANPAGER="bat -p --paging=always"
 export MANPATH=$PREFIX/share/man
 export MANPATH=$HOME/.fzf/man:$MANPATH
-export OPENER="xdg-open"
+# export OPENER="xdg-open"
 export BROWSER="lynx"
 export WWW_HOME="duckduckgo.com"
-export FILE="vifm"
+# export FILE="vifm"
 export BAT_THEME="gruvbox"
 
 # For a full list of active aliases, run `alias`
 # Example aliases
-alias ohmyzsh="nvim ~/.zsh/oh-my-zsh.sh"
+alias ohmyzsh="${EDITOR} ~/.zsh/oh-my-zsh.sh"
 
-source ~/.aliases
+if [ -f ~/.aliases ]; then
+  source ~/.aliases
+fi
 
 # Correction
 setopt correct
 
 # Misc
-# > and >> work as expected
-setopt clobber
-# Enable piping to multiple outputs
-setopt multios
+# > and >> work as expected (default)
+# setopt clobber
+# Enable piping to multiple outputs (default)
+# setopt multios
 # Enable comments in interactive mode
 setopt interactive_comments
 # Safe rm. Wait 10 seconds before executing "rm *"
@@ -113,23 +120,23 @@ setopt no_rm_star_silent
 # Directories
 setopt auto_cd # change directory without cd
 setopt cd_silent
-# setopt auto_pushd
+# setopt auto_pushd # (set by ohmyzsh)
 setopt pushd_to_home
 setopt pushd_silent
-# setopt pushd_minus
-# setopt pushd_ignore_dups
-# setopt cdable_vars
+# setopt pushd_minus # (set by ohmyzsh)
+# setopt pushd_ignore_dups # (set by ohmyzsh)
+setopt cdable_vars
 
 # History
-setopt hist_append
-setopt hist_expand
-setopt hist_no_store
+# setopt hist_append # (default)
+# setopt hist_expand
+# setopt share_history # (set by ohmyzsh)
 setopt hist_lex_words
 setopt hist_save_no_dups
-setopt inc_append_history
-setopt hist_ignore_all_dups
-setopt no_hist_reduce_blanks
-setopt inc_append_history_time
+setopt hist_find_no_dups
+# setopt hist_ignore_all_dups
+# setopt inc_append_history
+unsetopt hist_reduce_blanks
 
 export PROMPT_TITLE='%~ | ${COLUMNS}x${LINES} | %! | %? | %y |'
 
@@ -138,11 +145,8 @@ function zle-keymap-select () {
 case $KEYMAP in
   viins|main) echo -ne '\e[5 q';; # beam
   vicmd)      echo -ne '\e[1 q';; # block
-  visual)     echo -ne '\e[1 q';;
-  viopp)      echo -ne '\e[3 q';; # line
-  isearch)    echo -ne '\e[3 q';;
   command)    echo -ne '\e[4 q';;
-  *)          echo -ne '\e[3 q';;
+  *)          echo -ne '\e[3 q';; # line
 esac
 }
 zle -N zle-keymap-select
@@ -154,21 +158,19 @@ preexec() { echo -ne '\e[5 q' }
 # Starship prompt
 # eval "$(starship init zsh)"
 _evalcache starship init zsh
-
 export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
-# keybindings
-bindkey -s '^[R' 'ranger_cd \n'
-bindkey -s '^[V' 'vifm \n'
-bindkey    '^Z'   list-choices
-bindkey    '^[[H' beginning-of-line
-bindkey    '^[[F' end-of-line
-bindkey    '^[[1;3C' kill-word
-bindkey    '^[[1;3D' backward-kill-word
-bindkey    '^[v'  vi-cmd-mode
-bindkey          '^[b' backward-kill-word
-bindkey -M viins '^[b' backward-kill-word
-bindkey -M vicmd '^[b' backward-kill-word
+# custom keybindings
+bindkey -s       '^[R' 'ranger_cd \n'
+bindkey -s       '^[V' 'vifm \n'
+bindkey          '^[v'  vi-cmd-mode
+bindkey       '^[[1;3C' kill-word
+bindkey       '^[[1;3D' backward-kill-word
+bindkey          '^[[H' beginning-of-line
+bindkey -M vicmd '^[[H' beginning-of-line
+bindkey          '^[[F' end-of-line
+bindkey -M vicmd '^[[F' end-of-line
+bindkey          '^[b'  backward-kill-word
 
 # source "${EXTERNAL_STORAGE}/termuxlauncher/.apps-launcher"
 lazyload launch -- 'source "${EXTERNAL_STORAGE}/termuxlauncher/.apps-launcher"'
@@ -181,60 +183,58 @@ lazyload ranger_cd -- 'source "${HOME}/.config/ranger/shell_automatic_cd.sh"'
 ############# >FZF Base< #############
 
 bindkey -s '^[i' 'interactive_fzf \n'
-bindkey -s '^Gn' 'notes \n'
-bindkey -s '^fc' 'dotf \n'
-bindkey -s '^fg' 'fzf_git \n'
-bindkey -s '^fn' 'live_search_notes \n'
-bindkey -s '^ff' 'fuz \n'
-bindkey    '^ft' 'toggle-fzf-tab'
+bindkey -s '^Fc' 'dotf \n'
+bindkey -s '^Ff' 'fuz \n'
 bindkey -s '^[r' 'rg-fzf \n'
-bindkey    '^X,' 'toggle-fzf-tab'
-bindkey -s '^fo' 'file="$(fzf --height 40% --reverse)" && [ -f "$file" ] && xdg-open "$file --chooser" \n'
+bindkey    '^Ft' toggle-fzf-tab
+bindkey    '^X,' toggle-fzf-tab
+bindkey -s '^Fo' 'file="$(fzf --reverse)" && [ -f "$file" ] && xdg-open "$file" --chooser'
 
 source "$HOME/.config/zsh/plugins/dotbare/dotbare.plugin.zsh"
-source "/data/data/com.termux/files/home/.fzf/shell/key-bindings.zsh"
-# source "$ZDOTDIR/fzf-cfg.zsh"
+source "$HOME/.fzf/shell/key-bindings.zsh"
+
 source "$HOME/scripts/fzf_functions.zsh"
 
 # export FZF_BASE='~/.fzf'
 # export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow -c always --exclude .git'
 export FZF_DEFAULT_COMMAND='ag --hidden --follow --ignore .git -g ""'
+ # "➟"
 export FZF_DEFAULT_OPTS="--height 90% --min-height 20 --color=fg:#ebdbb2 \
   --color=gutter:-1,info:#d79921,border:21,hl:underline:#928374,hl+:#fb4934 \
   --color=header:#8ec07c,pointer:#cc241d,prompt:#689d6a,marker:#91970a,spinner:#fe8019 \
-  --pointer='❯' --marker='√' --cycle --filepath-word --ansi \
+  --pointer='➜' --marker='√' --cycle --filepath-word --ansi -0 \
   --layout=reverse --info=inline --preview-window=down,60%,border-top,hidden \
-  --bind 'alt-t:+toggle-preview,alt-s:+toggle-sort,alt-j:jump,?:change-preview:echo {}' \
+  --bind 'alt-0:top,alt-t:+toggle-preview,alt-s:+toggle-sort,?:change-preview:echo {}' \
   --bind 'alt-w:toggle-preview-wrap,alt-right:+kill-word,alt-left:+backward-kill-word' \
-  --bind 'alt-a:+toggle-all,tab:+toggle+down,alt-bs:+toggle-up,alt-u:deselect-all' \
   --bind 'backward-eof:abort,ctrl-h:delete-char/eof,alt-|:+change-preview:file {}' \
-  --bind 'ctrl-d:change-prompt(Directories> )+reload(fd -td -HL --color=always --exclude={.git})' \
-  --bind 'ctrl-f:change-prompt(Files> )+reload(fd -tf -HL -c always --exclude={.git})' \
-  --bind 'alt-l:execute(less& -f {}),alt-y:execute-silent(printf {+} | cut -f 2- | termux-clipboard-set)' \
+  --bind 'alt-a:+toggle-all,tab:toggle+down,alt-bs:toggle+up,alt-u:deselect-all' \
+  --bind 'ctrl-d:change-prompt(Directories> )+reload(fd -td -HL --color=always)' \
+  --bind 'alt-j:jump,ctrl-f:change-prompt(Files> )+reload(fd -tf -HL -c always)' \
+  --bind 'alt-y:execute-silent(printf {+} | cut -f2- | termux-clipboard-set)' \
   --preview '([[ -f {} ]] && (bat --color=always --line-range :200 {})) || ([[ -d {} ]] && (tree -a -L 4 -C {} | less)) || echo {}' \
-  --bind 'alt--:change-preview-window(3,border-top,wrap|right,border-left|70%,border-top|),alt-o:execute(echo {+} | xargs -o $EDITOR),ctrl-e:execute(nvim {+} >/dev/tty)'"
+  --bind 'alt-t:+change-preview-window(|3,border,wrap|70%,border-top|right,55%,border-left)' \
+  --bind 'alt-o:execute(xdg-open --chooser {+} >/dev/tty),ctrl-e:execute(nvim -p {+} >/dev/tty)'"
 export FZF_ALT_C_COMMAND='fd --type d -HLa -c always \
-  --base-directory /data/data/com.termux/files --exclude={.git}'
+  --base-directory /data/data/com.termux/files'
 export FZF_ALT_C_OPTS="--preview 'exa -a1 --icons {}' --preview-window=right,40%,border \
-  --keep-right --bind change:first"
+  --keep-right --bind change:first,alt-j:jump-accept"
 # export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_COMMAND='fd -tf -LH -c always --exclude={.git}'
 export FZF_CTRL_T_OPTS="--preview 'bat --color=always --line-range :200 {}' \
   --preview-window 'down,60%,hidden' --keep-right --bind change:first"
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window=down,3,hidden,wrap,border \
-  --bind change:first --exact"
-# export FZF_CTRL_R_OPTS='--sort --exact'
-# export FZF_COMPLETION_OPTS="--height 85% --min-height 20 --no-border --info=inline --preview-window=down,3,hidden,wrap,border-top --preview 'eval eval echo {+}'"
+  --bind change:first,alt-j:jump-accept --exact"
+# export FZF_COMPLETION_OPTS="--height 85% --min-height 20 --no-border --info=inline --preview-window=down,3,hidden,wrap,border-top"
 # export FZF_TMUX_OPTS="-p -h 80% -w 80% --preview-window 'down,50%:hidden:wrap'"
-export FZF_TMUX_OPTS="-d 60%"
-export FZF_TMUX=1
-export FZF_HISTORY_DIR='~/.local/share/fzf-history'
+# export FZF_TMUX_OPTS="-d 60%"
+# export FZF_TMUX=1
+export FZF_HISTORY_DIR="$XDG_DATA_HOME/fzf-history"
 export DOTBARE_DIR="$HOME/.cfg.git"
 export DOTBARE_TREE="$HOME"
 export DOTBARE_FZF_DEFAULT_OPTS="--preview-window 'down,70%' --keep-right --ansi"
 export DOTBARE_DIFF_PAGER="delta --diff-so-fancy --line-numbers"
-export DOTBARE_KEY="--bind=alt-j:jump-accept,alt-w:toggle-preview-wrap"
-# alias dotbare="$HOME/.zsh/custom/plugins/dotbare/dotbare"
+export DOTBARE_KEY="--bind 'alt-j:jump-accept,alt-w:toggle-preview-wrap'"
+# alias dotbare="$HOME/.config/zsh/plugins/dotbare/dotbare"
 bindkey -s '^Fd' 'dotbare fedit \n'
 bindkey -s '^Xx' 'dotbare fedit \n'
 _dotbare_completion_cmd #dotbare
@@ -245,7 +245,13 @@ _dotbare_completion_cmd #dotbare
 # FZF Function Examples
 
 # Auto cd with fzf
-fzf_cd() { zle -I; DIR=$(find ${1:-*} -path '*/\.*' -prune -o -type d -print 2> /dev/null | fzf --keep-right) && "$DIR" ; }; zle -N fzf_cd;
+fzf_cd() {
+  local dir
+  DIR=$(find ${1:-*} \( -path .cache -o -path .cfg.git -o -path .git \) -prune -o -path '*/\.*' \
+    -prune -o -type d -print 2> /dev/null | fzf +m --keep-right) && cd "$DIR"
+  zle reset-prompt
+  }
+zle -N fzf_cd
 bindkey '^[j' fzf_cd
 
 # zlua fzf integration
@@ -288,7 +294,7 @@ ftags() {
         fzf \
         --nth=1,2 \
         --with-nth=2 \
-        --preview-window="50%" \
+        --preview-window="50%,nohidden" \
         --preview="bat {3} --color=always | tail -n +\$(echo {4} | tr -d \";\\\"\")"
               ) && ${EDITOR:-vim} $(cut -f3 <<< "$line") -c "set nocst" \
                 -c "silent tag $(cut -f2 <<< "$line")"
@@ -308,6 +314,7 @@ source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 source $ZDOTDIR/plugins/fast-syntax-highlighting/fast-syntax-highlighting.plugin.zsh
 
 # only for the first session
-case $- in *i*)
-  if [[ ! "$(tmux list-sessions)" ]] 2>/dev/null; then exec tmux new -s 1; fi
-esac
+# case $- in *i*)
+#   if [[ ! "$(tmux ls)" ]] 2>/dev/null; then exec tmux new -A -s 1
+#   fi
+# esac

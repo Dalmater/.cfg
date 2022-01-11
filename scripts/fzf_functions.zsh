@@ -18,7 +18,7 @@ vf() {
 }
 
 # search for configs and scripts
-se() { du .aliases ~/*ignore ~/scripts/* ~/.config/*/* ~/.zshenv ~/.termux/* \
+se() { du ~/.aliases ~/.bashrc ~/*ignore ~/scripts/* ~/.config/*/* ~/.zshenv ~/.termux/* ~/*colors \
   --exclude='*complet*' --exclude='plug*' --exclude='font*' --exclude='.config/colors/*' \
   | awk '{print $2}' | fzf -m --keep-right | xargs -r $EDITOR -p ;}
 
@@ -86,9 +86,9 @@ dotf() {
   local files
 
   files=(~/.agignore ~/.aliases ~/.bashrc ~/.zshenv ~/.gitconfig ~/.gitignore ~/.dircolors ~/.gemrc
-    ~/.config/{bat,ctags,fd,git,glow,htop,lynx,neofetch,npm,nvim,pip,ranger/rc.conf,starship,vifm,w3m,wget,zsh}
+    ~/.config/{bat,ctags,fd,git,glow,htop,neofetch,npm,nvim,pip,starship,vifm,w3m,wget,zsh}
     ~/.config/micro/bindings.json ~/.config/micro/settings.json ~/.config/tmux/tmux.conf
-    ~/.lynxrc ~/scripts/* ~/.local/bin/* ~/documents/*
+    ~/bin/* ~/.lynxrc ~/scripts/* ~/.local/bin/* ~/documents/*
     $PREFIX/etc/{bash.bashrc,inputrc,nanorc,profile,tmux.conf,zshrc})
 
     find $files -type f |
@@ -97,27 +97,46 @@ dotf() {
 
 # search for all notes and open selected one in editor
 notes() {
-  rg --files "$HOME"/*ocuments/notes |
-    fzf --keep-right --preview 'bat --color=always --line-range :100 {}' --bind=alt-t:toggle-preview | xargs -r "$EDITOR"
+  zle -I
+  rg --files ~/*ocuments/notes |
+    fzf --keep-right --preview-window 'nohidden' \
+    --preview 'bat --color=always --line-range :50 {}' | xargs -r "$EDITOR"
+    zle reset-prompt
   }
+zle -N notes
+bindkey '^Gn' notes
 
 # cd into note dir, live grep the contents of notes, then open in editor
 live_search_notes() {
   cd "$HOME"/*ocuments/notes && interactive_fzf
+  # zle accept-line
 }
+# zle -N live_search_notes
+# bindkey '^Fn' live_search_notes
+bindkey -s '^Fn' 'live_search_notes \n'
 
 # search for all git repos in folders I care, then cd into selected one.
 fzf_git() {
   dir=$(find ~/ -type d -name .git | sed 's/\/.git//' |
-    fzf --keep-right --cycle --preview 'tree -C {} | head -50'
-      ) && cd $dir && git status
-    }
+    fzf --keep-right --cycle --preview 'tree -C {} | head -50') && cd $dir && git status
+    zle reset-prompt
+  }
+zle -N fzf_git
+bindkey '^Fg' fzf_git
 
-# find - cd into any directory of the current folder
+
+# fcd - fuzzy cd from anywhere via fd result
+# ex: cd word (even part of a dir name)
 fcd() {
   local dir
-  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+  dir="$(fd -td -H "$1" | fzf --query="$*" -1 -0 +m --no-sort)" && "${dir}" || return 1
 }
+
+# find - cd into any directory of the current folder
+# fcd() {
+#   local dir
+#   dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+# }
 
 # cdf - cd into the directory of the selected file
 cdf() {
@@ -128,8 +147,11 @@ cdf() {
 # find-in-file - usage: fif <searchTerm>
 fif() {
   if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
-  rg --files-with-matches --no-messages "$1" | fzf --preview-window=nohidden --preview "highlight -O ansi -l sh {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
-}
+  rg --files-with-matches --no-messages "$1" | fzf --preview-window=nohidden \
+    --preview "highlight -O ansi -l sh {} 2> /dev/null \
+    | rg --colors 'match:bg:11' --ignore-case --pretty --context 10 '$1' {} \
+    || rg --ignore-case --pretty --context 10 '$1' {}"
+  }
 
 # man-find() {
 # f=$(fd . $MANPATH/man${1:-1} -t f -x echo {/.} | fzf) && man $f
@@ -180,13 +202,13 @@ fzf_gb() {
 fzf_gt() {
   is_in_dot_repo || return
   dot tag --sort -version:refname |
-    fzf-down --multi --preview-window right:70%:nohidden \
-    --preview 'git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME show --color=always {}'
+    fzf-down --multi --preview-window right:75%:border-left:nohidden \
+    --preview 'git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME show --color=always {}' -0
   }
 
 fzf_gh() {
   is_in_dot_repo || return
-  dot log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
+  dot log --date=short --format="%C(bold)%C(auto)%h%d %s %C(green)(%cd) %C(bold blue)[%an]%Creset" --graph --color=always |
     fzf-down --ansi --no-sort --reverse --multi --bind 'alt-s:toggle-sort' \
     --header 'Press ALT-S to toggle sort' \
     --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME show --color=always' |
@@ -203,7 +225,7 @@ fzf_gr() {
 
 fzf_gs() {
   is_in_dot_repo || return
-  dot stash list | fzf-down --reverse -d: --preview 'git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME show --color=always {1}' |
+  dot stash list | fzf-down --reverse -d: --preview 'git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME show --color=always {1}' -0 |
     cut -d: -f1
   }
 
@@ -250,13 +272,13 @@ _gb() {
 _gt() {
   is_in_git_repo || return
   git tag --sort -version:refname |
-    fzf-down --multi --preview-window right:70%:nohidden \
-    --preview 'git show --color=always {}'
+    fzf-down --multi --preview-window right:75%:border-left:nohidden \
+    --preview 'git show --color=always {}' -0
   }
 
 _gh() {
   is_in_git_repo || return
-  git log --date=short --format="%C(green)%C(bold)%cd %C(auto)%h%d %s (%an)" --graph --color=always |
+  git log --date=short --format="%C(bold)%C(auto)%h%d %s %C(green)(%cd) %C(bold blue)[%an]%Creset" --graph --color=always |
     fzf-down --ansi --no-sort --reverse --multi --bind 'ctrl-s:toggle-sort' \
     --header 'Press CTRL-S to toggle sort' \
     --preview 'grep -o "[a-f0-9]\{7,\}" <<< {} | xargs git show --color=always' |
@@ -273,7 +295,7 @@ _gr() {
 
 _gs() {
   is_in_git_repo || return
-  git stash list | fzf-down --reverse -d: --preview 'git show --color=always {1}' |
+  git stash list | fzf-down --reverse -d: --preview 'git show --color=always {1}' -0 |
     cut -d: -f1
 }
 join-line() {
@@ -293,3 +315,23 @@ bind-git-help() {
 }
 bind-git-help f b t r h s
 unset -f bind-git-help
+
+# search aliases & bindings
+falias () {
+    local out
+    out=$(alias | fzf)
+    echo -n "$(echo -n "${out}" | sed 's+=.*++g' | termux-clipboard-set)"}
+#  | sed 's/.*[=]//'
+
+fbind () {
+    local out
+    out=$(bindkey | fzf)
+    echo -n "$(echo -n "${out}")"
+    }
+  #  | sed 's/.*"*" //g' | termux-clipboard-set
+
+vbind () {
+    local out
+    out=$(bindkey -a | fzf)
+    echo -n "$(echo -n "${out}")"
+    }

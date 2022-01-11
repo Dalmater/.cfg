@@ -28,7 +28,7 @@
 ; bin-links=true
 ; browser=null
 ; ca=null
-cache=~/.cache/npm
+cache=/data/data/com.termux/files/home/.cache/npm
 ; cache-max=null
 ; cache-min=0
 ; cafile=null
@@ -41,7 +41,7 @@ cache=~/.cache/npm
 ; depth=null
 ; description=true
 ; dev=false
-; 
+;
 ; diff-ignore-all-space=false
 ; diff-name-only=false
 ; diff-no-prefix=false
@@ -50,7 +50,7 @@ cache=~/.cache/npm
 ; diff-text=false
 ; diff-unified=3
 ; dry-run=false
-; editor=nvim
+editor=nvim
 ; engine-strict=false
 ; fetch-retries=2
 ; fetch-retry-factor=10
@@ -58,32 +58,32 @@ cache=~/.cache/npm
 ; fetch-retry-mintimeout=10000
 ; fetch-timeout=300000
 ; force=false
-; foreground-scripts=false
+foreground-scripts=true
 ; format-package-lock=true
 ; fund=true
 ; git=git
 ; git-tag-version=true
 ; global=false
 ; global-style=false
-globalconfig=/data/data/com.termux/files/etc/npmrc
+; globalconfig=/data/data/com.termux/files/etc/npmrc
 ; heading=npm
 ; https-proxy=null
 ; if-present=false
 ; ignore-scripts=false
-; 
+;
 ; include-staged=false
 ; include-workspace-root=false
 ; init-author-email=
 ; init-author-name=
 ; init-author-url=
 ; init-license=ISC
-init-module=~/.config/npm/npm-init.js
+; init-module=/data/data/com.termux/files/home/.config/npm/.npm-init.js
 ; init-version=1.0.0
 ; init.author.email=
 ; init.author.name=
 ; init.author.url=
 ; init.license=ISC
-init.module=~/.config/npm/npm-init.js
+; init.module=/data/data/com.termux/files/home/.config/npm/.npm-init.js
 ; init.version=1.0.0
 ; json=false
 ; key=null
@@ -103,11 +103,11 @@ init.module=~/.config/npm/npm-init.js
 ; noproxy=
 ; npm-version=8.3.0
 ; offline=false
-; 
+;
 ; only=null
 ; optional=null
 ; otp=null
-; 
+;
 ; package-lock=true
 ; package-lock-only=false
 ; pack-destination=.
@@ -158,6 +158,6 @@ userconfig=/data/data/com.termux/files/home/.config/npm/npmrc
 ; versions=false
 ; viewer=man
 ; which=null
-; 
+;
 ; workspaces=null
 ; yes=null

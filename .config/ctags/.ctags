@@ -17,3 +17,4 @@
 --exclude=undo/
 --exclude=vim-easycomplete/
 --exclude=/storage/40E6-DFFD/
+--exclude=/storage/emulated/0/

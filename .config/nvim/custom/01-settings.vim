@@ -22,7 +22,6 @@ set showcmd nosmd
 set cmdheight=2
 set updatetime=300
 set guioptions+='d'
-set ttyfast
 " Formating
 set encoding=utf-8
 " set fileencoding=utf-8
@@ -66,8 +65,8 @@ set grepformat=%f:%l:%c:%m
 
 if !has('gui_running')
   set t_Co=255
-else
-  set t_Co=24
+" else
+"   set t_Co=24
 endif
 set termguicolors
 
@@ -85,6 +84,7 @@ endif
 set timeoutlen=1000
 
 " Don't save options in sessions and views
+" set sessionoptions=blank,curdir,folds,help,tabpages,winpos
 set sessionoptions-=options
 set viewoptions-=options
 
@@ -122,8 +122,8 @@ set nofoldenable
 " set nornu nonu
 set cursorline
 set nocursorcolumn
-set so=3
-set siso=5
+set so=1
+set siso=3
 set scrolljump=3
 set lazyredraw
 set redrawtime=10000

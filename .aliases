@@ -1,10 +1,11 @@
 #!bin/env bash
-alias afs='apt-fzf-search'
+export GREP_COLORS="mt=01;31;103"
+
 alias crsr="echo -ne '\e[6 q'"
+alias cursor='tput cnorm'
 alias dateformatcodes='date --help | sed -n '\''/^FORMAT/,//p'\'
 alias dfc='date --help | sed -n '\''/^FORMAT/,//p'\'
 alias null='>/dev/null 2>&1 &'
-alias opn='${EDITOR} /data/data/com.termux/files/home/openssh/open'
 alias psf='ps -f'
 alias psg='ps -e | grep '
 alias pp='python -mjson.tool | pygmentize -l js'
@@ -12,8 +13,7 @@ alias reset-colors='tput init'
 alias sb='source ~/.bashrc'
 alias sortnr='sort -n -r'
 alias sz='source ${ZDOTDIR:-${HOME}}/.zshrc'
-alias s='source'
-alias music='cd /storage/40E6-DFFD/Music/'
+alias music='/storage/40E6-DFFD/Music/'
 
 # easier to read disk
 alias df='df -h'     # human-readable sizes
@@ -24,6 +24,9 @@ alias psmem='ps auxf | sort -nr -k 4 | head -5'
 
 # get top process eating cpu ##
 alias pscpu='ps auxf | sort -nr -k 3 | head -5'
+
+# zsh_history git bare repo
+alias cfghist='$PREFIX/bin/git --git-dir=$HOME/.cache/zsh/history --work-tree=$HOME/.cache/zsh'
 
 # gpg encryption
 # verify signature for isos
@@ -40,13 +43,14 @@ alias \
     aptrm='apt remove' \
     aptar='apt autoremove' \
     aptri='apt reinstall' \
-    pkgri='pkg reinstall' \
-    aptu='apt update -yy && apt full-upgrade -qq'
+    aptu='apt update -yy && apt full-upgrade -qq' \
+    pkgri='pkg reinstall'
 
 # commands
 alias \
-    HMBs='du -h --max-depth=1 --one-file-system ~' \
-    MBs='du -h --max-depth=1 --one-file-system $PREFIX' \
+    HMBs="du -h --max-depth=1 --one-file-system ~ | sort -hr | sed 's+\/data\/data\/com.termux\/files\/home\/++g'" \
+    MBs="du -h --max-depth=1 --one-file-system $PREFIX | sort -hr | sed 's+\/data\/data\/com.termux\/files\/usr\/++g'" \
+    ag='ag "--color-match=01;31;103"' \
     chmod='chmod -v' \
     chown='chown -v' \
     cp='nocorrect cp -i -v' \
@@ -56,7 +60,9 @@ alias \
     duf='du -sh *' \
     egrep='egrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.cfg.git,.cache}' \
     fgrep='fgrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.cfg.git,.cache}' \
-    hgrep='fc -El 0 | grep' \
+    grep='grep --color=auto' \
+    hgrep='fc -El 0 | rg' \
+    h='history' \
     man='nocorrect man' \
     md='nocorrect mkdir -pv' \
     mkd='nocorrect mkdir -pv' \
@@ -66,45 +72,50 @@ alias \
     pkg='noglob pkg' \
     py='python' \
     rm='nocorrect rm -I -v' \
+    s='source' \
     sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS,.cfg.git,.cache} ' \
     shad="ssh-add ~/.ssh/id_rsa" \
     shag='eval "$(ssh-agent -s)"' \
-    ta='tmux attach -d' \
-    wget='wget -r -e --robots=off -nc -np' \
-    grep='grep --color=auto' \
-    rg='rg --colors 'match:bg:yellow' --ignore-case --pretty' \
-    ffmpeg='ffmpeg -hide_banner'
+    tma='tmux attach' \
+    tmn='tmux new -s' \
+    tmd='tmux attach -d -t' \
+    tml='tmux list-sessions' \
+    tksv='tmux kill-server' \
+    tmks='tmux kill-session -t' \
+    tmk='tmux-kill' \
+    tms='tmux-search' \
+    ttyc='tty-clock -crC 3' \
+    clock='tty-clock -crC 3' \
+    uhr='tty-clock -crC 3' \
+    rg="rg --colors 'match:bg:11' --ignore-case --pretty" \
+    ffmpeg='ffmpeg -hide_banner' \
+    wget='wget -r -e -nc -np' # --robots=off
 
 # special commands
 alias \
-    afs='apt-fzf-search' \
-    bfarben=spectrum_bls \
-    bfrbn=spectrum_bls \
-    farben=spectrum_ls \
-    frbn=spectrum_ls \
-    ffe='fzf-find-edit' \
-    fgb='fzf-git-branch' \
-    fgc='fzf-git-checkout' \
-    fge='fzf-grep-edit' \
+    bfarben='spectrum_bls' \
+    bfrbn='spectrum_bls' \
+    farben='spectrum_ls' \
+    frbn='spectrum_ls' \
     coc='cd ~/.config && ./colors.sh' \
+    color='cd ~/.config && ./colors.sh' \
     cof='cd ~/.config && ./fonts.sh' \
     clean='( for ((i=1;i<$LINES;i++)) ; do echo "" ; done ) ; clear' \
     fsh='fast-theme' \
-    fkill='fzf-kill' \
     lazymux='cd ~/repos/Lazymux && python lazymux.py' \
-    lch=launch \
+    lch='launch' \
     lmux='cd ~/repos/Lazymux && python lazymux.py' \
     myip='curl http://ipecho.net/plain; echo' \
     mymap='telnet mapscii.me' \
     ox='onex start' \
+    snap='cd ~/repos/snap && bash snap.sh' \
     starwars='telnet towel.blinkenlights.nl' \
     tbu='terbr -b' \
     tls='cd ~/repos/Termux-Lazyscript && python2 ls.py' \
-    tmk='tmux-kill' \
-    tms='tmux-search' \
-    wtr='curl wttr.in/Berlin'
-    # pip='$PREFIX/bin/python3 -m pip' \
-    # pip2='$PREFIX/bin/python2 -m pip'
+    wtr='curl wttr.in/Berlin' \
+    weather='curl wttr.in/Berlin' \
+    pip3='$PREFIX/bin/python3 -m pip' \
+    pip2='$PREFIX/bin/python2 -m pip'
 
 # directories
 alias \
@@ -119,21 +130,28 @@ alias \
     bvar='$PREFIX/var' \
     storage='/storage/40E6-DFFD' \
     strg='cd /storage/40E6-DFFD' \
-    sdcard=/sdcard \
+    sdcard='/sdcard' \
     sdcrd='cd /storage/emulated/0'
 
 # find & fzf
 alias \
-    fv='nvim "$(fd -H -i --type f | fzf --keep-right)"' \
+    afs='apt-fzf-search' \
     count='find . -type f | wc -l' \
-    fzcd='\cd "$(find -L -type d | fzf)"' \
     fdh='fd -H -I -i --color always' \
     ff='find . -type f -name' \
-    iaf=interactive_fzf
+    ffe='fzf-find-edit' \
+    fgb='fzf-git-branch' \
+    fgc='fzf-git-checkout' \
+    fge='fzf-grep-edit' \
+    fkill='fzf-kill' \
+    fv='nvim "$(fd -H -i --type f | fzf --keep-right)"' \
+    fzcd='\cd "$(find -L -type d | fzf)"' \
+    iaf='interactive_fzf' \
+    rgf='rg-fzf'
 
 # ls & exa
 alias \
-    exa='exa --colour-scale --color=always --icons'\
+    exa='exa --colour-scale --no-user --git --color=always --icons'\
     l='exa -b@ --icons --git' \
     lS='exa -1 --icons' \
     la='exa -bhHimuSaa --git --icons' \
@@ -144,14 +162,14 @@ alias \
     l.='exa -d .*' \
     ll.='exa -Fhl -d .*' \
     lld='\ls -D */' \
-    lll='exa -ahlT --colour-scale --icons -L 3 -R' \
-    llm='exa -lbGF@ --git --sort=modified --colour-scale --icons' \
+    lll='exa -ahlT --git --colour-scale --icons -L 3 -R' \
+    llm='exa -lbGF@ --sort=modified --git --colour-scale --icons' \
     llt='du -sh * | sort -h' \
     lr='\ls -tRFh' \
     lrt='\ls -1Fcrt' \
     ls='exa -a --colour-scale --icons --git' \
-    lsa='exa -alFh@T --level=3 --colour-scale --icons | more -f' \
-    lt='exa -alhFt@ --time=changed --colour-scale --icons' \
+    lsa='exa -alFh@TR --colour-scale --git --icons' \
+    lt='exa -alhFt@ --time=changed --git --colour-scale --icons' \
     lx='exa -lbhHimuSa@ --time-style=long-iso --git --color-scale'
 
 # Editors
@@ -163,7 +181,7 @@ alias \
     ez='${EDITOR} $PREFIX/etc/zshrc' \
     eli='${EDITOR} $PREFIX/bin/login' \
     eo='${EDITOR} ~/openssh/open' \
-    m=micro \
+    m='micro' \
     m.a='micro $HOME/.aliases' \
     m.m='m ~/.zsh/oh-my-zsh.sh' \
     mp='micro $PREFIX/etc/profile' \
@@ -177,9 +195,10 @@ alias \
     nb='nano -% $PREFIX/etc/bash.bashrc' \
     np='nano -% $PREFIX/etc/profile' \
     nz='nano -% $PREFIX/etc/zshrc' \
-    vim=nvim \
-    v=nvim \
-    vimdiff="nvim -d" \
+    opn='${EDITOR} /data/data/com.termux/files/home/openssh/open' \
+    vim='nvim' \
+    v='nvim' \
+    vimdiff='nvim -d' \
     init='${EDITOR} $HOME/.config/nvim/init.vim' \
     zshrc='${EDITOR} ${ZDOTDIR:-$HOME/.config/zsh}/.zshrc'
 
@@ -189,12 +208,12 @@ alias \
     fsh='fast-theme' \
     zsnap='source $ZDOTDIR/plugins/zsnapshot/zsnapshot.plugin.zsh' \
     aliase='source ~/.zsh/plugins/aliases/aliases.plugin.zsh' \
-    zsh-edit='source ~/repos/zsh-edit/zsh-edit.plugin.zsh' \
-    npm-complete='s $ZDOTDIR/plugins/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh'
+    zsh_edit='source ~/repos/zsh-edit/zsh-edit.plugin.zsh' \
+    npm_complete='s $ZDOTDIR/plugins/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh'
 
 # zlua
 alias \
-    zz="z -i" \
+    zz='z -i' \
     zc='z -c' \
     zf='z -I' \
     zb='z -b' \
@@ -203,30 +222,37 @@ alias \
     zh='z -I -t .' \
     zzc='zz -c'
 
+# open='termux-open --chooser "$@"' \
 # Termux
 alias \
-    battry=termux-battery-status \
-    cpy=termux-clipboard-set \
-    copy=termux-clipboard-set \
-    tcs=termux-clipboard-set \
-    foto=termux-camera-photo \
-    open='termux-open --chooser "$@"' \
-    pst=termux-clipboard-get \
-    tcg=termux-clipboard-get \
+    battry='termux-battery-status' \
+    cpy='termux-clipboard-set' \
+    copy='termux-clipboard-set' \
+    tcs='termux-clipboard-set' \
+    foto='termux-camera-photo' \
+    pst='termux-clipboard-get' \
+    tcg='termux-clipboard-get' \
     tb='termux-brightness' \
-    tn=termux-notification \
-    tbs=termux-battery-status \
-    tcp=termux-camera-photo \
-    tcr=termux-change-repo \
-    tfs=termux-fix-shebang \
-    tfo=termux-file-opener \
-    tnr=termux-notification-remove \
+    tn='termux-notification' \
+    tbs='termux-battery-status' \
+    tcp='termux-camera-photo' \
+    tcr='termux-change-repo' \
+    tfs='termux-fix-shebang' \
+    tfo='termux-file-opener' \
+    tmr='termux-microphone-record' \
+    tnr='termux-notification-remove' \
     to='termux-open --chooser "$@"' \
-    trs=termux-reload-settings \
-    tuo=termux-url-opener \
-    twe=termux-wifi-enable
+    trs='termux-reload-settings' \
+    tsg='termux-storage-get' \
+    tto='termux-torch on' \
+    ttf='termux-torch off' \
+    tuo='termux-url-opener' \
+    tv='termux-volume'
+    twe='termux-wifi-enable' \
+    twl='termux-wake-lock' \
+    twu='termux-wake-unlock'
 
-# git
+# dotbare
 alias \
     dot="$PREFIX/bin/git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME" \
     dota='dot add' \
@@ -242,15 +268,15 @@ alias \
     dotps='dot push' \
     dotpl='dot pull' \
     dots='dot status' \
-    dotr='dot remote -v' \
-    dotrm='dot rm' \
+    dotre='dot remote -v' \
     dotrc='dot rm --cached' \
     dotr='dot restore' \
     dotrs='dot restore --staged' \
     dotmv='dot mv' \
-    cfg=dotbare
+    cfg='dotbare'
     # dot=dotbare
 
+# git
 alias \
     gad='git add' \
     gaa='git add --all' \
@@ -283,21 +309,4 @@ alias \
 # falias () {
 #     local out
 #     out=$(alias | fzf)
-#     echo -n "$(echo -n "${out}" | cut -d= -f2 | termux-clipboard-set)" }
-
-falias () {
-    local out
-    out=$(alias | fzf)
-    echo -n "$(echo -n "${out}" | sed 's+=.*++g' | termux-clipboard-set)" }
-
-fbind () {
-    local out
-    out=$(bindkey | fzf)
-    echo -n "$(echo -n "${out}" | sed 's/.*"*" //g' | termux-clipboard-set)"
-    }
-
-vbind () {
-    local out
-    out=$(bindkey -a | fzf)
-    echo -n "$(echo -n "${out}" | sed 's/.*"*" //g' | termux-clipboard-set)"
-    }
+#     echo -n "$(echo -n "${out}" | cut -d= -f2 | sed "s/\'//g" | termux-clipboard-set)" }

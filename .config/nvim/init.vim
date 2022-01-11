@@ -3,6 +3,7 @@ if !exists("mapleader")
   let mapleader = ' '
 endif
 " set rtp+=~/.local/share/nvim/
+" set exrc
 
 ""----------------- " Plugins "------------------
 
@@ -29,8 +30,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-repeat'
 Plug 'vim-scripts/visualrepeat'
-Plug 'junegunn/goyo.vim' ", { 'for': 'markdown' }
-Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim', {  'on': 'Goyo', 'for': ['markdown', 'txt', 'text', 'rst', 'liquid'] }
 Plug 'tpope/vim-scriptease', {'for': 'vim'}
 " Plug 'junegunn/vim-easy-align'
 Plug 'jiangmiao/auto-pairs'
@@ -43,9 +43,9 @@ Plug 'liuchengxu/vim-which-key', {'on': ['WhichKey', 'WhichKey!'] }
 Plug 'mg979/vim-visual-multi', { 'branch': 'master' }
 
 " Git
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter', { 'on': ['GitGutterToggle', 'GitGutterToggle!'] }
-Plug 'tpope/vim-rhubarb', {'on': ['GBrowse', 'GBrowse!'] }
+Plug 'tpope/vim-fugitive', { 'on': [] }
+Plug 'airblade/vim-gitgutter', { 'on': ['GitGutterToggle', 'GitGutterToggleOn'] }
+Plug 'tpope/vim-rhubarb'
 
 " Better auto completion
 Plug 'jayli/vim-easycomplete'
@@ -55,30 +55,32 @@ Plug 'honza/vim-snippets'
 Plug 'norcalli/snippets.nvim'
 " Neovim LSP
 Plug 'neovim/nvim-lspconfig'
-Plug 'williamboman/nvim-lsp-installer'
+" Plug 'williamboman/nvim-lsp-installer'
 Plug 'tjdevries/nlua.nvim'
 Plug 'tjdevries/lsp_extensions.nvim'
 " Plug 'nvim-lua/completion-nvim'
 
 " Extras
 Plug 'vim-utils/vim-man'
-" Plug 'sickill/vim-pasta'
+Plug 'sickill/vim-pasta'
 Plug 'tpope/vim-obsession'
 " Plug 'craigemery/vim-autotag'
 Plug 'junegunn/vim-peekaboo'
 " Plug 'Chiel92/vim-autoformat'
  Plug 'godlygeek/tabular', { 'for': 'markdown' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-Plug 'justinmk/vim-sneak'
+" Plug 'justinmk/vim-sneak'
 " Plug 'easymotion/vim-easymotion'
 Plug 'romainl/vim-cool'
 " Syntax Highlighting & Colorscheme
 Plug 'norcalli/nvim-colorizer.lua'
 " Plug 'ap/vim-css-color'
 Plug 'lifepillar/vim-gruvbox8'
-Plug 'luochen1990/rainbow', { 'on': [ 'RainbowToggle', 'RainbowToggleOn' ] }
 " Plug 'sheerun/vim-polyglot'
 Plug 'gisphm/vim-polyglot-min'
+Plug 'luochen1990/rainbow', { 'on': [ 'RainbowToggle', 'RainbowToggleOn' ] }
+Plug 'antoinemadec/FixCursorHold.nvim'
+" Plug 'rking/ag.vim'
 
 if exists('$TMUX')
   Plug 'tmux-plugins/vim-tmux'
@@ -89,6 +91,17 @@ endif
 
 call plug#end()
 
+command! Git call LazyLoadFugitive('Git')
+command! Ggrep call LazyLoadFugitive('Ggrep')
+command! Gcommit call LazyLoadFugitive('Gcommit')
+command! Gedit call LazyLoadFugitive('Gedit')
+command! Gclog call LazyLoadFugitive('Gclog')
+function! LazyLoadFugitive(cmd)
+  call plug#load('vim-fugitive')
+  call FugitiveDetect(expand('%:p'))
+  exe a:cmd
+endfunction
+
 " ------------ "Plugin settings" ------------
 
   let g:webdevicons_enable = 1
@@ -96,8 +109,6 @@ call plug#end()
   let g:DevIconsEnableFoldersOpenClose = 1
   let g:webdevicons_enable_startify = 1
   let g:DevIconsEnableFolderExtensionPatternMatching = 1
-  let g:limelight_conceal_guifg = '#555555'
-  let g:limelight_priority = -1
 
   "zslet g:AutoPairsFlyMode = 1
   " let g:AutoPairs["<"] = '>'
@@ -107,21 +118,20 @@ call plug#end()
   let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
   nmap <leader>ut <Cmd>UndotreeToggle<CR>
-  let g:undotree_WindowLayout    = 2
-  let g:undotree_ShortIndicators = 1
-  let g:undotree_HelpLine        = 1
-  let g:undotree_ShortIndicators = 1
+  let g:undotree_WindowLayout       = 2
+  let g:undotree_ShortIndicators    = 1
+  " let g:undotree_HelpLine           = 1
   let g:undotree_SetFocusWhenToggle = 1
   " let g:pasta_paste_before_mapping = 'Pp'
   " let g:pasta_paste_after_mapping = 'pp'
 
-  let g:VM_theme = 'gruvbox'
+  let g:VM_theme                    = 'gruvbox'
   let g:VM_use_first_cursor_in_line = 1
-  let g:VM_mouse_mappings    = 1
-  let g:VM_maps = {}
-  let g:VM_maps["Undo"]      = 'u'
-  let g:VM_maps["Redo"]      = '<C-r>'
-  let g:VM_highlight_matches = 'underline,bold'
+  let g:VM_mouse_mappings           = 1
+  let g:VM_maps                     = {}
+  let g:VM_maps["Undo"]             = 'u'
+  let g:VM_maps["Redo"]             = '<C-r>'
+  let g:VM_highlight_matches        = 'underline,bold'
   " let g:VM_theme_set_by_colorscheme = 1
   " let g:VM_Mono_hl   = 'Function'
   " let g:VM_Extend_hl = 'Type'
@@ -134,8 +144,8 @@ call plug#end()
   " let g:autotagTagsFile=
   " let g:peekaboo_window = 'vert bo 40new'
   let g:peekaboo_compact = 1
-  " let g:peekaboo_prefix = '<leader>'
-  " let gpeekaboo_ins_prefix = '<C-x>'
+  let g:peekaboo_prefix = '<leader>'
+  let gpeekaboo_ins_prefix = '<C-x>'
   " noremap <F10>      :Autoformat<CR>
   " noremap <leader>af :Autoformat<CR>
 
@@ -143,14 +153,15 @@ call plug#end()
   let g:vim_markdown_new_list_item_indent = 2
   let g:vim_markdown_folding_disabled = 1
   let g:markdown_syntax_conceal = 1
-  let g:vim_markdown_conceal = 0
+  let g:vim_markdown_conceal = 1
 
-  map  <leader>m <Plug>(Man)
-  map  <leader>M <Plug>(Tman)
-  let g:sneak#s_next = 1
+  " map  <leader>M <Plug>(Man)
+  map  <leader>m <Plug>(Tman)
+  " let g:sneak#s_next = 1
   let g:CoolTotalMatches = 1
   " let g:cssColorVimDoNotMessMyUpdatetime = 1
   let g:rainbow_active = 0
+  let g:agprg="--color-match=01;31;103 --column"
 
   let g:tmux_navigator_save_on_switch = 'update'
   let g:tmux_navigator_no_mappings = 1
@@ -161,7 +172,7 @@ call plug#end()
   let g:optionprefix_improved_warnings = 1
   let g:awk_is_gawk = 1
   " let g:zsh_fold_enable = 1
-  let g:vimsyn_folding = 'a,f'
+  " let g:vimsyn_folding = 'a,f'
 
 "--------------- "Configurations" ---------------
 
@@ -194,29 +205,24 @@ if !exists("g:colors_name")
 endif
 
 " Always use terminal background
-hi Normal guibg=NONE guisp = red
+hi! Normal guibg=NONE
 " Reversed visual highlighting
-hi Visual gui=reverse guifg=NONE guibg=NONE
+hi! Visual gui=reverse guifg=NONE guibg=NONE
 " Cursor line and column
-hi LineNr       guibg=#1d2021
-hi SignColumn   guibg=#1d2021
-hi CursorLine   guibg=#1d2021
-hi CursorLineNr guibg=#1d2021
-hi ColorColumn  guibg=#1d2021
-hi Special      gui=NONE
-hi EndOfBuffer  guifg=#504945 guibg=NONE gui=NONE
-
-" hi Directory    guifg=#458588 gui=italic
-" popup menu
-hi Pmenu        guibg=#282828
-hi PmenuSel     guifg=#1d2021
-" hi PmenuSbar    guibg=#83a598
-" hi PmenuThumb   guibg=#504945
-hi StartifyHeader guifg=#8ec07c gui=bold ctermfg=107
-" hi StartifySpecial guifg=#fabd2f ctermfg=221
-hi StartifyPath gui=bold guifg=#83a598 ctermfg=12
-hi StartifyFile guifg=#458588 ctermfg=4
-" hi NonText guif=bg
+hi! LineNr       guibg=#1d2021
+hi! SignColumn   guibg=#1d2021
+hi! CursorLine   guibg=#1d2021
+hi! CursorLineNr guibg=#1d2021
+hi! ColorColumn  guibg=#1d2021
+hi! Special      gui=NONE
+hi! EndOfBuffer  guifg=#504945 guibg=NONE gui=NONE
+" hi! Directory    guifg=#458588 gui=italic
+hi! Pmenu        guibg=#282828
+" hi! PmenuSel     guifg=#1d2021
+" hi! PmenuSbar    guibg=#83a598
+" hi! PmenuThumb   guibg=#504945
+hi! StartifyHeader guifg=#8ec07c gui=bold ctermfg=107
+hi! StartifySpecial guifg=#fabd2f ctermfg=221
 
 au TextYankPost * silent! lua vim.highlight.on_yank {higroup="Visual", timeout=300, on_visual=false, on_macro=true}
 
@@ -265,17 +271,19 @@ nmap <leader>se :setlocal spell! spelllang=en_us<Cr>
 nmap <leader>sd :setlocal spell! spelllang=de_de<Cr>
 nmap <leader>sp :setlocal invspell<CR>
 
-" Use spell correction and start in insert mode when we're editing commit messages or markdown files.
+" Use spell correction and start in insert mode when we're editing commit messages, text or markdown files.
 if has('autocmd')
   if has('spell')
-    au BufNewFile,BufRead COMMIT_EDITMSG, setlocal spell
+    let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
+    autocmd BufEnter * if index(spellable, &ft) < 0 | setlocal nospell | else | setlocal spell | endif
+    " au BufNewFile,BufRead COMMIT_EDITMSG, setlocal spell
   endif
-  au BufNewFile,BufRead COMMIT_EDITMSG, call feedkeys('ggi', 't')
+  au BufNewFile,BufRead COMMIT_EDITMSG, call feedkeys('i')
 endif
 
 " enable spell only if file type is normal text
-let spellable = ['markdown', 'txt', 'text', 'liquid', 'rst']
-autocmd BufEnter * if index(spellable, &ft) < 0 | setlocal nospell | else | setlocal spell | endif
+" let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
+" autocmd BufEnter * if index(spellable, &ft) < 0 | setlocal nospell | else | setlocal spell | endif
 
 " tmux
 if exists('$TMUX')
@@ -284,23 +292,23 @@ endif
 
 " startify if no passed argument or all buffers are closed
 " augroup noargs
-    " startify when there is no open buffer left
-    autocmd BufDelete * if empty(filter(tabpagebuflist(), '!buflisted(v:val)')) | Startify | endif
+"   " startify when there is no open buffer left
+"   autocmd BufDelete * if empty(filter(tabpagebuflist(), '!buflisted(v:val)')) | Startify | endif
 
-"     " open startify on start if no argument was passed
-"     autocmd VimEnter * if argc() == 0 | Startify | endif
+"   " open startify on start if no argument was passed
+"   autocmd VimEnter * if argc() == 0 | Startify | endif
 " augroup END
 
 " fzf if passed argument is a folder
 augroup folderarg
-    " change working directory to passed directory
-    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
+"   " change working directory to passed directory
+  autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
 
-    " start startify (fallback if fzf is closed)
-    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | Startify  | endif
+"   " start startify (fallback if fzf is closed)
+"   autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | Startify  | endif
 
-    " start fzf on passed directory
-    autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'Files ' fnameescape(argv()[0]) | endif
+"   " start fzf on passed directory
+  autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'FzfFiles ' fnameescape(argv()[0]) | endif
 augroup END
 
 " show docs on things with K
@@ -332,7 +340,7 @@ inoremap <expr> <left>  pumvisible() ? "<ESC>a" : "<left>"
 
 " easy complete settings
 " let g:easycomplete_tab_trigger="<c-space>"
-" let g:easycomplete_scheme="dark" "rider,sharp
+let g:easycomplete_scheme="dark" "rider,sharp
 
 " inoremap ^] ^X^]
 " inoremap ^F ^X^F
@@ -374,7 +382,7 @@ let g:completion_enable_snippet = 'UltiSnips'
 " let g:SuperTabDefaultCompletionType = "<c-p>"
 let g:SuperTabContextDefaultCompletionType = "<c-p>"
 "let g:SuperTabNoCompleteBefore =[]
-let g:SuperTabNoCompleteAfter = ['^', ',', ' ']
+let g:SuperTabNoCompleteAfter = ['^', ',', '<Space>']
 let g:SuperTabClosePreviewOnPopupClose = 1
 " let g:SuperTabMappingForward = "<tab>"
 " let g:SuperTabMappingBackward = "<s-tab>"
@@ -410,18 +418,19 @@ let g:SuperTabContextDiscoverDiscovery =
 
 ""------------------- "Git" ---------------------
 
-" highlight GitGutterAdd    guifg=#a1b520 ctermfg=2
-" highlight GitGutterChange guifg=#d79921 guibg=#1d2021 ctermfg=3
-"highlight GitGutterDelete guifg=#fa4934 ctermfg=1
-  let g:gutgutter_enable = 1
-  let g:gutgutter_map_keys = 0
+highlight GitGutterAdd    guifg=#a1b520 ctermfg=2
+highlight GitGutterChange guifg=#d79921 guibg=#1d2021 ctermfg=3
+highlight GitGutterDelete guifg=#fa4934 ctermfg=1
+  let g:gitgutter_map_keys = 0
+  let g:gitgutter_log = 1
   " let g:gitgutter_sign_added = '+'
   " let g:gitgutter_sign_modified = '~'
   " let g:gitgutter_sign_removed = '_'
-  let g:gitgutter_highlight_linenrs = 1
-  let g:gitgutter_sign_allow_clobber = 1
-  let g:gitgutter_set_sign_backgrounds = 1
+  " let g:gitgutter_highlight_linenrs = 1
+  " let g:gitgutter_sign_allow_clobber = 1
+  " let g:gitgutter_set_sign_backgrounds = 1
   let g:gitgutter_preview_win_floating = 1
+  let g:gitgutter_close_preview_on_escape = 1
 nmap <leader>gh :GitGutterLineHighlightsToggle<CR>
 nmap <leader>gt :GitGutterToggle<CR>
 nmap )    <Plug>(GitGutterNextHunk)
@@ -429,6 +438,10 @@ nmap (    <Plug>(GitGutterPrevHunk)
 nmap ghp  <Plug>(GitGutterPreviewHunk)
 nmap ghs  <Plug>(GitGutterStageHunk)
 nmap ghu  <Plug>(GitGutterUndoHunk)
+" omap ic   <Plug>(GitGutterTextObjectInnerPending)
+" omap ac   <Plug>(GitGutterTextObjectOuterPending)
+" xmap ic   <Plug>(GitGutterTextObjectInnerVisual)
+" xmap ac   <Plug>(GitGutterTextObjectOuterVisual)
 
 "" Git 'vim.fugitive'
 " let g:fugitive_no_maps = 1
@@ -440,11 +453,11 @@ noremap <leader>gr  :GRemove<CR>
 " ------------------ "EasyAlign" -----------------
 
 " Start EasyAlign in visual mode (e.g. vip<Enter>) [C-p for LiveEasyAlign]
-vmap <Enter> <Plug>(LiveEasyAlign)
+" vmap <Enter> <Plug>(LiveEasyAlign)
 " vmap <C-p> <Plug>(EasyAlign)
 
 " Start EasyAlign for a motion/text object (e.g. gaip) [C-p for LiveEasyAlign]
-nmap ga <Plug>(EasyAlign)
+" nmap ga <Plug>(EasyAlign)
 
 ""------------- "tagbar settings" ----------------
 
@@ -466,7 +479,7 @@ nmap ga <Plug>(EasyAlign)
 "---------------- "you surround" -----------------
 
 " map <leader>` ysiw`
-map <leader>" ysiw"
+" map <leader>" ysiw"
 map <leader>' ysiw'
 map <leader>( ysiw(
 map <leader>{ ysiw{
@@ -576,9 +589,9 @@ nnoremap <M-u> viwU<ESC>
 ""nmap <leader>s :!clear && shellcheck %<CR>
 
 "" quick edit & source init.vim & .zshrc
-nnoremap <silent> <leader>i  :tabe $MYVIMRC<cr>
+nnoremap <silent> <leader>i  :tabe $MYVIMRC<CR>
 nnoremap <silent> <leader>so :so $MYVIMRC<CR>:echo 'Vim Config sourced'<CR>
-nnoremap <silent> <leader>zs :tabe $ZDOTDIR/.zshrc<CR>
+nnoremap <silent> <leader>zs :tabe ~/.config/zsh/.zshrc<CR>
 nnoremap <silent> <leader>sz :!source $ZDOTDIR/.zshrc<CR>:echo 'Zsh config sourced'<CR>
 
 "" shortcuts for creating shebang

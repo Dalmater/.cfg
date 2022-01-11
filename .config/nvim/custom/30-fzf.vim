@@ -1,4 +1,4 @@
-"---------------- "FZF-BASE" ------------------
+"----------------- "FZF-BASE" ------------------
 
 set rtp+=~/.fzf
 
@@ -44,10 +44,12 @@ command! -bang -nargs=? -complete=dir Files
 
 "" Search with ag including hidden files
 command! -bang -nargs=? -complete=dir HFiles
-      \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden --ignore .git -g ""', 'sink': 'tabe'}, <bang>0)
+      \ call fzf#vim#files(<q-args>, {'source': 'ag --hidden -f --ignore .git -g ""', 'sink': 'tabe'}, <bang>0)
 
 "" Search in custom directories
 command! -bang Root call fzf#vim#files('$PREFIX', fzf#vim#with_preview(), <bang>0)
+
+command! -bang Home call fzf#vim#files('$HOME', fzf#vim#with_preview(), <bang>0)
 
 "" Fzf LS
 command! Ls call fzf#run(fzf#wrap({'source': 'exa -a --color=always', 'sink': 'tabe'}), fzf#vim#with_preview())
@@ -139,13 +141,15 @@ noremap <silent> <C-f>d :Dotf<CR>
   nnoremap <silent> <leader>ch :FzfHistory:<CR>
   nnoremap <silent> <leader>hs :FzfHistory/<CR>
   nnoremap <silent> <leader>fh :FzfHistory <CR>
-" Search all files
+" Search home/all files
+  nnoremap <silent> <leader>ho :Home<CR>
   nnoremap <silent> <leader>fp :Root<CR>
   nnoremap <silent> <leader>ro :Root<CR>
 " 'grep' word under cursor
   nnoremap <silent> <leader>gw :Rg <C-R>=expand("<cword>")<CR><CR>
 " with ag (better highlight)
   nnoremap <silent> <leader>aw :FzfAg <C-R>=expand("<cword>")<CR><CR>
+  nnoremap <silent> <leader>ga :FzfAg <C-R>=expand("<cword>")<CR><CR>
 " Insert mode completion
   " inoremap <c-x><c-w>  <Plug>(fzf-complete-word)
   " inoremap <c-x><c-p>  <Plug>(fzf-complete-path)
@@ -154,9 +158,9 @@ noremap <silent> <C-f>d :Dotf<CR>
   " inoremap <c-x>w <Plug>(fzf-complete-file-ag)
 
 " Path & file completion with custom source command
-  inoremap <expr> <c-x><C-d> fzf#vim#complete#path('fd -H -td')
-  inoremap <expr> <c-x><C-p> fzf#vim#complete#path('ag --hidden --follow -g ""')
-  inoremap <expr> <c-x><C-n> fzf#vim#complete#path('rg --hidden --files')
+  inoremap <expr> <c-x><c-s> fzf#vim#complete#path('fd -H -td')
+  inoremap <expr> <c-x><c-p> fzf#vim#complete#path('ag --hidden -f -l -g ""')
+  inoremap <expr> <c-x><c-w> fzf#vim#complete#path('rg --hidden --files')
 
 " fzf-vim-actions functions colors & statusline
 " Global line completion not just open buffers.
@@ -179,10 +183,10 @@ endfunction
 
 let g:fzf_action = {
       \ 'alt-q'  : function('s:build_quickfix_list'),
-      \ 'ctrl-e' : 'tabedit',
-      \ 'ctrl-n' : 'tab new',
-      \ 'ctrl-t' : 'tab split',
-      \ 'ctrl-s' : 'split',
+      \ 'alt-e'  : 'tabedit',
+      \ 'ctrl-t' : 'tab new',
+      \ 'ctrl-s' : 'tab split',
+      \ 'ctrl-x' : 'split',
       \ 'ctrl-v' : 'vsplit' }
 
 "" Customize fzf colors to match your color scheme
