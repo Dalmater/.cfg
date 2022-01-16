@@ -82,8 +82,6 @@ alias \
     tml='tmux list-sessions' \
     tksv='tmux kill-server' \
     tmks='tmux kill-session -t' \
-    tmk='tmux-kill' \
-    tms='tmux-search' \
     ttyc='tty-clock -crC 3' \
     clock='tty-clock -crC 3' \
     uhr='tty-clock -crC 3' \
@@ -98,7 +96,6 @@ alias \
     farben='spectrum_ls' \
     frbn='spectrum_ls' \
     coc='cd ~/.config && ./colors.sh' \
-    color='cd ~/.config && ./colors.sh' \
     cof='cd ~/.config && ./fonts.sh' \
     clean='( for ((i=1;i<$LINES;i++)) ; do echo "" ; done ) ; clear' \
     fsh='fast-theme' \
@@ -108,14 +105,10 @@ alias \
     myip='curl http://ipecho.net/plain; echo' \
     mymap='telnet mapscii.me' \
     ox='onex start' \
-    snap='cd ~/repos/snap && bash snap.sh' \
-    starwars='telnet towel.blinkenlights.nl' \
     tbu='terbr -b' \
     tls='cd ~/repos/Termux-Lazyscript && python2 ls.py' \
     wtr='curl wttr.in/Berlin' \
-    weather='curl wttr.in/Berlin' \
-    pip3='$PREFIX/bin/python3 -m pip' \
-    pip2='$PREFIX/bin/python2 -m pip'
+    weather='curl wttr.in/Berlin'
 
 # directories
 alias \
@@ -135,24 +128,19 @@ alias \
 
 # find & fzf
 alias \
-    afs='apt-fzf-search' \
     count='find . -type f | wc -l' \
     fdh='fd -H -I -i --color always' \
     ff='find . -type f -name' \
-    ffe='fzf-find-edit' \
     fgb='fzf-git-branch' \
     fgc='fzf-git-checkout' \
-    fge='fzf-grep-edit' \
-    fkill='fzf-kill' \
     fv='nvim "$(fd -H -i --type f | fzf --keep-right)"' \
     fzcd='\cd "$(find -L -type d | fzf)"' \
-    iaf='interactive_fzf' \
-    rgf='rg-fzf'
+    iaf='interactive_fzf'
 
 # ls & exa
 alias \
-    exa='exa --colour-scale --no-user --git --color=always --icons'\
-    l='exa -b@ --icons --git' \
+    exa='exa --no-user --color=always --icons'\
+    l='exa --icons --git' \
     lS='exa -1 --icons' \
     la='exa -bhHimuSaa --git --icons' \
     lart='\ls -1Fcart' \
@@ -162,20 +150,20 @@ alias \
     l.='exa -d .*' \
     ll.='exa -Fhl -d .*' \
     lld='\ls -D */' \
-    lll='exa -ahlT --git --colour-scale --icons -L 3 -R' \
+    lll='exa -ahlRT --git --colour-scale --icons -L 3' \
     llm='exa -lbGF@ --sort=modified --git --colour-scale --icons' \
-    llt='du -sh * | sort -h' \
+    llt='du -sh * | sort -hr' \
     lr='\ls -tRFh' \
     lrt='\ls -1Fcrt' \
     ls='exa -a --colour-scale --icons --git' \
-    lsa='exa -alFh@TR --colour-scale --git --icons' \
+    lsa='exa -alFhR --icons | less' \
     lt='exa -alhFt@ --time=changed --git --colour-scale --icons' \
     lx='exa -lbhHimuSa@ --time-style=long-iso --git --color-scale'
 
 # Editors
 alias \
-    e.a='${EDITOR} ${HOME}/.aliases' \
-    e.b='${EDITOR} $HOME/.bashrc' \
+    e.a='vim ${HOME}/.aliases' \
+    e.b='vim $HOME/.bashrc' \
     eb='${EDITOR} $PREFIX/etc/bash.bashrc' \
     ep='${EDITOR} $PREFIX/etc/profile' \
     ez='${EDITOR} $PREFIX/etc/zshrc' \
@@ -195,12 +183,14 @@ alias \
     nb='nano -% $PREFIX/etc/bash.bashrc' \
     np='nano -% $PREFIX/etc/profile' \
     nz='nano -% $PREFIX/etc/zshrc' \
-    opn='${EDITOR} /data/data/com.termux/files/home/openssh/open' \
-    vim='nvim' \
+    opn='${EDITOR} $HOME/openssh/open' \
+    vim='GIT_DIR=$HOME/.cfg.git GIT_WORK_TREE=$HOME nvim' \
+    nvim='GIT_DIR=$HOME/.cfg.git GIT_WORK_TREE=$HOME nvim' \
     v='nvim' \
     vimdiff='nvim -d' \
-    init='${EDITOR} $HOME/.config/nvim/init.vim' \
-    zshrc='${EDITOR} ${ZDOTDIR:-$HOME/.config/zsh}/.zshrc'
+    init='vim $HOME/.config/nvim/init.vim' \
+    zp='vim ${ZDOTDIR:-$HOME/.config/zsh}/.zprofile' \
+    zshrc='vim ${ZDOTDIR:-$HOME/.config/zsh}/.zshrc'
 
 # Plugins
 alias \
@@ -246,8 +236,9 @@ alias \
     tsg='termux-storage-get' \
     tto='termux-torch on' \
     ttf='termux-torch off' \
+    tts='termux-tts-speak' \
     tuo='termux-url-opener' \
-    tv='termux-volume'
+    tv='termux-volume' \
     twe='termux-wifi-enable' \
     twl='termux-wake-lock' \
     twu='termux-wake-unlock'

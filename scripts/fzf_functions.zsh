@@ -1,6 +1,6 @@
 #----------------- FZF & GIT -------------------
 
-nf() { fzf --keep-right -m | xargs -r -I % $EDITOR -p % ;}
+nf() { fzf --keep-right -m | xargs -r -I % $EDITOR % ;}
 
 # vf - fuzzy open with vim from anywhere
 # ex: vf word1 word2 ... (even part of a file name)
@@ -12,8 +12,33 @@ vf() {
 
   if [[ -n $files ]]
   then
-    vim -- $files
+    vim -p -- $files
     print -l $files[1]
+  fi
+}
+
+# fuzzy grep open via ag
+va() {
+  local file
+
+  file="$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print $1}')"
+
+  if [[ -n $file ]]
+  then
+    vim $file
+  fi
+}
+
+# fuzzy grep open via ag with line number
+vg() {
+  local file
+  local line
+
+  read -r file line <<<"$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print $1, $2}')"
+
+  if [[ -n $file ]]
+  then
+    vim $file +$line
   fi
 }
 
@@ -56,31 +81,6 @@ fo() {
   fi
 }
 
-# fuzzy grep open via ag
-# vg() {
-#   local file
-
-#   file="$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print $1}')"
-
-#   if [[ -n $file ]]
-#   then
-#     vim $file
-#   fi
-# }
-
-# fuzzy grep open via ag with line number
-vg() {
-  local file
-  local line
-
-  read -r file line <<<"$(ag --nobreak --noheading $@ | fzf -0 -1 | awk -F: '{print $1, $2}')"
-
-  if [[ -n $file ]]
-  then
-    vim $file +$line
-  fi
-}
-
 # search for all scripts and dotfiles, then open them with editor of choice
 dotf() {
   local files
@@ -92,7 +92,7 @@ dotf() {
     $PREFIX/etc/{bash.bashrc,inputrc,nanorc,profile,tmux.conf,zshrc})
 
     find $files -type f |
-      fzf --keep-right --preview 'bat --color=always --line-range :200 {}' | xargs -r "$EDITOR"
+      fzf -m --keep-right --preview 'bat --color=always --line-range :200 {}' | xargs -r "$EDITOR" -p
     }
 
 # search for all notes and open selected one in editor
@@ -100,7 +100,7 @@ notes() {
   zle -I
   rg --files ~/*ocuments/notes |
     fzf --keep-right --preview-window 'nohidden' \
-    --preview 'bat --color=always --line-range :50 {}' | xargs -r "$EDITOR"
+    --preview 'bat --color=always --line-range :100 {}' | xargs -r "$EDITOR"
     zle reset-prompt
   }
 zle -N notes
@@ -117,16 +117,18 @@ bindkey -s '^Fn' 'live_search_notes \n'
 
 # search for all git repos in folders I care, then cd into selected one.
 fzf_git() {
+  local dir
+  zle -I
   dir=$(find ~/ -type d -name .git | sed 's/\/.git//' |
     fzf --keep-right --cycle --preview 'tree -C {} | head -50') && cd $dir && git status
-    zle reset-prompt
+    # zle reset-prompt
   }
 zle -N fzf_git
 bindkey '^Fg' fzf_git
 
 
 # fcd - fuzzy cd from anywhere via fd result
-# ex: cd word (even part of a dir name)
+# ex: fcd word (even part of a dir name)
 fcd() {
   local dir
   dir="$(fd -td -H "$1" | fzf --query="$*" -1 -0 +m --no-sort)" && "${dir}" || return 1

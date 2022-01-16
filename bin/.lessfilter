@@ -1,0 +1,23 @@
+#!/data/data/com.termux/files/usr/bin/sh
+case "$1" in
+    *.awk|*.groff|*.java|*.js|*.m4|*.php|*.pl|*.pm|*.pod|*.sh|*.zsh|\
+    *.ad[asb]|*.asm|*.inc|*.[ch]|*.[ch]pp|*.[ch]xx|*.cc|*.hh|\
+    *.lsp|*.l|*.pas|*.p|*.xml|*.xps|*.xsl|*.axp|*.ppd|*.pov|*.vim|\
+    *.diff|*.patch|*.py|*.rb|*.sql|*.ebuild|*.eclass)
+      pygmentize -f 256 "$1";;
+
+    *bashrc|.bash_aliases|.bash_environment|*aliases|\
+    *zshrc|.zshenv|.zprofile|.zlogin)
+      pygmentize -f 256 -l sh -O style=default "$1";;
+
+    *)
+      if grep -q "#\!/data/data/com.termux/files/usr/bin/zsh" "$1" 2> /dev/null; then
+        pygmentize -f 256 -l sh -O style=gruvbox-dark "$1"
+      elif grep -q "#\!/data/data/com.termux/files/usr/bin/bash" "$1" 2> /dev/null; then
+        pygmentize -f 256 -l sh -O style=gruvbox-dark "$1"
+      else
+        exit 1
+      fi
+esac
+
+exit 0

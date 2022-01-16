@@ -63,7 +63,7 @@ set norunexec
 
 " List of color schemes to try (picks the first one supported by the terminal)
 
-colorscheme gruvbox near-default molokai Default-256 Default
+colorscheme gruvbox-dark Default-256 near-default molokai Default
 
 " Format for displaying time in file list. For example:
 " TIME_STAMP_FORMAT=%m/%d-%H:%M
@@ -105,7 +105,7 @@ set incsearch
 
 " Try to leave some space from cursor to upper/lower border in lists
 
-set scrolloff=3
+set scrolloff=2
 
 " Don't do too many requests to slow file systems
 
@@ -123,7 +123,9 @@ set fillchars="vborder:|"
 
 set tablabel="%p:t"
 
+" Quit: C-q or force quit: Q
 map <C-q> :q<cr>
+nmap Q    :q!<cr>
 
 " ------------------------------------------------
 
@@ -160,8 +162,8 @@ command! make !!make %a
 command! mkcd :mkdir %a | cd %a
 command! vgrep nvim "+grep %a"
 command! reload :write | restart full
-command! fzfcd :execute 'cd' fnameescape(term('find -type d | fzf 2> /dev/tty'))
-nnoremap <M-f> :fzfcd<cr>
+command! fcd :execute 'cd' fnameescape(term('find -type d | fzf 2> /dev/tty'))
+nnoremap <M-f> :fcd<cr>
 command! open :!xdg-open --chooser %c
 nnoremap o :open<CR>
 

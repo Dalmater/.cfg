@@ -3,7 +3,7 @@
 """"""""""""""""""""""
 set shell=$SHELL
 set backspace=indent,eol,start
-set hid
+set hid title
 set shm+=acIt
 set pumheight=15
 set path=.,/data/data/com.termux/files
@@ -48,19 +48,23 @@ set wim=longest:full,list:full
 set wildignore+=*.o,*.out,*.obj,.git,*.rbc,*.rbo,*.class,.svn,*.gem
 set wildignore+=*.zip,*.tar.gz,*.tar.bz2,*.rar,*.tar.xz
 set wildignore+=*/vendor/gems/*,*/vendor/cache/*,*/.bundle/*,*/.sass-cache/*,*.swp,._*
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store,*.pyc
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store,*.pyc,storage/*/*
 set confirm
 set sb spr
 set magic
 " set textwidth=54
 set noswapfile nobackup nowritebackup
-set undofile title
+set undofile
 set undolevels=1000
 set undoreload=10000
 set matchpairs+=<:>
 set pastetoggle+=<F12>
-set grepprg=ag\ --vimgrep\ $*
-set grepformat=%f:%l:%c:%m
+
+if executable("ag")
+  set grepprg=ag\ --vimgrep\ $*
+  set grepformat=%f:%l:%c:%m
+endif
+
 " set mousemodel popup
 
 if !has('gui_running')
@@ -120,11 +124,11 @@ set foldnestmax=3
 set nofoldenable
 
 " set nornu nonu
-set cursorline
+set nocursorline
 set nocursorcolumn
 set so=1
 set siso=3
-set scrolljump=3
+set scrolljump=5
 set lazyredraw
 set redrawtime=10000
 set synmaxcol=250
@@ -133,7 +137,7 @@ set synmaxcol=250
 set signcolumn=number
 
 if has('conceal')
-  set conceallevel=2 concealcursor=niv
+  set conceallevel=2 concealcursor=nv
 endif
 
 set debug=msg

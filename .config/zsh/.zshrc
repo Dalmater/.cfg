@@ -25,7 +25,6 @@ SAVEHIST=30000
 
 # Plugins
 plugins=(
-  # colorize
   colored-man-pages
   zsh-hist
   zsh-autopair
@@ -55,11 +54,6 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # Plugin configuration
-# export ZSH_COLORIZE_STYLE="gruvbox-dark"
-# export ZSH_COLORIZE_TOOL="pygmentize"
-# export ZSH_COLORIZE_FORMATTER="terminal256"
-# export ZSH_COLORIZE_CHROMA_FORMATTER="terminal256"
-
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
 # ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="50"
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=58"
@@ -71,7 +65,7 @@ export YSU_MESSAGE_POSITION=after
 export YSU_IGNORED_ALIASES=( "g" "gc" "iaf" "cfg" "py" )
 export YSU_MESSAGE_FORMAT="${BOLD}${YELLOW}\
 Found %alias_type for ${PURPLE}"%command"${YELLOW} \
-\nYou should use: ${RED}"%alias"${NONE}"
+\nYou should use ${GREEN}=> ${RED}"%alias"${NONE}"
 
 # eval "$(lua ~/.zsh/custom/plugins/z.lua/z.lua --init zsh enhanced once)"
 _evalcache lua ~/.config/zsh/plugins/z.lua/z.lua --init zsh enhanced once
@@ -86,11 +80,11 @@ export _ZL_ADD_ONCE=1
 export EDITOR="nvim"
 export VISUAL="nvim"
 export PAGER="bat -p --paging=always"
-export MANPAGER="bat -p --paging=always"
+# export MANPAGER="bat -p --paging=always"
 export MANPATH=$PREFIX/share/man
 export MANPATH=$HOME/.fzf/man:$MANPATH
 # export OPENER="xdg-open"
-export BROWSER="lynx"
+# export BROWSER="lynx"
 export WWW_HOME="duckduckgo.com"
 # export FILE="vifm"
 export BAT_THEME="gruvbox"
@@ -147,12 +141,13 @@ case $KEYMAP in
   vicmd)      echo -ne '\e[1 q';; # block
   command)    echo -ne '\e[4 q';;
   *)          echo -ne '\e[3 q';; # line
+  # viopp)      echo -ne '\e[3 q';;
+  # visual)     echo -ne '\e[2 q';;
 esac
 }
 zle -N zle-keymap-select
-
 # Use beam shape cursor on startup.
-echo -ne '\e[5 q'
+# echo -ne '\e[5 q'
 preexec() { echo -ne '\e[5 q' }
 
 # Starship prompt
@@ -185,7 +180,7 @@ lazyload ranger_cd -- 'source "${HOME}/.config/ranger/shell_automatic_cd.sh"'
 bindkey -s '^[i' 'interactive_fzf \n'
 bindkey -s '^Fc' 'dotf \n'
 bindkey -s '^Ff' 'fuz \n'
-bindkey -s '^[r' 'rg-fzf \n'
+bindkey -s '^[r' 'rgf \n'
 bindkey    '^Ft' toggle-fzf-tab
 bindkey    '^X,' toggle-fzf-tab
 bindkey -s '^Fo' 'file="$(fzf --reverse)" && [ -f "$file" ] && xdg-open "$file" --chooser'
@@ -246,7 +241,8 @@ _dotbare_completion_cmd #dotbare
 
 # Auto cd with fzf
 fzf_cd() {
-  local dir
+  local DIR
+  zle -I
   DIR=$(find ${1:-*} \( -path .cache -o -path .cfg.git -o -path .git \) -prune -o -path '*/\.*' \
     -prune -o -type d -print 2> /dev/null | fzf +m --keep-right) && cd "$DIR"
   zle reset-prompt

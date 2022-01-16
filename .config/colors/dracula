@@ -1,0 +1,21 @@
+# dracula.colors
+# Color scheme from https://github.com/Mayccoll/Gogh
+color0=#000000
+color1=#ff5555
+color2=#50fa7b
+color3=#ffb86c
+color4=#8be9fd
+color5=#bd93f9
+color6=#ff79c6
+color7=#94A3A5
+color8=#444d4d
+color9=#ff6e67
+color10=#69ff8f
+color11=#ffc97a
+color12=#8df1fa
+color13=#cf99f1
+color14=#ff90c6
+color15=#f6f6f6
+background=#181a16
+foreground=#94A3A5
+cursor=#99A9B9

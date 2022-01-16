@@ -88,7 +88,8 @@ command! Dotf call fzf#run(fzf#wrap({
       \ 'sink': 'tabe',
       \ 'options': [ '--keep-right', '-m', '--preview', 'bat {}', '--preview-window=down:60%:border-top' ]
       \ }))
-noremap <silent> <C-f>d :Dotf<CR>
+noremap  <silent>     <C-f>d :Dotf<CR>
+nnoremap <silent> <leader>fd :Dotf<CR>
 
 "--------------- " FZF-MAPPINGS "----------------
 
@@ -114,7 +115,6 @@ noremap <silent> <C-f>d :Dotf<CR>
   nnoremap <silent> <leader>lS :LS<CR>
   nnoremap <silent> <leader>rr :RG<Space>
   nnoremap <silent> <leader>gg :GGrep<CR>
-  nnoremap <silent> <leader>fd :Dotf<CR>
   nnoremap <silent> <leader>hh :HFiles<CR>
   nnoremap <silent> <leader>hf :HFiles<CR>
   nnoremap <silent> <leader>fa :FzfAg<CR>

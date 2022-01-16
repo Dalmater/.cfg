@@ -10,9 +10,9 @@ A lot of **plugins, aliases, fzf functions** and some scripts.
 
 I'm using too many plugins but only 2 or 3 are essential<br>
 (fast syntax highlighting, zsh-autosuggestions & fzf-tab).<br>
-[oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)(configured) manages about 10 - 15 plugins.<br>
+[oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh) (configured) manages about 10 - 15 plugins.<br>
 ***The zsh startup time on Android 9(Sm-j7) is about 0.5 - 0.7 sec***<br>
-(zsh -i -c exit  0.40s user 0.10s system 87% cpu 0.600 total)
+(zsh -i -c exit  0.39s user 0.11s system 87% cpu 0.600 total)
 
 #### **Essential plugins**
 

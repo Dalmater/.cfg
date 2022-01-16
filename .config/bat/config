@@ -4,7 +4,7 @@
 
 # Specify desired highlighting theme (e.g. "TwoDark"). Run `bat --list-themes`
 # for a list of all available themes
---theme="gruvbox"
+--theme="Gruvbox8"
 
 # Enable this to use italic text on the terminal. This is not supported on all
 # terminal emulators (like tmux, by default):
@@ -23,13 +23,13 @@
 #   Example 2: Use ".gitignore"-style highlighting for ".ignore" files
 --map-syntax "*.ino:C++"
 --map-syntax "*ignore:Git Ignore"
---map-syntax "*config:Git Config"
+--map-syntax "*config:INI"
 --map-syntax "*.cfg:Git Config"
---map-syntax "*.conf:Git Config"
 --map-syntax "vifmrc:VimL"
-
+--map-syntax "*.conf:INI"
 # Other settings
 --style=auto
 --color=always
 --wrap=auto
 --diff-context=3
+--tabs=2

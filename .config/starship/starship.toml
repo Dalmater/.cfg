@@ -2,7 +2,7 @@
 format = '$shlvl$username$hostname$directory$git_branch$git_commit$git_state$git_metrics$git_status$custom$cmd_duration$line_break$jobs$time$status$character'
 # right_format = '$cmd_duration'
 # scan_timeout = 10
-# command_timeout = 500
+command_timeout = 600
 add_newline = false # no new line before prompt
 
 [line_break]
@@ -10,7 +10,7 @@ disabled = false
 
 [character]
 success_symbol = '[❯](bold green)'
-error_symbol = ' [❮](bold #CC241D)'
+error_symbol = '[❮](bold #CC241D)'
 vicmd_symbol = '[](#A3BE8C)'
 
 [status]

@@ -13,7 +13,7 @@ zsh-time() {
   time zsh -i -c exit
 }
 
-zsh_time() {
+zsh-times() {
   for i in $(seq 1 10)
   do
     time zsh -i -c exit
@@ -36,6 +36,10 @@ extrakt() {
         unrar x $1;;
       *.gz)
         gunzip $1;;
+      *.gz)
+        unpigz $1;;
+      *.zz)
+        unpigz $1;;
       *.tar)
         tar xvf $1;;
       *.tbz2)
@@ -121,10 +125,13 @@ bindkey '^X^S' history-beginning-search-menu
 # ALT-k - Paste the selected entry from locate output into the command line
 fzf-locate-widget() {
 local selected
-  if selected=$(locate / | fzf --keep-right -q "$LBUFFER"); then
+  if selected=$(locate / | fzf -m --history="${FZF_HISTORY_DIR}/locate" --keep-right -q "$LBUFFER"); then
     LBUFFER=$selected
   fi
-zle redisplay
+  [[ -f $selected ]] && ${EDITOR} -p "$selected" || cd $selected
+  unset LBUFFER
+  zle reset-prompt
+# zle redisplay
 }
 zle     -N    fzf-locate-widget
 bindkey '\ek' fzf-locate-widget

@@ -3,20 +3,16 @@ autoload -Uz colors && colors
 
 # Enable ls colors
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
-export EXA_COLORS="${LS_COLORS//=9/=1;3}"
 
 if [[ -z "$LS_COLORS" ]]; then
   (( $+commands[dircolors] )) && test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
-Red=$(printf '\033[31m')
-Green=$(printf '\033[32m')
-Yellow=$(printf '\033[33m')
-Blue=$(printf '\033[34m')
-Magenta=$(printf '\033[35m')
-Cyan=$(printf '\033[36m')
-Bold=$(printf '\033[1m')
-Reset=$(printf '\033[m')
+export EXA_COLORS="${LS_COLORS//=9/=1;3}"
+
+GREEN=$(printf '\033[32m')
+BLUE=$(printf '\033[34m')
+CYAN=$(printf '\033[36m')
 
 # XDG Path
 export XDG_CONFIG_HOME=$HOME/.config
@@ -38,10 +34,11 @@ export GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 # [ -x /$PREFIX/bin/lesspipe ] && eval "$(SHELL=$PREFIX/bin/sh lesspipe)"
 # export LESSOPEN='|~/.lessfilter %s'
 # LESSOPEN='|/data/data/com.termux/files/usr/bin/lesspipe.sh %s' && export LESSOPEN
+LESSOPEN="|/data/data/com.termux/files/home/bin/.lessfilter %s" && export LESSOPEN
 # export LESSCOLORIZER="pygmentize"
-export LESSHISTFILE="-"
+LESSHISTFILE="-"
 
-# export LANG=en_US.UTF-8
+# export LANG=en_US.UTF-8 (Termux default)
 # export LC_ALL=en_US.UTF-8
 # export LC_CTYPE=UTF-8
 export COLORTERM="truecolor"

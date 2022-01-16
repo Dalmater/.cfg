@@ -1,6 +1,6 @@
 " Set mapleader to space by default early, so all mappings by plugins are set
 if !exists("mapleader")
-  let mapleader = ' '
+  let mapleader = "\<Space>"
 endif
 " set rtp+=~/.local/share/nvim/
 " set exrc
@@ -69,7 +69,7 @@ Plug 'junegunn/vim-peekaboo'
 " Plug 'Chiel92/vim-autoformat'
  Plug 'godlygeek/tabular', { 'for': 'markdown' }
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
-" Plug 'justinmk/vim-sneak'
+Plug 'justinmk/vim-sneak'
 " Plug 'easymotion/vim-easymotion'
 Plug 'romainl/vim-cool'
 " Syntax Highlighting & Colorscheme
@@ -91,9 +91,10 @@ endif
 
 call plug#end()
 
-command! Git call LazyLoadFugitive('Git')
-command! Ggrep call LazyLoadFugitive('Ggrep')
-command! Gcommit call LazyLoadFugitive('Gcommit')
+noremap <silent> <leader>up :PlugUpdate<cr>
+noremap <silent> <leader>ud :PlugUpdate<cr>
+
+command! Git   call LazyLoadFugitive('Git')
 command! Gedit call LazyLoadFugitive('Gedit')
 command! Gclog call LazyLoadFugitive('Gclog')
 function! LazyLoadFugitive(cmd)
@@ -133,10 +134,18 @@ endfunction
   let g:VM_maps["Redo"]             = '<C-r>'
   let g:VM_highlight_matches        = 'underline,bold'
   " let g:VM_theme_set_by_colorscheme = 1
-  " let g:VM_Mono_hl   = 'Function'
-  " let g:VM_Extend_hl = 'Type'
-  " let g:VM_Cursor_hl = 'PreProc'
-  " let g:VM_Insert_hl = 'Argument'
+  " let g:VM_Mono_hl   = 'DiffText'
+  " let g:VM_Extend_hl = 'DiffAdd'
+  " let g:VM_Cursor_hl = 'Visual'
+  " let g:VM_Insert_hl = 'DiffChange'
+
+  if exists(':VMTheme')
+    let g:VM_theme_set_by_colorscheme = 1
+    hi VM_Extend guibg=#5f8787 guifg=#ebdbb2
+    hi VM_Cursor guibg=#8ec07c guifg=#1d2021
+    hi VM_Insert guibg=#b16286 guifg=#ebdbb2
+    hi VM_Mono35 guibg=#cc241d guifg=#ebdbb2
+  endif
 
   let g:obsession_no_bufenter = 1
   "let g:autotagCtagsCmd='ctags --excmd=number -f -R'
@@ -157,11 +166,10 @@ endfunction
 
   " map  <leader>M <Plug>(Man)
   map  <leader>m <Plug>(Tman)
-  " let g:sneak#s_next = 1
   let g:CoolTotalMatches = 1
   " let g:cssColorVimDoNotMessMyUpdatetime = 1
   let g:rainbow_active = 0
-  let g:agprg="--color-match=01;31;103 --column"
+  " let g:agprg="--color-match=01;31;103 --column"
 
   let g:tmux_navigator_save_on_switch = 'update'
   let g:tmux_navigator_no_mappings = 1
@@ -196,7 +204,7 @@ colorscheme gruvbox8_hard
 let g:gruvbox_plugin_hi_groups = 1
 let g:gruvbox_transp_bg = 1
 
-autocmd FileType netrw call lightline#update()
+autocmd FileType netrw    call lightline#update()
 autocmd FileType startify call lightline#update()
 
 " Enable default theme if some other is not set
@@ -209,19 +217,19 @@ hi! Normal guibg=NONE
 " Reversed visual highlighting
 hi! Visual gui=reverse guifg=NONE guibg=NONE
 " Cursor line and column
-hi! LineNr       guibg=#1d2021
-hi! SignColumn   guibg=#1d2021
-hi! CursorLine   guibg=#1d2021
-hi! CursorLineNr guibg=#1d2021
-hi! ColorColumn  guibg=#1d2021
-hi! Special      gui=NONE
-hi! EndOfBuffer  guifg=#504945 guibg=NONE gui=NONE
-" hi! Directory    guifg=#458588 gui=italic
-hi! Pmenu        guibg=#282828
-" hi! PmenuSel     guifg=#1d2021
-" hi! PmenuSbar    guibg=#83a598
-" hi! PmenuThumb   guibg=#504945
-hi! StartifyHeader guifg=#8ec07c gui=bold ctermfg=107
+hi! LineNr          guibg=#1d2021
+hi! SignColumn      guibg=#1d2021
+hi! CursorLine      guibg=#1d2021
+hi! CursorLineNr    guibg=#1d2021
+hi! ColorColumn     guibg=#1d2021
+hi! Special         gui=NONE
+hi! EndOfBuffer     guifg=#504945 guibg=NONE gui=NONE
+" hi! Directory       guifg=#458588 gui=italic
+hi! Pmenu           guibg=#282828
+" hi! PmenuSel        guifg=#1d2021
+" hi! PmenuSbar       guibg=#83a598
+" hi! PmenuThumb      guibg=#504945
+hi! StartifyHeader  guifg=#8ec07c gui=bold ctermfg=107
 hi! StartifySpecial guifg=#fabd2f ctermfg=221
 
 au TextYankPost * silent! lua vim.highlight.on_yank {higroup="Visual", timeout=300, on_visual=false, on_macro=true}
@@ -275,7 +283,7 @@ nmap <leader>sp :setlocal invspell<CR>
 if has('autocmd')
   if has('spell')
     let spellable = ['markdown', 'gitcommit', 'txt', 'text', 'liquid', 'rst']
-    autocmd BufEnter * if index(spellable, &ft) < 0 | setlocal nospell | else | setlocal spell | endif
+    au BufEnter * if index(spellable, &ft) < 0 | setlocal nospell | else | setlocal spell | endif
     " au BufNewFile,BufRead COMMIT_EDITMSG, setlocal spell
   endif
   au BufNewFile,BufRead COMMIT_EDITMSG, call feedkeys('i')
@@ -321,6 +329,19 @@ function! s:show_documentation()
   endif
 endfunction
 
+" Open URL
+command -bar -nargs=1 OpenURL :!xdg-open <args>
+function! OpenURL()
+  let s:uri = matchstr(getline("."), '[a-z]*:\/\/[^ >,;:)]*')
+  echo s:uri
+  if s:uri != ""
+    exec "!xdg-open \"" . s:uri . "\""
+  else
+    echo "No URI found in line."
+  endif
+endfunction
+map     <Leader>ow  :call OpenURL()<CR>
+
 cnoremap <C-t> <C-\>e(<SID>RemoveLastPathComponent())<CR>
 function! s:RemoveLastPathComponent()
   return substitute(getcmdline(), '\%(\\ \|[\\/]\@!\f\)\+[\\/]\=$\|.$', '', '')
@@ -340,7 +361,7 @@ inoremap <expr> <left>  pumvisible() ? "<ESC>a" : "<left>"
 
 " easy complete settings
 " let g:easycomplete_tab_trigger="<c-space>"
-let g:easycomplete_scheme="dark" "rider,sharp
+" let g:easycomplete_scheme="dark" "rider,sharp
 
 " inoremap ^] ^X^]
 " inoremap ^F ^X^F
@@ -382,7 +403,7 @@ let g:completion_enable_snippet = 'UltiSnips'
 " let g:SuperTabDefaultCompletionType = "<c-p>"
 let g:SuperTabContextDefaultCompletionType = "<c-p>"
 "let g:SuperTabNoCompleteBefore =[]
-let g:SuperTabNoCompleteAfter = ['^', ',', '<Space>']
+let g:SuperTabNoCompleteAfter = ['^', ',', ' ']
 let g:SuperTabClosePreviewOnPopupClose = 1
 " let g:SuperTabMappingForward = "<tab>"
 " let g:SuperTabMappingBackward = "<s-tab>"
@@ -400,7 +421,7 @@ let g:SuperTabContextTextOmniPrecedence = ['&omnifunc', '&completefunc']
 let g:SuperTabContextDiscoverDiscovery =
       \ ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
 
-" completion nvim lsp for specific language
+" nvim lsp completion for specific language
 " lua local lsp_installer = require("nvim-lsp-installer")
 " lua require'lspconfig'.bashls.setup{}
 " lua require'lspconfig'.jsonls.setup{}
@@ -418,9 +439,9 @@ let g:SuperTabContextDiscoverDiscovery =
 
 ""------------------- "Git" ---------------------
 
-highlight GitGutterAdd    guifg=#a1b520 ctermfg=2
-highlight GitGutterChange guifg=#d79921 guibg=#1d2021 ctermfg=3
-highlight GitGutterDelete guifg=#fa4934 ctermfg=1
+hi GitGutterAdd    guifg=#a1b520 guibg=#1d2021 ctermfg=2
+hi GitGutterChange guifg=#d79921 guibg=#1d2021 ctermfg=3
+hi GitGutterDelete guifg=#fa4934 ctermfg=1
   let g:gitgutter_map_keys = 0
   let g:gitgutter_log = 1
   " let g:gitgutter_sign_added = '+'
@@ -438,17 +459,52 @@ nmap (    <Plug>(GitGutterPrevHunk)
 nmap ghp  <Plug>(GitGutterPreviewHunk)
 nmap ghs  <Plug>(GitGutterStageHunk)
 nmap ghu  <Plug>(GitGutterUndoHunk)
-" omap ic   <Plug>(GitGutterTextObjectInnerPending)
-" omap ac   <Plug>(GitGutterTextObjectOuterPending)
-" xmap ic   <Plug>(GitGutterTextObjectInnerVisual)
-" xmap ac   <Plug>(GitGutterTextObjectOuterVisual)
+omap ic   <Plug>(GitGutterTextObjectInnerPending)
+omap ac   <Plug>(GitGutterTextObjectOuterPending)
+xmap ic   <Plug>(GitGutterTextObjectInnerVisual)
+xmap ac   <Plug>(GitGutterTextObjectOuterVisual)
 
 "" Git 'vim.fugitive'
 " let g:fugitive_no_maps = 1
 " noremap <leader>gw  :Gwrite<CR>
-noremap <leader>gc  :Git commit --verbose<CR>
-noremap <leader>gd  :Gvdiff<CR>
-noremap <leader>gr  :GRemove<CR>
+noremap <leader>gc :Git commit --verbose<CR>
+noremap <leader>gd :Gvdiff<CR>
+noremap <leader>gr :GRemove<CR>
+
+" ------------------ "Vim-Sneak" -----------------
+
+let g:sneak#label = 1
+let g:sneak#s_next = 1
+" let g:sneak#label_esc = "\<Space>"
+
+hi Sneak      guifg=black guibg=#fabd2f
+hi SneakScope guifg=black guibg=#fe8019
+
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
+map t <Plug>Sneak_t
+map T <Plug>Sneak_T
+
+nmap <expr> <Enter> sneak#is_sneaking() ? '<Plug>Sneak_;' : '<Enter>'
+
+" smart f with motion labels
+nnoremap <silent> f :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
+nnoremap <silent> F :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
+xnoremap <silent> f :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>
+xnoremap <silent> F :<C-U>call sneak#wrap(visualmode(), 1, 1, 1, 1)<CR>
+onoremap <silent> f :<C-U>call sneak#wrap(v:operator,   1, 0, 1, 1)<CR>
+onoremap <silent> F :<C-U>call sneak#wrap(v:operator,   1, 1, 1, 1)<CR>
+
+" smart t with motion labels
+nnoremap <silent> t :<C-U>call sneak#wrap('',           1, 0, 1, 1)<CR>
+nnoremap <silent> T :<C-U>call sneak#wrap('',           1, 1, 1, 1)<CR>
+xnoremap <silent> t :<C-U>call sneak#wrap(visualmode(), 1, 0, 1, 1)<CR>
+xnoremap <silent> T :<C-U>call sneak#wrap(visualmode(), 1, 1, 1, 1)<CR>
+onoremap <silent> t :<C-U>call sneak#wrap(v:operator,   1, 0, 1, 1)<CR>
+onoremap <silent> T :<C-U>call sneak#wrap(v:operator,   1, 1, 1, 1)<CR>
+
+" autocmd User SneakEnter set nocursorline
+" autocmd User SneakLeave set cursorline
 
 " ------------------ "EasyAlign" -----------------
 
@@ -530,11 +586,12 @@ inoremap kk <ESC>
 nnoremap <silent> <leader>d :w !diff % -<CR>
 
 " toggle ruler
+noremap <silent> <leader>to :0tabmove<CR>
 noremap <silent> <leader>nn :set nornu nonu<CR>
 noremap <silent> <leader>sn :set rnu nu<CR>
 
 "open terminal
-noremap <silent> <leader>tl :bot tab terminal<CR>
+noremap <silent> <leader>tz :bot tab terminal<CR>
 
 " open quickfix and list
 noremap <silent> <leader>oq  :copen<CR>
@@ -558,14 +615,17 @@ nnoremap <silent> <leader>j          :move .+1<CR>==
 "" Set working directory
 nnoremap <silent> <leader>. :lcd %:p:h<CR>
 
-"" path to the edited file
-cnoremap <M-e>  <C-R>=expand("%:p:h") . "/" <CR>
-
 "" Opens an edit command with the path of the currently edited file filled in
 noremap <leader>e  :e <C-R>=expand("%:p:h") . "/" <CR>
 
 "" Opens a tab edit command with the path of the currently edited file filled in
 noremap <leader>te :tabe <C-R>=expand("%:p:h") . "/" <CR>
+
+" Press ^F in insert mode to insert the current file
+imap <C-F> <C-R>=expand("%")<CR>
+
+"" path to the edited file in command line
+cnoremap <M-e>  <C-R>=expand("%:p:h") . "/" <CR>
 
 "" expand %% to path in command mode.
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
@@ -670,14 +730,14 @@ nnoremap <S-Tab> gT
 noremap <silent> <leader>tn :tabnew<CR>
 noremap <silent> <leader>tm :tabmove<CR>
 noremap <silent> <leader>to :0tabmove<CR>
+noremap <silent> <leader>tl :-tabmove<CR>
+noremap <silent> <leader>tr :+tabmove<CR>
 noremap <silent> <leader>tc :tabclose<CR>
 noremap <silent> <leader>ts :tab split<CR>
 noremap <silent> <leader>sh :<C-u>split<CR>
 noremap <silent> <leader>sv :<C-u>vsplit<CR>
 
 " buffer navigation
-nmap    <silent> <leader>up :update<CR>
-imap    <silent> <leader>up <ESC>:update<CR>a
 nmap    <silent> <leader>bd :bdelete<CR>
 nmap    <silent> <leader>bu :FzfBuffer <C-d>
 nmap    <silent> <leader>bb :buffers<CR>:buffer<SPACE>
@@ -725,6 +785,10 @@ noremap  <leader>y "+y<CR>
 " Allow for easy copying and pasting
 vnoremap y y`]
 " nnoremap p p=`]
+
+" Duplicate a selection
+" Visual mode: D
+vmap D y'>p
 
 " Y yanks from the cursor to EOL. See :help Y.
 nnoremap Y y$

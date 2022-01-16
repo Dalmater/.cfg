@@ -1,0 +1,21 @@
+# tango.colors
+# Color theme from https://blogs.n1zyy.com/andrew/2009/02/02/tango-color-scheme-for-xfce-terminal/
+foreground=#ffffff
+background=#323232
+cursor=#93a1a1
+color0=#2e2e34
+color1=#cccc00
+color2=#4e4e9a
+color3=#c4c4a0
+color4=#343465
+color5=#757550
+color6=#060698
+color7=#d3d3d7
+color8=#555557
+color9=#efef29
+color10=#8a8ae2
+color11=#fcfce9
+color12=#72729f
+color13=#adad7f
+color14=#3434e2
+color15=#eeeeee
