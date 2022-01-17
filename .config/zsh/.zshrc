@@ -77,8 +77,8 @@ export _ZL_ADD_ONCE=1
 
 # User configuration
 
-export EDITOR="nvim"
-export VISUAL="nvim"
+export EDITOR=nvim
+export VISUAL=nvim
 export PAGER="bat -p --paging=always"
 # export MANPAGER="bat -p --paging=always"
 export MANPATH=$PREFIX/share/man
@@ -141,8 +141,6 @@ case $KEYMAP in
   vicmd)      echo -ne '\e[1 q';; # block
   command)    echo -ne '\e[4 q';;
   *)          echo -ne '\e[3 q';; # line
-  # viopp)      echo -ne '\e[3 q';;
-  # visual)     echo -ne '\e[2 q';;
 esac
 }
 zle -N zle-keymap-select
@@ -185,10 +183,10 @@ bindkey    '^Ft' toggle-fzf-tab
 bindkey    '^X,' toggle-fzf-tab
 bindkey -s '^Fo' 'file="$(fzf --reverse)" && [ -f "$file" ] && xdg-open "$file" --chooser'
 
-source "$HOME/.config/zsh/plugins/dotbare/dotbare.plugin.zsh"
-source "$HOME/.fzf/shell/key-bindings.zsh"
+source $HOME/.config/zsh/plugins/dotbare/dotbare.plugin.zsh
+source $HOME/.fzf/shell/key-bindings.zsh
 
-source "$HOME/scripts/fzf_functions.zsh"
+source $HOME/scripts/fzf_functions.zsh
 
 # export FZF_BASE='~/.fzf'
 # export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow -c always --exclude .git'

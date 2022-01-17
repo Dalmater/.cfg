@@ -45,10 +45,10 @@ export COLORTERM="truecolor"
 export CLICOLOR=1
 export MICRO_TRUECOLOR=1
 # export TMUX_TMPDIR="/data/data/com.termux/files/usr/var/run"
-export FZF_TMPDIR="/data/data/com.termux/files/usr/var/run"
+export FZF_TMPDIR=/data/data/com.termux/files/usr/var/run
 # export HISTIGNORE="&:l:ls :ll:la:cd "
-export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/.wgetrc"
-export PIP_DISABLE_PIP_VERSION_CHECK=1
+export WGETRC=${XDG_CONFIG_HOME:-$HOME/.config}/wget/.wgetrc
+# export PIP_DISABLE_PIP_VERSION_CHECK=1
 
 # Job Control
 # setopt auto_resume
