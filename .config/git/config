@@ -42,7 +42,7 @@
     rs         = restore --staged
 
 [init]
-    templatedir = ~/.config/git/template
+    ; templatedir = ~/.config/git/template
 
 [merge]
     tool        = nvim
