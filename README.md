@@ -6,7 +6,7 @@ For **Termux** & **Nvim** on **Android**,with full setup.
 
 **Zsh, nvim, fzf, tmux, starship, git, dotbare, vim/lightline, vifm**, micro and more.<br>
 A lot of **plugins, aliases, fzf functions** and some scripts.
-![picture](storage/Screenshot_Termux.jpg)
+![picture](pics/Screenshot_Termux.jpg)
 
 I'm using too many plugins but only 2 or 3 are essential<br>
 (fast syntax highlighting, zsh-autosuggestions & fzf-tab).<br>
@@ -36,7 +36,7 @@ I'm using too many plugins but only 2 or 3 are essential<br>
   - line_break  -   1ms  -  \n
   - character   -   1ms  -  ❯<br>
 
-![Termux-pic](storage/Termux_Prompt-time.jpg)
+![Termux-pic](pics/Termux_Prompt-time.jpg)
 
 ### **TODO**
 

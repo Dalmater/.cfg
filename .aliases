@@ -184,13 +184,13 @@ alias \
     np='nano -% $PREFIX/etc/profile' \
     nz='nano -% $PREFIX/etc/zshrc' \
     opn='${EDITOR} $HOME/openssh/open' \
-    vim='GIT_DIR=$HOME/.cfg.git GIT_WORK_TREE=$HOME nvim' \
-    nvim='GIT_DIR=$HOME/.cfg.git GIT_WORK_TREE=$HOME nvim' \
-    v='nvim' \
+    vim="GIT_DIR=$HOME/.cfg.git GIT_WORK_TREE=$HOME nvim" \
+    v="GIT_DIR=$HOME/.cfg.git GIT_WORK_TREE=$HOME nvim" \
     vimdiff='nvim -d' \
     init='vim $HOME/.config/nvim/init.vim' \
     zp='vim ${ZDOTDIR:-$HOME/.config/zsh}/.zprofile' \
     zshrc='vim ${ZDOTDIR:-$HOME/.config/zsh}/.zshrc'
+    # nvim="GIT_DIR=$HOME/.cfg.git GIT_WORK_TREE=$HOME nvim" \
 
 # Plugins
 alias \

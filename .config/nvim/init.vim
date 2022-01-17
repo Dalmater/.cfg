@@ -309,13 +309,13 @@ endif
 
 " fzf if passed argument is a folder
 augroup folderarg
-"   " change working directory to passed directory
+  " change working directory to passed directory
   autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
 
-"   " start startify (fallback if fzf is closed)
+  " start startify (fallback if fzf is closed)
 "   autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | Startify  | endif
 
-"   " start fzf on passed directory
+  " start fzf on passed directory
   autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'FzfFiles ' fnameescape(argv()[0]) | endif
 augroup END
 
@@ -342,10 +342,10 @@ function! OpenURL()
 endfunction
 map     <Leader>ow  :call OpenURL()<CR>
 
-cnoremap <C-t> <C-\>e(<SID>RemoveLastPathComponent())<CR>
 function! s:RemoveLastPathComponent()
   return substitute(getcmdline(), '\%(\\ \|[\\/]\@!\f\)\+[\\/]\=$\|.$', '', '')
 endfunction
+cnoremap <C-t> <C-\>e(<SID>RemoveLastPathComponent())<CR>
 
 "-------- "Auto complete Menu & SuperTab" --------
 

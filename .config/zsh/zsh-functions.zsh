@@ -122,18 +122,21 @@ autoload -Uz history-beginning-search-menu
 zle -N history-beginning-search-menu
 bindkey '^X^S' history-beginning-search-menu
 
-# ALT-k - Paste the selected entry from locate output into the command line
+# ALT-k - Paste the selected entry from locate output into the command line with zle redisplay
+# access every file or directorie via locate
 fzf-locate-widget() {
 local selected
-  if selected=$(locate / | fzf -m --history="${FZF_HISTORY_DIR}/locate" --keep-right -q "$LBUFFER"); then
+  zle -I
+  if selected=$(locate / | fzf --history="${FZF_HISTORY_DIR}/locate" --keep-right -q "$LBUFFER"); then
     LBUFFER=$selected
   fi
-  [[ -f $selected ]] && ${EDITOR} -p "$selected" || cd $selected
+  [[ -f "$selected" ]] && ${EDITOR} "$selected" || cd $selected
   unset LBUFFER
+  # zle accept-line
   zle reset-prompt
-# zle redisplay
+  # zle redisplay
 }
-zle     -N    fzf-locate-widget
+zle -N fzf-locate-widget
 bindkey '\ek' fzf-locate-widget
 
 # sticky notes

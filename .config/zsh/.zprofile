@@ -34,7 +34,7 @@ export GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 # [ -x /$PREFIX/bin/lesspipe ] && eval "$(SHELL=$PREFIX/bin/sh lesspipe)"
 # export LESSOPEN='|~/.lessfilter %s'
 # LESSOPEN='|/data/data/com.termux/files/usr/bin/lesspipe.sh %s' && export LESSOPEN
-LESSOPEN="|/data/data/com.termux/files/home/bin/.lessfilter %s" && export LESSOPEN
+# LESSOPEN="|/data/data/com.termux/files/home/bin/.lessfilter %s" && export LESSOPEN
 # export LESSCOLORIZER="pygmentize"
 LESSHISTFILE="-"
 

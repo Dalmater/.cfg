@@ -59,9 +59,9 @@ stty -ixon
 
 PROMPT_COMMAND='echo -en "\033]0;$(whoami)@$(hostname) | $(pwd | cut -d "/" -f 6-40)\a"'
 
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_CACHE_HOME=$HOME/.cache
-export XDG_DATA_HOME=$HOME/.local/share
+export XDG_CONFIG_HOME="$HOME/.config"
+export XDG_CACHE_HOME="$HOME/.cache"
+export XDG_DATA_HOME="$HOME/.local/share"
 export EDITOR="nvim"
 export VISUAL="nvim"
 export PAGER="bat -p --paging=always"
