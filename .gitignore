@@ -1,0 +1,11 @@
+.cfg.git/
+buffers/
+cache/
+micro/backups/
+micro/plug/
+ranger/plugins/
+vim-easycomplete/
+.android_secure/
+specs/
+__pycache__/
+undo/

@@ -35,7 +35,7 @@ sleep 1
 echo "\033[1;32mnpm packages installt!"
 sleep 3
 
-$PREFIX/bin/python3 -m pip install --upgrade pip neovim
+$PREFIX/bin/python3 -m pip install --upgrade --force pip neovim pygments speedtest-cli
 
 sleep 1
 echo "\033[1;32mpip upgraded!"
@@ -47,24 +47,18 @@ sleep 1
 echo "\033[1;32mPython2 pip upgraded!"
 sleep 3
 
-sleep 3
-
-pip install pygments
-pip install speedtest-cli
-pip install yapf
-pip install python-language-server
-pip install pyls
-
 echo ""
 clear
 figlet -f wideterm "All Termux packages installt\!" | lolcat -p 0.5 -d 30 -F 0.2 -s 10 -a -t
 echo ""
 tput civis
+
 sleep 2
 printf '\033[1;4;33mDownloading oh-my-zsh install script with!\033[0m\n'
 sleep 1
 echo ""
 printf "wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh ~/ohmyzsh\n"
+
 echo ""
 printf "\033[0;30mAfter the install script is downloaded,\n" | lolcat -a -d 30 -s 10 -t -i -F 0.2
 tput civis
@@ -88,5 +82,5 @@ echo -n " "
 printf "\033[1;31mScript installation starting!\n"
 echo ""
 sleep 2
-sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(\wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 tput cnorm

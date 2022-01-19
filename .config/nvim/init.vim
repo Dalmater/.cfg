@@ -586,7 +586,6 @@ inoremap kk <ESC>
 nnoremap <silent> <leader>d :w !diff % -<CR>
 
 " toggle ruler
-noremap <silent> <leader>to :0tabmove<CR>
 noremap <silent> <leader>nn :set nornu nonu<CR>
 noremap <silent> <leader>sn :set rnu nu<CR>
 
@@ -728,6 +727,7 @@ noremap <silent> <leader>hv  <C-w>t<C-w>K
 nnoremap   <Tab> gt
 nnoremap <S-Tab> gT
 noremap <silent> <leader>tn :tabnew<CR>
+noremap <silent> <leader>tx :tabnext<CR>
 noremap <silent> <leader>tm :tabmove<CR>
 noremap <silent> <leader>to :0tabmove<CR>
 noremap <silent> <leader>tl :-tabmove<CR>

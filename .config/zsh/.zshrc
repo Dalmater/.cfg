@@ -77,15 +77,15 @@ export _ZL_ADD_ONCE=1
 
 # User configuration
 
-export EDITOR=nvim
-export VISUAL=nvim
+export EDITOR="nvim"
+export VISUAL="nvim"
 export PAGER="bat -p --paging=always"
 # export MANPAGER="bat -p --paging=always"
 export MANPATH=$PREFIX/share/man
 export MANPATH=$HOME/.fzf/man:$MANPATH
 # export OPENER="xdg-open"
 # export BROWSER="lynx"
-export WWW_HOME="duckduckgo.com"
+# export WWW_HOME="duckduckgo.com"
 # export FILE="vifm"
 export BAT_THEME="gruvbox"
 
@@ -191,11 +191,11 @@ source $HOME/scripts/fzf_functions.zsh
 # export FZF_BASE='~/.fzf'
 # export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow -c always --exclude .git'
 export FZF_DEFAULT_COMMAND='ag --hidden --follow --ignore .git -g ""'
- # "➟"
+ # "➜"
 export FZF_DEFAULT_OPTS="--height 90% --min-height 20 --color=fg:#ebdbb2 \
   --color=gutter:-1,info:#d79921,border:21,hl:underline:#928374,hl+:#fb4934 \
   --color=header:#8ec07c,pointer:#cc241d,prompt:#689d6a,marker:#91970a,spinner:#fe8019 \
-  --pointer='➜' --marker='√' --cycle --filepath-word --ansi -0 \
+  --pointer='➟' --marker='√' --cycle --filepath-word --ansi -0 \
   --layout=reverse --info=inline --preview-window=down,60%,border-top,hidden \
   --bind 'alt-0:top,alt-t:+toggle-preview,alt-s:+toggle-sort,?:change-preview:echo {}' \
   --bind 'alt-w:toggle-preview-wrap,alt-right:+kill-word,alt-left:+backward-kill-word' \

@@ -191,7 +191,7 @@ fi
 bind -x '"\ei": "interactive_fzf"'
 bind -x '"\C-fg": "fzf_git"'
 bind -x '"\C-fn": "live_search_notes"'
-bind -x '"\er": "rg-fzf"'
+bind -x '"\er": "rgf"'
 bind -x '"\C-fc": "dotf"'
 bind -x '"\C-ff": "fuz"'
 bind -x '"\el": "ls"'

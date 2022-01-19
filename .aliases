@@ -87,7 +87,7 @@ alias \
     uhr='tty-clock -crC 3' \
     rg="rg --colors 'match:bg:11' --ignore-case --pretty" \
     ffmpeg='ffmpeg -hide_banner' \
-    wget='wget -r -e -nc -np' # --robots=off
+    wget='wget -r -e --robots=off -nc -np'
 
 # special commands
 alias \
@@ -185,7 +185,7 @@ alias \
     nz='nano -% $PREFIX/etc/zshrc' \
     opn='${EDITOR} $HOME/openssh/open' \
     vim="GIT_DIR=$HOME/.cfg.git GIT_WORK_TREE=$HOME nvim" \
-    v="GIT_DIR=$HOME/.cfg.git GIT_WORK_TREE=$HOME nvim" \
+    v="nvim" \
     vimdiff='nvim -d' \
     init='vim $HOME/.config/nvim/init.vim' \
     zp='vim ${ZDOTDIR:-$HOME/.config/zsh}/.zprofile' \
