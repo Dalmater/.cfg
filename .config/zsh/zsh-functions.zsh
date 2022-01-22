@@ -157,3 +157,13 @@ fzf-history-widget-accept() {
 zle -N fzf-history-widget-accept
 bindkey '^X^R' fzf-history-widget-accept
 
+# cd with vifm_cd
+vifm_cd()
+{
+    local dst="$(command vifm --choose-dir - "$@")"
+    if [ -z "$dst" ]; then
+        echo 'Directory picking cancelled/failed'
+        return 1
+    fi
+    cd "$dst"
+}

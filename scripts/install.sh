@@ -16,7 +16,7 @@ lesspipe openssh openssl gnupg ncurses-utils lynx clang no-more-secrets mdp \
 dash ripgrep gawk elinks chafa micro cmatrix asciinema nano ctags tty-clock \
 fzf bat figlet binutils unzip keychain ttyrec w3m silversearcher-ag cowsay \
 starship slang wget vitetris help2man xmake bvi jp2a fortune zip p7zip glow \
-unrar tar vifm tidy gpgme gotop net-tools htop-legacy openssl-tool sl mlocate
+unrar tar vifm tidy gpgme gotop net-tools htop-legacy openssl-tool sl mlocate links
 
 
 sleep 1

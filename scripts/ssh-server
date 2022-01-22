@@ -1,5 +1,0 @@
-#!/data/data/com.termux/files/usr/bin/sh
-
-IP=$(ifconfig wlan0 | grep "255" | awk '{print $2}' | sed -e 's/addr://')
-
-sshd -Dde -o ListenAddress=$IP

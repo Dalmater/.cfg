@@ -7,17 +7,20 @@ let g:EasyMotion_smartcase = 1
 let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz,ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.'
 let g:EasyMotion_enter_jump_first = 1
 let g:EasyMotion_add_search_history = 1
+let g:EasyMotion_off_screen_search = 1
 let g:EasyMotion_startofline = 0
 let g:EasyMotion_skipfoldedline = 0
 
+hi link EasyMotionMoveHL Search
+hi link EasyMotionIncSearch Search
 let s:target_hl_defaults = {
     \   'gui'     : ['#ffb400', '#cc241d' , 'bold']
-    \ , 'cterm256': ['001', '160'     , 'bold']
+    \ , 'cterm256': ['011', '160'     , 'bold']
     \ , 'cterm'   : ['yellow', 'red'     , 'bold']
     \ }
 
-autocmd User EasyMotionPromptBegin silent! easycompleteDisable
-autocmd User EasyMotionPromptEnd   silent! easycompleteEnable
+autocmd! User EasyMotionPromptBegin silent! easycompleteDisable
+autocmd! User EasyMotionPromptEnd   silent! easycompleteEnable
 
 nmap <leader><leader>f <Plug>(easymotion-overwin-f)
 xmap <leader><leader>f <Plug>(easymotion-bd-f)
@@ -44,7 +47,7 @@ map <leader><leader>K  <Plug>(easymotion-sol-k)
 
 map <leader><leader>w  <Plug>(easymotion-iskeyword-w)
 map <leader><leader>b  <Plug>(easymotion-iskeyword-b)
-nmap s                 <Plug>(easymotion-s2)
+" nmap s                 <Plug>(easymotion-s2)
 xmap s                 <Plug>(easymotion-s2)
 omap z                 <Plug>(easymotion-s2)
 nmap <leader><leader>n <Plug>(easymotion-sn)

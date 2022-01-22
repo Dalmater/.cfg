@@ -30,9 +30,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'mhinz/vim-startify'
 Plug 'tpope/vim-repeat'
 Plug 'vim-scripts/visualrepeat'
-Plug 'junegunn/goyo.vim', {  'on': 'Goyo', 'for': ['markdown', 'txt', 'text', 'rst', 'liquid'] }
-Plug 'tpope/vim-scriptease', {'for': 'vim'}
-" Plug 'junegunn/vim-easy-align'
+Plug 'tpope/vim-scriptease', { 'for': 'vim' }
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo', 'for': ['markdown', 'txt', 'text', 'rst', 'liquid'] }
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
@@ -65,6 +64,7 @@ Plug 'vim-utils/vim-man'
 Plug 'sickill/vim-pasta'
 Plug 'tpope/vim-obsession'
 " Plug 'craigemery/vim-autotag'
+Plug 'ludovicchabant/vim-gutentags'
 Plug 'junegunn/vim-peekaboo'
 " Plug 'Chiel92/vim-autoformat'
  Plug 'godlygeek/tabular', { 'for': 'markdown' }
@@ -126,14 +126,13 @@ endfunction
   " let g:pasta_paste_before_mapping = 'Pp'
   " let g:pasta_paste_after_mapping = 'pp'
 
-  let g:VM_theme                    = 'gruvbox'
+  " let g:VM_theme                    = 'gruvbox'
   let g:VM_use_first_cursor_in_line = 1
   let g:VM_mouse_mappings           = 1
   let g:VM_maps                     = {}
   let g:VM_maps["Undo"]             = 'u'
   let g:VM_maps["Redo"]             = '<C-r>'
   let g:VM_highlight_matches        = 'underline,bold'
-  " let g:VM_theme_set_by_colorscheme = 1
   " let g:VM_Mono_hl   = 'DiffText'
   " let g:VM_Extend_hl = 'DiffAdd'
   " let g:VM_Cursor_hl = 'Visual'
@@ -141,10 +140,10 @@ endfunction
 
   if exists(':VMTheme')
     let g:VM_theme_set_by_colorscheme = 1
-    hi VM_Extend guibg=#5f8787 guifg=#ebdbb2
-    hi VM_Cursor guibg=#8ec07c guifg=#1d2021
-    hi VM_Insert guibg=#b16286 guifg=#ebdbb2
-    hi VM_Mono35 guibg=#cc241d guifg=#ebdbb2
+    hi VM_Extend guibg=#d79921 guifg=#1d2021
+    hi VM_Cursor guibg=#458588 guifg=#ebdbb2
+    hi VM_Insert guibg=#8ec07c guifg=#1d2021
+    hi VM_Mono35 guibg=#b16286 guifg=#ebdbb2
   endif
 
   let g:obsession_no_bufenter = 1
@@ -158,7 +157,7 @@ endfunction
   " noremap <F10>      :Autoformat<CR>
   " noremap <leader>af :Autoformat<CR>
 
-  " let g:vim_markdown_no_default_key_mappings = 1
+  let g:vim_markdown_no_default_key_mappings = 1
   let g:vim_markdown_new_list_item_indent = 2
   let g:vim_markdown_folding_disabled = 1
   let g:markdown_syntax_conceal = 1
@@ -170,6 +169,7 @@ endfunction
   " let g:cssColorVimDoNotMessMyUpdatetime = 1
   let g:rainbow_active = 0
   " let g:agprg="--color-match=01;31;103 --column"
+  let g:cursorhold_updatetime = 100
 
   let g:tmux_navigator_save_on_switch = 'update'
   let g:tmux_navigator_no_mappings = 1
@@ -204,8 +204,11 @@ colorscheme gruvbox8_hard
 let g:gruvbox_plugin_hi_groups = 1
 let g:gruvbox_transp_bg = 1
 
+augroup file.managers
+  autocmd!
 autocmd FileType netrw    call lightline#update()
 autocmd FileType startify call lightline#update()
+augroup END
 
 " Enable default theme if some other is not set
 if !exists("g:colors_name")
@@ -256,6 +259,13 @@ set guicursor=n-v:block-Cursor,i-c-ci-ve:ver25-iCursor,r-cr:hor20-lCursor,o:hor5
 
 " set default cursor when leaving nvim
 autocmd! VimLeave * set guicursor=a:ver25-blinkon25
+
+augroup file.types
+  autocmd!
+  autocmd BufNewFile,BufRead *.txt setfiletype text
+  " autocmd BufNewFile,BufRead *.md setfiletype md
+  autocmd BufNewFile,BufRead *.vifm,vifmrc setfiletype vim
+augroup END
 
 " Remember cursor position
 augroup vimrc-remember-cursor-position
@@ -313,7 +323,7 @@ augroup folderarg
   autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'cd' fnameescape(argv()[0])  | endif
 
   " start startify (fallback if fzf is closed)
-"   autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | Startify  | endif
+  autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | Startify  | endif
 
   " start fzf on passed directory
   autocmd VimEnter * if argc() != 0 && isdirectory(argv()[0]) | execute 'FzfFiles ' fnameescape(argv()[0]) | endif
@@ -370,8 +380,8 @@ inoremap <expr> <left>  pumvisible() ? "<ESC>a" : "<left>"
 
 " set dictionary "+=${~/.config/nvim/spell/*}
 
-nnoremap <M-d> :EasyCompleteNextDiagnostic<CR>
-nnoremap <M-f> :EasyCompletePreviousDiagnostic<CR>
+nnoremap <silent> <M-d> :EasyCompleteNextDiagnostic<CR>
+nnoremap <silent> <M-f> :EasyCompletePreviousDiagnostic<CR>
 
 au User easycomplete_plugin call easycomplete#RegisterSource({
       \ 'name': 'snips',
@@ -506,15 +516,6 @@ onoremap <silent> T :<C-U>call sneak#wrap(v:operator,   1, 1, 1, 1)<CR>
 " autocmd User SneakEnter set nocursorline
 " autocmd User SneakLeave set cursorline
 
-" ------------------ "EasyAlign" -----------------
-
-" Start EasyAlign in visual mode (e.g. vip<Enter>) [C-p for LiveEasyAlign]
-" vmap <Enter> <Plug>(LiveEasyAlign)
-" vmap <C-p> <Plug>(EasyAlign)
-
-" Start EasyAlign for a motion/text object (e.g. gaip) [C-p for LiveEasyAlign]
-" nmap ga <Plug>(EasyAlign)
-
 ""------------- "tagbar settings" ----------------
 
 " map <F3>       :TagbarToggle<CR>
@@ -534,7 +535,7 @@ onoremap <silent> T :<C-U>call sneak#wrap(v:operator,   1, 1, 1, 1)<CR>
 
 "---------------- "you surround" -----------------
 
-" map <leader>` ysiw`
+map <leader>` ysiw`
 " map <leader>" ysiw"
 map <leader>' ysiw'
 map <leader>( ysiw(

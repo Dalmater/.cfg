@@ -1,29 +1,24 @@
 [user]
     name       = Dalmater
     email      = 77870538+Dalmater@users.noreply.github.com
-
 [credential]
     helper     = cache 30758400
-
 [core]
     editor     = nvim
     pager      = delta
-
 [pager]
     diff       = delta
     log        = delta
     reflog     = delta
     show       = delta
-
 [interactive]
     diffFilter = delta --color-only --features=interactive
-
 [alias]
     lg         = log --graph --pretty=format:'%C(yellow)%C(yellow)%h%Creset -%C(bold magenta)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --decorate
     lb         = branch --sort=-authordate --format '%(align:width=18)%(color:red)%(authordate:format:%d-%m-%Y %H:%M)%(end) %(align:width=8,position=right)%(color:green) %(authordate:relative) %(end) %(color:3) %(objectname:short)%(color:6) %(HEAD) %(if)%(HEAD)%(then)%(color:bold magenta)%(end)%(refname:short)'
     search     = ! git branch -a | sed '/->/d' | sed 's/\\*//' | xargs git grep -n -I
     saveall    = !git add -A && git commit -m 'chore: commit save point'
-    save       = !git commit -a -m 'Commit save point'
+    save       = !git commit -a -m 'chore: commit save point'
     ll         = log --pretty=format:"%C(yellow)%h%C(13)%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
     stags      = !git for-each-ref --format='%(*committerdate:raw)%(committerdate:raw) %(refname) %(*objectname) %(objectname)' refs/tags | sort -n | cut -d'/' -f 3 | cut -d' ' -f 1
     aa         = add --all
@@ -40,20 +35,15 @@
     r          = remote -v
     rmc        = rm --cached
     rs         = restore --staged
-
 [init]
     ; templatedir = ~/.config/git/template
-
 [merge]
     tool        = nvim
-
 [pull]
     ff          = only
     rebase      = false
-
 [mergetool]
     prompt      = false
-
 [color "decorate"]
     HEAD         = 6 normal bold italic
     remotebranch = 5 normal bold
@@ -61,48 +51,42 @@
     tag          = 3 0 bold
     stash        = normal
     branch       = 6 normal bold
-
+    commit       = 3 0
 [color "diff"]
     whitespace   = normal
     commit       = 3 0
     func         = 2 normal bold
-
 [color "grep"]
     filename     = 7 normal
     function     = 2 normal bold
     column       = normal
     linenumber   = normal
-
 [color "interactive"]
     header       = normal
     help         = normal
     error        = 1 0 bold
-
 [color "status"]
-    changed      = 3 normal
-    unmerged     = 1 normal
-    nobranch     = 1 0 bold
-    updated      = 2 normal
-    localbranch  = 6 normal bold
-    added        = 2 normal
-    untracked    = normal dim
     header       = normal
-    remotebranch = 5 normal bold
     branch       = 6 normal bold
-
+    localbranch  = 6 normal bold
+    remotebranch = 5 normal bold
+    nobranch     = 1 0 bold
+    added        = 2 normal
+    changed      = 3 normal
+    updated      = 2 normal
+    untracked    = normal dim
+    unmerged     = 1 normal
 [color "branch"]
     remote       = 5 normal bold
     upstream     = 5 normal bold
     plain        = 6 normal bold
     current      = 6 normal bold reverse
     local        = 6 normal bold
-
 [color "remote"]
     success      = 2 normal
     error        = 1 normal
     hint         = normal dim
     warning      = 3 normal
-
 [delta]
     features                 = line-numbers decorations
     minus-non-emph-style     = red
@@ -120,26 +104,23 @@
     navigate                 = true
     diffFilter               = delta --color-only
     whitespace-error-style   = 22 reverse
-
 [delta "interactive"]
     keep-plus-minus-markers  = true
-
 [delta "decorations"]
     commit-decoration-style  = blue ul
     commit-style             = yellow
-    file-style               = normal yellow bold
-    file-decoration-style    = yellow box
+    file-style               = yellow bold
+    file-decoration-style    = blue box bold
     hunk-header-decoration-style  = magenta box
     hunk-header-file-style        = yellow
     hunk-header-line-number-style = "#067a00"
     hunk-header-style = file line-number syntax
-
 [advice]
     addInoredFile    = false
     addEmptyPathspec = false
-
 [diff]
     tool          = nvimdiff
-
 [rebase]
     autoStash     = true
+[help]
+    autocorrect = 31

@@ -22,6 +22,7 @@ terminal_color() {
   GREEN=$(printf '\033[32m')
   YELLOW=$(printf '\033[33m')
   BLUE=$(printf '\033[34m')
+  CYAN=$(printf '\033[36m')
   BOLD=$(printf '\033[1m')
   RESET=$(printf '\033[m')
 }
@@ -58,14 +59,14 @@ choose_termux_font() {
   printf "%s\n" "You can choose ${GREEN}any font ${RESET}from the ${BLUE}list below${RESET}."
   for TERMUX_FONT in ${FONTS_DIR}/*/{*.ttf,*.otf}; do
     TERMUX_FONT_FILE[COUNT]=${TERMUX_FONT}
-    printf "%s\n" "[${COUNT}] $(echo ${TERMUX_FONT_FILE[COUNT]} | awk -F '/' '{print $NF}' | sed 's@Windows Compatible@@g;s@ Nerd Font@@g;s@ Complete@@g;s@ .ttf@@g;s@ .otf@@g;s@.ttf@@g;s@.otf@@g')"
+    printf "%s\n" "[${COUNT}] $(echo ${TERMUX_FONT_FILE[COUNT]} | awk -F '/' '{print $NF}' | sed 's@ Nerd Font@@g;s@ Complete@@g;s@ Mono @ @;s@ .ttf@@g;s@ .otf@@g;s@.ttf@@g;s@.otf@@g')"
     COUNT=$((${COUNT} + 1))
   done
   COUNT=$((${COUNT} - 1))
 
   while true; do
     read -p "\
-Please type the ${GREEN}option number${RESET} and press ${BLUE}Enter${RESET}${YELLOW}[0-${COUNT}]:${RESET}" FONT_NUMBER
+${YELLOW}Please${RESET} type the ${GREEN}option number${RESET} and press ${BLUE}Enter${RESET}${CYAN}${BOLD}[0-${COUNT}]${RESET}:" FONT_NUMBER
     if [[ -z "${FONT_NUMBER}" ]]; then
       break
     elif ! [[ ${FONT_NUMBER} =~ ^[0-9]+$ ]]; then

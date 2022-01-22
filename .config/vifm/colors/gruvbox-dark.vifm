@@ -28,21 +28,21 @@ highlight OtherLine	cterm=bold ctermfg=default ctermbg=235
 highlight CurrLine cterm=bold,reverse ctermfg=default ctermbg=default
 highlight Selected cterm=none	ctermfg=default	ctermbg=237
 
-highlight JobLine	cterm=bold ctermfg=116 ctermbg=238
-highlight StatusLine cterm=bold	ctermfg=144	ctermbg=236
+highlight JobLine	cterm=bold    ctermfg=116 ctermbg=238
+highlight StatusLine cterm=none	ctermfg=144	ctermbg=236
 highlight ErrorMsg cterm=bold	ctermfg=196	ctermbg=default
-highlight WildMenu cterm=bold	ctermfg=235	ctermbg=144
-highlight CmdLine	cterm=none ctermfg=default ctermbg=default
+highlight WildMenu cterm=bold	  ctermfg=235	ctermbg=144
+highlight CmdLine	cterm=none    ctermfg=default ctermbg=default
 
-" highlight User1 ctermfg=default ctermbg=default
-" highlight User2 ctermfg=default ctermbg=default
-" highlight User3 ctermfg=default ctermbg=default
-" highlight User4 ctermfg=default ctermbg=default
-" highlight User5 ctermfg=default ctermbg=default
-" highlight User6 ctermfg=default ctermbg=default
-" highlight User7 ctermfg=default ctermbg=default
-" highlight User8 ctermfg=default ctermbg=default
-" highlight User9 ctermfg=default ctermbg=default
+highlight User1 ctermfg=230     ctermbg=240 cterm=none
+highlight User2 ctermfg=144     ctermbg=232 cterm=none
+highlight User3 ctermfg=240     ctermbg=232 cterm=none
+highlight User4 ctermfg=144     ctermbg=232 cterm=none
+highlight User5 ctermfg=237     ctermbg=232 cterm=none
+highlight User6 ctermfg=178     ctermbg=237 cterm=none
+highlight User7 ctermfg=240     ctermbg=237 cterm=none
+highlight User8 ctermfg=green   ctermbg=240 cterm=bold
+highlight User9 ctermfg=232     ctermbg=232 cterm=none
 
 " file name specific highlight
 highlight /^.*\.(btm|cmd|com|exe)$/I cterm=bold ctermfg=green ctermbg=default

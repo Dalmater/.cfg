@@ -85,10 +85,10 @@ fo() {
 dotf() {
   local files
 
-  files=(~/.agignore ~/.aliases ~/.bashrc ~/.zshenv ~/.gitconfig ~/.gitignore ~/.dircolors ~/.gemrc
-    ~/.config/{bat,ctags,fd,git,glow,htop,neofetch,npm,nvim,pip,starship,vifm,w3m,wget,zsh}
+  files=(~/.agignore ~/.aliases ~/.bashrc ~/.zshenv ~/.gitconfig ~/.dircolors ~/.gemrc
+    ~/.config/{bat,ctags,fd,git,glow,htop,neofetch,npm,nvim,pip,starship,vifm,w3m,wget,zsh/*}
     ~/.config/micro/bindings.json ~/.config/micro/settings.json ~/.config/tmux/tmux.conf
-    ~/bin/* ~/.lynxrc ~/scripts/* ~/.local/bin/* ~/documents/*
+    ~/bin/* ~/scripts/* ~/.local/bin/* ~/documents/*
     $PREFIX/etc/{bash.bashrc,inputrc,nanorc,profile,tmux.conf,zshrc})
 
     find $files -type f |
@@ -100,7 +100,7 @@ notes() {
   zle -I
   rg --files ~/*ocuments/notes |
     fzf --keep-right --preview-window 'nohidden' \
-    --preview 'bat --color=always --line-range :100 {}' | xargs -r "$EDITOR"
+    --preview 'bat --color=always --line-range :250 {}' | xargs -r "$EDITOR"
     zle reset-prompt
   }
 zle -N notes

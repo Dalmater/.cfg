@@ -14,12 +14,6 @@ I'm using too many plugins but only 2 or 3 are essential<br>
 ***The zsh startup time on Android 9(Sm-j7) is about 0.5 - 0.7 sec***<br>
 (zsh -i -c exit  0.39s user 0.11s system 87% cpu 0.600 total)
 
-#### **Essential plugins**
-
-[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)<br>
-[fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting)<br>
-[fzf-tab](https://github.com/Aloxaf/fzf-tab)
-
 #### **Prompt**
 
 [starship](https://github.com/starship/starship) **timings**
@@ -37,6 +31,12 @@ I'm using too many plugins but only 2 or 3 are essential<br>
   - character   -   1ms  -  ❯<br>
 
 ![Termux-pic](pics/Termux_Prompt-time.jpg)
+
+#### **Essential plugins**
+
+[zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)<br>
+[fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting)<br>
+[fzf-tab](https://github.com/Aloxaf/fzf-tab)
 
 ### **TODO**
 

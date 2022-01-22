@@ -87,7 +87,7 @@ export MANPATH=$HOME/.fzf/man:$MANPATH
 # export BROWSER="lynx"
 # export WWW_HOME="duckduckgo.com"
 # export FILE="vifm"
-export BAT_THEME="gruvbox"
+export BAT_THEME="gruvbox8"
 
 # For a full list of active aliases, run `alias`
 # Example aliases
@@ -155,7 +155,7 @@ export STARSHIP_CONFIG=~/.config/starship/starship.toml
 
 # custom keybindings
 bindkey -s       '^[R' 'ranger_cd \n'
-bindkey -s       '^[V' 'vifm \n'
+bindkey -s       '^[V' 'vifm_cd \n'
 bindkey          '^[v'  vi-cmd-mode
 bindkey       '^[[1;3C' kill-word
 bindkey       '^[[1;3D' backward-kill-word
@@ -201,7 +201,7 @@ export FZF_DEFAULT_OPTS="--height 90% --min-height 20 --color=fg:#ebdbb2 \
   --bind 'alt-w:toggle-preview-wrap,alt-right:+kill-word,alt-left:+backward-kill-word' \
   --bind 'backward-eof:abort,ctrl-h:delete-char/eof,alt-|:+change-preview:file {}' \
   --bind 'alt-a:+toggle-all,tab:toggle+down,alt-bs:toggle+up,alt-u:deselect-all' \
-  --bind 'ctrl-d:change-prompt(Directories> )+reload(fd -td -HL --color=always)' \
+  --bind 'ctrl-d:change-prompt(Directories> )+reload(fd -td -HL -c always)' \
   --bind 'alt-j:jump,ctrl-f:change-prompt(Files> )+reload(fd -tf -HL -c always)' \
   --bind 'alt-y:execute-silent(printf {+} | cut -f2- | termux-clipboard-set)' \
   --preview '([[ -f {} ]] && (bat --color=always --line-range :200 {})) || ([[ -d {} ]] && (tree -a -L 4 -C {} | less)) || echo {}' \

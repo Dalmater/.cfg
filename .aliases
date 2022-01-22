@@ -254,6 +254,8 @@ alias \
     dotca='dot commit -a' \
     dotcm='dot commit -m' \
     dotd='dot diff' \
+    dotds='dot diff --staged' \
+    dotdc='dot diff --cached' \
     dotfe='dot fetch' \
     dotl='dot log' \
     dotps='dot push' \

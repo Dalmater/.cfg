@@ -49,7 +49,7 @@ tmoe_termux_color_env() {
 select_termux_color() {
   #cat <<-ENDOFTMOEZSHHELP03
   #ENDOFTMOEZSHHELP03
-  PS3="${YELLOW}Please${RESET} type the ${GREEN}option number${RESET} and press ${BLUE}Enter${RESET} ${BOLD}${CYAN}[1-86]${RESET}:"
+  PS3="${YELLOW}Please${RESET} type the ${GREEN}option number${RESET} and press ${BLUE}Enter${RESET}${CYAN}${BOLD}[1-86]${RESET}:"
   select TERMUX_COLOR_NAME in '3024.dark' 'aci' 'aco' 'apathy.dark' 'argonaut' 'ashes.dark' 'atelierdune.dark' 'atelierforest.dark' 'atelierheath.dark' 'atelierlakeside.dark' 'atelierseaside.dark' 'azu' 'base16.solarized.dark' 'bespin.dark' 'bim' 'black.on.white' 'brewer.dark' 'bright.dark' 'cai' 'chalk' 'chalk.dark' 'codeschool.dark' 'colors.dark' 'default' 'default.dark' 'dracula' 'eighties.dark' 'elementary' 'elic' 'elio' 'embers.dark' 'flat' 'flat.dark' 'freya' 'gnometerm' 'google.dark' 'gotham' 'grayscale.dark' 'greenscreen.dark' 'gruvbox.dark' 'harmonic16.dark' 'hemisu.dark' 'hybrid' 'iceberg.dark' 'isotope.dark' 'jup' 'londontube.dark' 'mar' 'marrakesh.dark' 'materia' 'material' 'miu' 'mocha.dark' 'monokai.dark' 'nancy' 'neon' 'nep' 'nord' 'ocean.dark' 'one.dark' 'pali' 'paraiso.dark' 'peppermint' 'railscasts.dark' 'rydgel' 'sat' 'shapeshifter.dark' 'shel' 'smyck' 'solarized.dark' 'summerfruit.dark' 'tango' 'tin' 'tomorrow' 'tomorrow.dark' 'tomorrow.night' 'tomorrow.night.blue' 'tomorrow.night.bright' 'tomorrow.night.eighties' 'twilight.dark' 'ura' 'vag' 'white.on.black' 'wild.cherry' 'zenburn' 'skip'; do
     case ${TERMUX_COLOR_NAME} in
     'skip')
