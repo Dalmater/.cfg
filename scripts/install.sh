@@ -1,5 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/bash
-pkg up -yy && pkg install -y man ncurses zsh git exa
+pkg up -yy && pkg install -y man ncurses-utils zsh git exa
 
 chsh -s zsh
 echo "Changed shell to zsh!"
@@ -12,11 +12,11 @@ php inxi shtool lua53 lua54 luajit lua-lpeg stylua dialog ack-grep make mdp \
 tmux neofetch command-not-found okc-agents perl mlocate python2 python tar \
 git-delta nodejs jq texinfo neovim openssl-tool cpufetch build-essential fd \
 tree moreutils gnutls ruby termimage toilet ncdu mpv file ranger most bvi pv \
-lesspipe openssh openssl gnupg ncurses-utils lynx clang no-more-secrets pigz \
+lesspipe openssh openssl gnupg lynx clang no-more-secrets pigz onefetch sd \
 dash ripgrep gawk elinks chafa micro cmatrix asciinema nano ctags tty-clock \
-fzf bat figlet unzip keychain net-tool ttyrec w3m silversearcher-ag cowsay \
-starship slang wget help2man xmake tar jp2a fortune zip p7zip glow bsd-games \
-unrar strace vifm gpgmes htop sl rsync onefetch bc sd 2048-c
+fzf bat figlet unzip keychain net-tools ttyrec w3m silversearcher-ag cowsay \
+starship slang wget help2man xmake tar jp2a fortune zip p7zip glow binutils \
+unrar strace ipmitool util-linux e2fsprogs vifm gpgme htop sl rsync bc 2048-c
 
 
 sleep 1

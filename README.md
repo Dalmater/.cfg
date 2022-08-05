@@ -1,7 +1,7 @@
 # <p align="center">Termux dotfiles
 
-For **Termux** on **Android** with full setup for **Zsh, neovim, fzf, tmux & completions**.<br>
-With scripts a lot of **plugins, aliases, functions, colors** and some fonts.<br>
+For **Termux/Android** with full setup for **Zsh, neovim, fzf, tmux & completions**.<br>
+With a lot of plugins, aliases, functions, colors and some fonts.<br>
 ![picture](pics/Screenshot_Termux.jpg)
 
 I'm using too many plugins but only 2 are essential, 5 if using fzf.<br>
@@ -14,7 +14,7 @@ I'm using too many plugins but only 2 are essential, 5 if using fzf.<br>
 
 There is no backup system!<br> 
 If you install this on top of your dotfiles, expect a big mess.<br>
-Do not use the `scripts/install.sh` script.<br> 
+Do not use the `scripts/install.sh` script!<br> 
 You should only pick whatever you want and include it in your own config.
 
 #### Prompt

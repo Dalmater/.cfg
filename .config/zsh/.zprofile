@@ -15,7 +15,7 @@ EXA_COLORS+="xx=37:"
 # Table header row
 EXA_COLORS+="hd=4;37:"
 # Symlink path
-# EXA_COLORS+="lp=1;34:"
+EXA_COLORS+="lp=1;34:"
 # Control character
 EXA_COLORS+="cc=1;31:"
 

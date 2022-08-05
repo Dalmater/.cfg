@@ -223,8 +223,8 @@ source $HOME/.fzf/shell/key-bindings.zsh
 # source $HOME/scripts/fzf_functions.zsh
 
 # export FZF_BASE='~/.fzf'
-# export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow -c always --exclude .git'
-export FZF_DEFAULT_COMMAND='ag -l --hidden --ignore .git -g ""'
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow -c always --exclude .git'
+# export FZF_DEFAULT_COMMAND='ag -l --hidden --ignore .git -g ""'
 export FZF_DEFAULT_OPTS="--height 90% --min-height 20 --color=fg:#ebdbb2,bg+:#282828 \
   --color=gutter:-1,info:#d79921,border:#c00000,hl:reverse:#fabd2f,hl+:reverse:#fe8019 \
   --color=header:#8ec07c,pointer:#cc241d,prompt:#689d6a,marker:#91970a,spinner:#fb4934 \
@@ -241,12 +241,11 @@ export FZF_DEFAULT_OPTS="--height 90% --min-height 20 --color=fg:#ebdbb2,bg+:#28
   --bind 'alt-t:+change-preview-window(|down,3,border,wrap|down,70%,border-top|right,60%,border-left)' \
   --bind 'alt-o:execute(xdg-open --chooser {+} >/dev/tty),ctrl-e:execute(nvim -p {+} >/dev/tty)' \
   --preview '([[ -f {} ]] && (bat --color=always --line-range :500 {} || cat {})) || ([[ -d {} ]] && (exa -a1 -T -L 4 -I=.git {} || tree -a -L 4 -C {})) || echo {} 2> /dev/null'"
-export FZF_ALT_C_COMMAND='fd -td -HLa -c always \
-  --base-directory /data/data/com.termux/files'
+export FZF_ALT_C_COMMAND='fd -td -HL --strip-cwd-prefix --base-directory /data/data/com.termux/files'
 export FZF_ALT_C_OPTS="--preview 'exa -a1 -I=.git {}' --preview-window=right,40%,border \
   --keep-right --bind change:first,alt-j:jump-accept --prompt 'Dir> '"
 # export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_CTRL_T_COMMAND='fd -tf -HL -c always'
+export FZF_CTRL_T_COMMAND='fd -tf --strip-cwd-prefix -HL -c always'
 export FZF_CTRL_T_OPTS="--keep-right --bind change:first --prompt 'Files> '"
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window=down,3,wrap,border \
   --bind change:first,alt-j:jump-accept --sort --exact --prompt 'History> '"
