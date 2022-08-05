@@ -29,7 +29,8 @@ if has apt-cache; then
   apt-cache search "$@" | \
     sort | \
     cut --delimiter ' ' --fields 1 | \
-    fzf -m --cycle --reverse --preview-window=down,border,nohidden,wrap \
+    fzf -m --cycle --reverse --preview-window=down,border-top,nohidden,wrap \
+    --bind change:first \
     --preview 'apt-cache show {1}' | \
     xargs -r pkg install -y
     else

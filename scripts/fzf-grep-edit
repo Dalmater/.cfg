@@ -28,6 +28,7 @@ fzf-grep-edit(){
   match=$(
   rg --hidden --color=always --line-number --smart-case "$1" |
     fzf --no-multi --delimiter : \
+    --bind change:first,alt-j:jump-accept \
     --preview "bat --color=always --line-range {2}: {1} --highlight-line {2}" \
     --preview-window=nohidden
   )

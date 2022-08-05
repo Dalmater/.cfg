@@ -8,67 +8,42 @@ if [[ -z "$LS_COLORS" ]]; then
   (( $+commands[dircolors] )) && test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
 
+# replace bright aixterm color codes w/ bold ANSI codes
 export EXA_COLORS="${LS_COLORS//=9/=1;3}"
+# Punctuation
+EXA_COLORS+="xx=37:"
+# Table header row
+EXA_COLORS+="hd=4;37:"
+# Symlink path
+# EXA_COLORS+="lp=1;34:"
+# Control character
+EXA_COLORS+="cc=1;31:"
 
-GREEN=$(printf '\033[32m')
-BLUE=$(printf '\033[34m')
-CYAN=$(printf '\033[36m')
-
-# XDG Path
-export XDG_CONFIG_HOME=$HOME/.config
-export XDG_CACHE_HOME=$HOME/.cache
-export XDG_DATA_HOME=$HOME/.local/share
-# export TMP_CACHE=$PREFIX/tmp/zsh_tmp_cache
+# change grep search highlighting
+export GREP_COLORS="mt=01;31;103"
 
 # Keydelay + disable right prompt indent
-export KEYTIMEOUT=100 # 1sec
+export KEYTIMEOUT=80 # 0.8 sec
 ZLE_RPROMPT_INDENT=0
 
 # Allow GnuPG to use console for authentication
 export GPG_TTY="$(tty)"
-# export USERNAME
-# export GITHUB_USER=Dalmater
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 
-# make less more friendly for non-text input files, see lesspipe(1)
-# [ -x /$PREFIX/bin/lesspipe ] && eval "$(SHELL=$PREFIX/bin/sh lesspipe)"
-# export LESSOPEN='|~/.lessfilter %s'
-# LESSOPEN='|/data/data/com.termux/files/usr/bin/lesspipe.sh %s' && export LESSOPEN
 # LESSOPEN="|/data/data/com.termux/files/home/bin/.lessfilter %s" && export LESSOPEN
-# export LESSCOLORIZER="pygmentize"
 LESSHISTFILE="-"
 
 # export LANG=en_US.UTF-8 (Termux default)
 # export LC_ALL=en_US.UTF-8
-# export LC_CTYPE=UTF-8
 export COLORTERM="truecolor"
 export CLICOLOR=1
 export MICRO_TRUECOLOR=1
-# export TMUX_TMPDIR="/data/data/com.termux/files/usr/var/run"
-# export FZF_TMPDIR=/data/data/com.termux/files/usr/var/run
-# export HISTIGNORE="&:l:ls :ll:la:cd "
+export MANPATH=$PREFIX/share/man
+export MANPATH=$HOME/.fzf/man:$MANPATH
+export BAT_THEME="gruvbox8"
+export BROWSER="elinks"
 export WGETRC=${XDG_CONFIG_HOME:-$HOME/.config}/wget/.wgetrc
-# export PIP_DISABLE_PIP_VERSION_CHECK=1
-
-# Job Control
-# setopt auto_resume
-# setopt long_list_jobs # (set by ohmyzsh)
-# setopt no_bg_nice
-
-# Completion, expansion and globbing
-# setopt always_to_end # (set by ohmyzsh)
-# setopt extended_glob
-# setopt no_case_glob
-setopt glob_complete
-# setopt complete_in_word # (set by ohmyzsh)
-setopt dot_glob
-setopt glob_star_short
-# setopt list_packed
-# setopt list_rows_first
-setopt no_beep
-# setopt null_glob
-# setopt hash_all
-
-# Prompt
-# setopt transient_rprompt
-# setopt prompt_subst
+export NPM_CONFIG_USERCONFIG=${XDG_CONFIG_HOME:-$HOME/.config}/npm/npmrc
+export DIALOGRC=${XDG_CONFIG_HOME:-$HOME/.config}/dialog/dialogrc
+export CTAGS=${XDG_CONFIG_HOME:-$HOME/.config}/ctags/cfg.ctags
+NODE_REPL_HISTORY=" "

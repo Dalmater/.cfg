@@ -5,7 +5,7 @@ let g:lightline = {
       \  'active': {
         \  'left': [ ['bufnum', 'mode', 'paste'],
         \            ['filename', 'gitbranch'],
-        \            ['gitgutter', 'spell', 'warningmsg'] ],
+        \            ['gitgutter', 'spell'] ],
         \  'right': [ ['percent'],
         \             ['lineinfo'],
         \             ['fileformat','fileencoding','filetype' ] ],
@@ -17,18 +17,14 @@ let g:lightline = {
           \  'filename': 'LightlineFilename',
           \  'filetype': 'MyFiletype',
           \  'fileencoding': 'MyFileencoding',
-          \  'warningmsg': 'StatuslineTabWarning',
           \  },
           \  }
-
-        " \  'warning': [ ['warningmsg'] ],
-          "  \  'component_expand': {
-          "    \  'error': 'StatuslineTabWarning',
-          "    \  },
 
           " \  'mode': 'LightlineMode',
 " function! LightlineMode()
 "   let fname = expand('%:t')
+"   return fname =~# 'startify' ? 'Startify' :
+"         \ lightline#mode()
 "   return fname =~# '^__Tagbar__' ? 'Tagbar' :
 "         \ lightline#mode()
 " endfunction
@@ -41,38 +37,36 @@ let g:lightline.inactive = {
       \             [ 'filetype' ] ],
       \  }
 
-function! GitInfo()
+let g:lightline.tab = {
+      \  'active': ['tabnum', 'filename', 'ficolorsme', 'modified'],
+      \  'inactive': ['filename', 'ficolorsme' , 'modified'],
+      \ }
+
+fun! GitInfo()
   if exists('*FugitiveHead')
+    let mark = ' '
     let git = fugitive#head()
     if git != ''
-      return ' ' . fugitive#head()
+      return mark.git
     endif
   endif
   return ''
 endf
 
-function! GitStatus()
+fun! GitStatus()
   if exists("g:gitgutter_signs")
     let [a,m,r] = GitGutterGetHunkSummary()
     return printf('+%d ~%d -%d', a, m, r)
   else
     return ''
   endif
-endfunction
+endf
 
 let g:tagbar_status_func = 'TagbarStatusFunc'
 
-function! TagbarStatusFunc(current, sort, fname, ...) abort
+fun! TagbarStatusFunc(current, sort, fname, ...) abort
   return lightline#statusline(0)
-endfunction
-
-" function! LightlineFileformat()
-"   return winwidth(0) > 60 ? &fileformat : ''
-" endfunction
-
-" function! LightlineFilename()
-"   return &filetype ==# 'startify' ? 'Startify' : ''
-" endf
+endf
 
 function! LightlineFilename()
   if &filetype == 'startify'
@@ -80,64 +74,31 @@ function! LightlineFilename()
   elseif &filetype == 'fzf'
     return &ft ==# 'fzf' ? 'fzf' : ''
   else
-  let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
-  let modified = &modified ? ' +' : ''
-  let readonly = &readonly ? ' ' : ''
-  return filename . modified . readonly
-endif
+    let filename = expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
+    let modified = &modified ? ' +' : ''
+    let readonly = &readonly ? ' ' : ''
+    return filename . modified . readonly
+  endif
 endfunction
 
-function! LightlineFiletype()
+fun! LightlineFiletype()
   let fileformat = &fileformat
   let fileencoding = &fenc !=# '' ? &fenc : &enc
   let filetype = &ft !=# '' ? &ft:"no ft"
   return fileformat . fileencoding . filetype
 endf
 
-function! MyFiletype()
-  return winwidth(0) > 44 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-endfunction
-
-function! MyFileformat()
-  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-endfunction
-
-function! MyFileencoding()
-  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+fun! MyFiletype()
+  return winwidth(0) > 50 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
 endf
 
-"" Find if there are mixed indentings.
-function! StatuslineTabWarning()
-  if !exists('b:statusline_tab_warning')
-    "" If the file is unmodifiable, do not warn.
-    if !&modifiable
-      let b:statusline_trailing_space_warning = ''
-      return b:statusline_trailing_space_warning
-    endif
+fun! MyFileformat()
+  return winwidth(0) > 64 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endf
 
-    let has_leading_tabs = search('^\t\+', 'nw') != 0
-    let has_leading_spaces = search('^ \+', 'nw') != 0
-
-    if has_leading_tabs && has_leading_spaces
-      let b:statusline_tab_warning = ' mixed-indent'
-    " elseif has_leading_tabs
-    "   let b:statusline_tab_warning = ' tabbed-indent'
-    else
-      let b:statusline_tab_warning = ''
-    endif
-  endif
-
-  return b:statusline_tab_warning
-endfunction
-
-let g:lightline.tab = {
-      \  'active': ['tabnum', 'filename', 'ficolorsme', 'modified'],
-      \  'inactive': ['filename', 'ficolorsme' , 'modified'], }
-
-" let g:lightline.enable = {
-"       \  'statusline': 1,
-"       \  'tabline': 1
-"       \  }
+fun! MyFileencoding()
+  return winwidth(0) > 70 ? (&fenc !=# '' ? &fenc : &enc) : ''
+endf
 
 let g:lightline.separator = {
       \  'left': '', 'right': ''
@@ -145,27 +106,6 @@ let g:lightline.separator = {
 let g:lightline.subseparator = {
       \  'left': '', 'right': ''
       \  }
-
-" let g:lightline.tabline_separator = g:lightline.separator
-" let g:lightline.tabline_subseparator = g:lightline.subseparator
-
-"let g:lightline.tabline = {
-"       \  'left': [ [ 'tabs' ] ],
-"       \  'right': [ 'close' ] }
-
-" let g:li ghtline.mode_map = {
-"       \  'n'     : 'NORMAL',
-"       \  'i'     : 'INSERT',
-"       \  'R'     : 'REPLACE',
-"       \  'v'     : 'VISUAL',
-"       \  'V'     : 'V-LINE',
-"       \  "\<C-v>": 'V-BLOCK',
-"       \  'c'     : 'COMMAND',
-"       \  's'     : 'SELECT',
-"       \  'S'     : 'S-LINE',
-"       \  "\<C-s>": 'S-BLOCK',
-"       \  't'     : 'TERMINAL',
-"       \  }
 
 let g:lightline.mode_map = {
       \  'n' : 'N',
@@ -205,8 +145,7 @@ let g:lightline.component = {
       \  'obstatus': '%{ObsessionStatus()}',
       \  'winnr': '%{winnr()}' }
 
-      " \  '%#WarningMsg#': '%{&bomb?"[BOM]":""}',
-"------ "lightline colorscheme function" -------
+"------ "lightline colorscheme change" -------
 
 function! s:set_lightline_colorscheme(name) abort
   let g:lightline.colorscheme = a:name

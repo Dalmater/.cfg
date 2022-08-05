@@ -6,15 +6,24 @@ case "$1" in
     *.diff|*.patch|*.py|*.rb|*.sql|*.ebuild|*.eclass)
       pygmentize -f 256 "$1";;
 
-    *bashrc|.bash_aliases|.bash_environment|*aliases|\
-    *zshrc|.zshenv|.zprofile|.zlogin)
-      pygmentize -f 256 -l sh -O style=default "$1";;
+    *aliases|*bashrc|.bash_aliases|.bash_environment|\
+    *profile|*zshrc|.zshenv|.zprofile|.zlogin)
+      # pygmentize -f 256 -l sh -O style=gruvbox-dark "$1";;
+      bat "$1";;
 
     *)
-      if grep -q "#\!/data/data/com.termux/files/usr/bin/zsh" "$1" 2> /dev/null; then
-        pygmentize -f 256 -l sh -O style=gruvbox-dark "$1"
-      elif grep -q "#\!/data/data/com.termux/files/usr/bin/bash" "$1" 2> /dev/null; then
-        pygmentize -f 256 -l sh -O style=gruvbox-dark "$1"
+      if grep -q "#\!/data/data/com.termux/files/usr/bin/zsh" "$1" 2> /dev/null \
+      || grep -q "#\!/data/data/com.termux/files/usr/bin/env\ zsh" "$1" 2> /dev/null; then
+        # pygmentize -f 256 -l sh -O style=gruvbox-dark "$1"
+        bat "$1"
+      elif grep -q "#\!/data/data/com.termux/files/usr/bin/bash" "$1" 2> /dev/null \
+      || grep -q "#\!/data/data/com.termux/files/usr/bin/env\ bash" "$1" 2> /dev/null; then
+        # pygmentize -f 256 -l sh -O style=gruvbox-dark "$1"
+        bat "$1"
+      elif grep -q "#\!/data/data/com.termux/files/usr/bin/sh" "$1" 2> /dev/null \
+      || grep -q "#\!/data/data/com.termux/files/usr/bin/env\ sh" "$1" 2> /dev/null; then
+          # pygmentize -f 256 -l sh -O style=gruvbox-dark "$1"
+        bat "$1"
       else
         exit 1
       fi

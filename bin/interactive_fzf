@@ -12,7 +12,7 @@ FZF_DEFAULT_COMMAND="$RG_PREFIX $(printf %q "$INITIAL_QUERY")" \
     --disabled --query "$INITIAL_QUERY" \
     --bind "change:reload:sleep 0.1; $RG_PREFIX {q} || true" \
     --delimiter : \
-    --preview 'bat --color=always {1} --highlight-line {2}' \
+    --preview 'bat {1} --highlight-line {2}' \
     --preview-window 'down,60%,nohidden,border-top,+{2}+3/3,~3' \
 )
 [ -n "${selected[0]}" ] && ${EDITOR} "${selected[0]}" "+${selected[1]}"

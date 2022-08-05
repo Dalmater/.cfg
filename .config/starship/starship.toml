@@ -1,21 +1,102 @@
+# ~/.config/starship/starship.toml
+
 # format = '$all'
-format = '$shlvl$username$hostname$directory$git_branch$git_commit$git_state$git_metrics$git_status$custom$cmd_duration$line_break$jobs$time$status$character'
-# right_format = '$cmd_duration'
+format = '$shlvl$username$hostname$localip$singularity$line_break$directory$git_branch$git_commit$git_state$git_metrics$git_status$custom$cmd_duration$line_break$jobs$time$status$character'
+right_format = '$env_var$battery'
 # scan_timeout = 10
 command_timeout = 600
 add_newline = false # no new line before prompt
+continuation_prompt = '[❯](bold green) '
+
+[character]
+format = '$symbol '
+success_symbol = '[❯](bold green)'
+error_symbol = '[❮](bold #CC241D)'
+vicmd_symbol = '[](bold #A3BE8C)'
+vimcmd_visual_symbol = '[❮](bold yellow)'
+vimcmd_replace_symbol = '[❮](bold purple)'
+vimcmd_replace_one_symbol = '[❮](bold purple)'
+
+[cmd_duration]
+min_time = 500
+format = 'took [$duration]($style)'
+show_milliseconds = false
+show_notifications = true
+disabled = false
+
+[directory]
+format = '[$path]($style)[$lock_symbol]($lock_style)[$read_only]($read_only_style) '
+style = '#83A098 bold'
+read_only = ' ' # 🔒
+read_only_style = 'yellow'
+truncate_to_repo = false
+truncation_length = 1
+truncation_symbol = ''
+fish_style_pwd_dir_length = 1
+
+[env_var.USER]
+symbol = ''
+style = 'black bold dimmed'
+format = ' $fill with [$env_value]($style) '
+disabled = false
+
+[git_branch]
+format = '[$symbol](11 bold)[$branch]($style 014):[$remote_name]($style)[/](11)[$remote_branch]($style)'
+symbol = ' '
+always_show_remote = true
+only_attached = false
+truncation_length = 20
+truncation_symbol = ''
+
+[git_status]
+format = '[$all_status$ahead_behind]($style)'
+ahead = '⇡[$count](#FABD2F bold) '
+diverged = '⇕⇡[$ahead_count](#FABD2F bold)⇣[$behind_count](#FABD2F bold) '
+behind = '⇣[$count](#FABD2F bold) '
+# up_to_date = '[√](bold green)'
+conflicted = '![$count](#FE8019 bold) '
+untracked = '?[$count](#928374 bold) '
+stashed = '\$[$count](#458588 bold) '
+modified = '~[$count](#D79921 bold) '
+renamed = '»[$count](#8EC07C bold) '
+deleted = '✗[$count](#FB4934 bold) '
+staged = '+[$count](#91971A bold) '
+disabled = false
+
+[git_commit]
+format = '[\($hash$tag\)]($style) '
+style = '#FABD2F'
+commit_hash_length = 7
+disabled = false
+only_detached = false
+tag_symbol = ' 🏷' # 🔖
+tag_disabled = false
+
+[git_metrics]
+added_style = 'bold #90AB79'
+deleted_style = 'bold #BF616A'
+format = '[+$added]($added_style)[/](11)[-$deleted]($deleted_style) '
+only_nonzero_diffs = true
+disabled = false
+
+[git_state]
+disabled = false
+style = '#D65D0E'
+
+[hostname]
+ssh_only = true
+format = '[$hostname]($style) in '
+trim_at = '-'
+style = '#FB4934 bold'
+disabled = false
 
 [line_break]
 disabled = false
 
-[character]
-success_symbol = '[❯](bold green)'
-error_symbol = '[❮](bold #CC241D)'
-vicmd_symbol = '[](#A3BE8C)'
-
 [status]
 style = 'bold #CC241D'
 symbol = '💥' # 💣
+sigint_symbol = '🚫'
 signal_symbol = '☇'
 format = '[\[$symbol$status\]]($style)'
 disabled = false
@@ -31,80 +112,27 @@ format = '[$user]($style)@'
 style_user = '#4FDF4F'
 show_always = true
 
-[cmd_duration]
-min_time = 500
-format = 'took [$duration]($style)'
-show_milliseconds = false
-show_notifications = true
-disabled = false
-
-[directory]
-format = '[$path]($style)[$lock_symbol]($lock_style)[$read_only]($read_only_style) '
-style = '#83A098 bold'
-read_only = ' 🔒'
-read_only_style = '#458588'
-truncate_to_repo = false
-truncation_length = 2
-truncation_symbol = ''
-fish_style_pwd_dir_length = 1
-
-[hostname]
-ssh_only = true
-format = '[$hostname] in($style) '
-trim_at = '-'
-style = '#4FDF4F'
-disabled = false
-
-[git_branch]
-format = '[$symbol](yellow bold)[$branch]($style 014):[$remote_name]($style)[/](5)[$remote_branch]($style)'
-symbol = ' '
-always_show_remote = true
-only_attached = false
-truncation_length = 20
-truncation_symbol = ''
-
-[git_status]
-format = '[$all_status$ahead_behind]($style)'
-ahead = '⇡[$count](#FABD2F) '
-diverged = '⇕⇡[$ahead_count]⇣[$$behind_count](#FABD2F) '
-behind = '⇣[$count](#FABD2F) '
-# up_to_date = '[√](bold green)'
-conflicted = '≈[$count](#D3869B) '
-untracked = '?[$count](#A89984) '
-stashed = '\$[$count](#458588) ' ##8FBCBB
-modified = '![$count](#D79921) '
-renamed = '»[$count](#8EC07C) '
-deleted = '✗[$count](#FA4934) '
-staged = '+[$count](#91971A) '
-disabled = false
-
-[git_commit]
-format = '[\($hash$tag\)]($style) '
-style = '#FABD2F'
-commit_hash_length = 7
-disabled = false
-only_detached = false
-tag_symbol = ' 🏷'
-tag_disabled = false
-
-[git_metrics]
-added_style = 'bold #90AB79'
-deleted_style = 'bold #BF616A'
-format = '[+$added]($added_style)[/](3)[-$deleted]($deleted_style) '
-only_nonzero_diffs = true
-disabled = false
-
-[git_state]
-disabled = false
-
-[env_var.USER]
-disabled = true
-
 [aws]
 disabled = true
 
 # [battery]
-# disabled = true
+# full_symbol = ' '
+# charging_symbol = ' '
+# discharging_symbol = ' '
+# unknown_symbol = ' '
+# empty_symbol = ' '
+# disabled = false
+# format = '[$symbol$percentage]($style) '
+
+# [[battery.display]]
+# threshold = 10
+# style = 'red bold'
+
+[buf]
+disabled = true
+
+[c]
+disabled = true
 
 [cmake]
 disabled = true
@@ -139,6 +167,9 @@ disabled = true
 [elm]
 disabled = true
 
+[fill]
+disabled = true
+
 [gcloud]
 disabled = true
 
@@ -158,7 +189,7 @@ disabled = true
 threshold = 1
 symbol_threshold = 1
 number_threshold = 2
-# style = "#FACD2F"
+style = "#8ec07c bold"
 disabled = false
 
 [julia]
@@ -170,7 +201,15 @@ disabled = true
 [kubernetes]
 disabled = true
 
+[localip]
+ssh_only = true
+style = '#FE8019'
+disabled = false
+
 [lua]
+disabled = true
+
+[memory_usage]
 disabled = true
 
 [nim]
@@ -225,13 +264,16 @@ disabled = true
 disabled = true
 
 [singularity]
-disabled = true
+symbol = ''
+format = '[$symbol\[$env\]]($style) '
+style = 'blue bold dimmed'
+disabled = false
 
 [shlvl]
 threshold = 2
 format = '[$symbol$shlvl]($style) '
 symbol = ''
-# repeat = false
+repeat = true
 disabled = false
 
 [terraform]
@@ -240,12 +282,9 @@ disabled = true
 [time]
 format = '[$time ]($style)'
 time_format = "%T"
-utc_time_offset = "+1"
+utc_time_offset = "+2"
 time_range = "23:00:00-06:00:00"
 disabled = false
-
-[memory_usage]
-disabled = true
 
 [vagrant]
 disabled = true
@@ -257,4 +296,7 @@ disabled = true
 disabled = true
 
 [zig]
+disabled = true
+
+[custom]
 disabled = true

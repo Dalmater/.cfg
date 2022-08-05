@@ -1,44 +1,52 @@
-# Termux dotfiles
+# <p align="center">Termux dotfiles
 
-For **Termux** & **Nvim** on **Android**,with full setup.
-
-### **Dotbare configs**
-
-**Zsh, nvim, fzf, tmux, starship, git, dotbare, vim/lightline, vifm**, micro and more.<br>
-A lot of **plugins, aliases, fzf functions** and some scripts.
+For **Termux** on **Android** with full setup for **Zsh, neovim, fzf, tmux & completions**.<br>
+With scripts a lot of **plugins, aliases, functions, colors** and some fonts.<br>
 ![picture](pics/Screenshot_Termux.jpg)
 
-I'm using too many plugins but only 2 or 3 are essential<br>
-(fast syntax highlighting, zsh-autosuggestions & fzf-tab).<br>
-[oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh) (configured) manages about 10 - 15 plugins.<br>
-***The zsh startup time on Android 9(Sm-j7) is about 0.5 - 0.7 sec***<br>
-(zsh -i -c exit  0.39s user 0.11s system 87% cpu 0.600 total)
+I'm using too many plugins but only 2 are essential, 5 if using fzf.<br>
+(fast-syntax-highlighting zsh-autosuggestions, fzf fzf-tab & fzf.vim).<br>
+[oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh) (configured) manages some plugins & misc stuff.<br>
+***Zsh startup time on Android 9(Sm-j7) is about 0.5 - 0.7 seconds.***<br>
+`time zsh -i -c exit`  0.39s user 0.11s system 87% cpu 0.600 total
 
-#### **Prompt**
+## *Warning*
+
+There is no backup system!<br> 
+If you install this on top of your dotfiles, expect a big mess.<br>
+Do not use the `scripts/install.sh` script.<br> 
+You should only pick whatever you want and include it in your own config.
+
+#### Prompt
 
 [starship](https://github.com/starship/starship) **timings**
-- In my home directory
-  - directory   -   2ms  -  ~
-  - line_break  -   1ms  -  \n
-  - character   -   1ms  -  ❯
-- In a git repo (oh-my-zsh)
-  - git_status  -  43ms  -  »×8 !×7
-  - git_metrics -  38ms  -  +68|-115
-  - directory   -  13ms  -  ~/.zsh
-  - git_commit  -   5ms  -  (93ad3a8)
-  - git_branch  -   5ms  -   master:origin/master
-  - line_break  -   1ms  -  \n
-  - character   -   1ms  -  ❯<br>
 
 ![Termux-pic](pics/Termux_Prompt-time.jpg)
 
-#### **Essential plugins**
+### Essential plugins
 
 [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)<br>
 [fast-syntax-highlighting](https://github.com/zdharma-continuum/fast-syntax-highlighting)<br>
-[fzf-tab](https://github.com/Aloxaf/fzf-tab)
+[fzf](https://github.com/junegunn/fzf.git) [fzf-tab](https://github.com/Aloxaf/fzf-tab) [fzf.vim](https://github.com/junegunn/fzf.vim.git)
 
-### **TODO**
+#### Plugin manager
 
-Migrate to [Zinit](https://github.com/zdharma-continuum/zinit)
-or do it without any plugin manager by myself.
+[oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)
+[vim-plug](https://github.com/junegunn/vim-plug.git)
+[tpm](https://github.com/tmux-plugins/tpm)
+
+##### Other plugins i like
+
+[z.lua](https://github.com/skywind3000/z.lua)<br>
+[dotbare](https://github.com/kazhala/dotbare.git)<br>
+[zsh-autopair](https://github.com/hlissner/zsh-autopair)<br>
+[zsh-hist](https://github.com/marlonrichert/zsh-hist.git)<br>
+[zsh-you-should-use](https://github.com/MichaelAquilina/zsh-you-should-use.git)<br>
+[lightline.vim](https://github.com/itchyny/lightline.vim)<br>
+[vim-visual-multi](https://github.com/mg979/vim-visual-multi.git)<br>
+[vim-gruvbox8](https://github.com/lifepillar/vim-gruvbox8.git)<br>
+[vim-easycomplete](https://github.com/jayli/vim-easycomplete.git)<br>
+[filetype-nvim](https://github.com/nathom/filetype.nvim.git)<br>
+[starship](https://github.com/starship/starship.git)
+
+More vim/nvim plugins in .config/nvim/init.vim(top)<br> Tmux plugins in .config/tmux/tmux.conf(bottom)

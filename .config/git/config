@@ -2,17 +2,18 @@
     name       = Dalmater
     email      = 77870538+Dalmater@users.noreply.github.com
 [credential]
-    helper     = cache 30758400
+    helper     = cache 31560000
 [core]
     editor     = nvim
-    pager      = delta
+    pager      = delta --diff-so-fancy --color-only
+    autocrlf   = input
 [pager]
-    diff       = delta
-    log        = delta
-    reflog     = delta
-    show       = delta
+    diff       = delta --diff-so-fancy --color-only
+    log        = delta --diff-so-fancy --color-only
+    reflog     = delta --diff-so-fancy --color-only
+    show       = delta --diff-so-fancy --color-only
 [interactive]
-    diffFilter = delta --color-only --features=interactive
+    diffFilter = delta --diff-so-fancy --color-only --features=interactive
 [alias]
     lg         = log --graph --pretty=format:'%C(yellow)%C(yellow)%h%Creset -%C(bold magenta)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --decorate
     lb         = branch --sort=-authordate --format '%(align:width=18)%(color:red)%(authordate:format:%d-%m-%Y %H:%M)%(end) %(align:width=8,position=right)%(color:green) %(authordate:relative) %(end) %(color:3) %(objectname:short)%(color:6) %(HEAD) %(if)%(HEAD)%(then)%(color:bold magenta)%(end)%(refname:short)'
@@ -38,12 +39,17 @@
 [init]
     ; templatedir = ~/.config/git/template
 [merge]
+    conflictstyle = diff3
     tool        = nvim
-[pull]
-    ff          = only
-    rebase      = false
+[mergetool "nvim"]
+    cmd = nvim -f -c \"Git diff\" \"$MERGED\"
 [mergetool]
     prompt      = false
+[pull]
+;    ff          = only
+    rebase      = true
+[push]
+    default     = tracking
 [color "decorate"]
     HEAD         = 6 normal bold italic
     remotebranch = 5 normal bold
@@ -64,7 +70,7 @@
 [color "interactive"]
     header       = normal
     help         = normal
-    error        = 1 0 bold
+    error        = 0 1 bold
 [color "status"]
     header       = normal
     branch       = 6 normal bold
@@ -88,39 +94,44 @@
     hint         = normal dim
     warning      = 3 normal
 [delta]
-    features                 = line-numbers decorations
+    features                 = line-numbers decorations syntax
     minus-non-emph-style     = red
     minus-emph-style         = reverse red
     plus-non-emph-style      = green
     plus-emph-style          = reverse green
     minus-empty-line-marker-style = normal "#4d4b4f"
     plus-empty-line-marker-style  = normal "#3e5c64"
-    line-numbers-zero-style  = "#dbdbd2"
+    line-numbers-zero-style  = "#ebdbb2"
     line-numbers-minus-style = red
     line-numbers-plus-style  = green
-    plus-style               = "syntax #113810"
-    minus-style              = "syntax #900000"
+    plus-style               = syntax "#113810"
+    minus-style              = syntax "#690909"
+    zero-style               = dim syntax
     syntax-theme             = gruvbox-dark
     navigate                 = true
-    diffFilter               = delta --color-only
-    whitespace-error-style   = 22 reverse
+    diffFilter               = delta --diff-so-fancy --color-only
+    whitespace-error-style   = 21 reverse
+    line-numbers             = true
+    tabs                     = 2
+    pager                    = less -R
+    keep-plus-minus-markers  = false
 [delta "interactive"]
-    keep-plus-minus-markers  = true
+    keep-plus-minus-markers  = false
 [delta "decorations"]
-    commit-decoration-style  = blue ul
+    commit-decoration-style  = magenta box
     commit-style             = yellow
     file-style               = yellow bold
-    file-decoration-style    = blue box bold
-    hunk-header-decoration-style  = magenta box
-    hunk-header-file-style        = yellow
+    file-decoration-style    = blue box
+    hunk-header-file-style   = blue bold
+    hunk-header-style        = file line-number syntax
+    hunk-header-decoration-style  = yellow box
     hunk-header-line-number-style = "#067a00"
-    hunk-header-style = file line-number syntax
 [advice]
-    addInoredFile    = false
+    addIgnoredFile   = false
     addEmptyPathspec = false
 [diff]
-    tool          = nvimdiff
+    tool        = delta --diff-so-fancy --color-only
 [rebase]
-    autoStash     = true
+    autoStash   = true
 [help]
     autocorrect = 31

@@ -19,6 +19,6 @@ ranger_cd() {
     \rm -f -- "$temp_file"
 }
 
-# This binds Ctrl-O to ranger-cd:
+# This binds Ctrl-O/Alt-R to ranger-cd:
 #bind '"\C-o":"ranger-cd\C-m"'
-#bindkey "^[r" "ranger_cd^J"
+#bindkey "^[R" "ranger_cd^J"

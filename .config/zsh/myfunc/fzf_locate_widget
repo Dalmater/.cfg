@@ -1,0 +1,35 @@
+#!/data/data/com.termux/files/usr/bin/env zsh
+# ALT-k - Access every file or directorie via locate
+
+set -o pipefail
+if [[ -n "$DEBUG" ]]; then
+  set -x
+fi
+
+function fail() {
+  printf '%s\n' "$1" >&2  ## Send message to stderr. Exclude >&2 if you don't want it that way.
+  exit "${2-1}"  ## Return a code specified by $2 or 1 by default.
+}
+
+function has() {
+  # Check if a command is in $PATH
+  which "$@" > /dev/null 2>&1
+}
+
+fzf_locate_widget() {
+local selected
+  zle -I
+    if selected=$(locate / | fzf --bind change:first,alt-j:jump-accept \
+      --history="${FZF_HISTORY_DIR}/locate" --keep-right -q "$LBUFFER"); then
+      LBUFFER=$selected
+    fi
+      [[ -f "$selected" ]] && ${EDITOR} "$selected" || cd $selected
+    unset LBUFFER
+  zle reset-prompt
+}
+
+if has locate; then
+  fzf_locate_widget "$@"
+else
+  fail "Can't find locate in $PATH"
+fi

@@ -14,7 +14,7 @@ esac
 HISTCONTROL=ignoreboth
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-export HISTTIMEFORMAT="%d/%m/%y %T "
+# export HISTTIMEFORMAT="%d/%m/%y %T "
 HISTSIZE=10000
 HISTFILESIZE=20000
 
@@ -36,20 +36,21 @@ shopt -s checkwinsize
 # match all files and zero or more directories and subdirectories.
 shopt -s globstar
 
+# Turn on the extended pattern matching features
+shopt -s dotglob
+shopt -s extglob
+
 # Allow autocd into directory quietly
 shopt -q -s autocd
 
 # Correct dir spellings
-shopt -s dirspell
+shopt -q -s dirspell
 shopt -q -s cdspell
 
-# Turn on the extended pattern matching features
-shopt -q -s dotglob
-shopt -q -s extglob
-
-# Enable vi-mode and vi key-bindings
+# Enable vi-mode and key-bindings
 set -o vi
-bind -m vi-insert
+# bind -m vi-insert
+bind -m emacs
 
 # Diasable flow-controll
 stty -ixon
@@ -57,7 +58,7 @@ stty -ixon
 # make less more friendly for non-text input files, see lesspipe(1)
 # [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-PROMPT_COMMAND='echo -en "\033]0;$(whoami)@$(hostname) | $(pwd | cut -d "/" -f 6-40)\a"'
+# PROMPT_COMMAND='echo -en "\033]0;$(whoami)@$(hostname) | $(pwd | cut -d "/" -f 6-40)\a"'
 
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
@@ -67,14 +68,17 @@ export VISUAL="nvim"
 export PAGER="bat -p --paging=always"
 export COLORTERM="truecolor"
 export MICRO_TRUECOLOR=1
-export HISTIGNORE="&:l:ls *:ll:la:cd *"
 export BAT_THEME="gruvbox-dark"
 export WGETRC="${XDG_CONFIG_HOME:-$HOME/.config}/wget/.wgetrc"
-export LESSHISTFILE="-"
 
 # Starship prompt
-eval "$(starship init bash)"
 export STARSHIP_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/starship/starship.toml"
+eval "$(starship init bash)"
+
+function set_win_title(){
+  echo -ne "\033]0; $PWD \007"
+}
+starship_precmd_user_func="set_win_title"
 
 source "${EXTERNAL_STORAGE}/termuxlauncher/.apps-launcher"
 source /sdcard/Termux/launch-completion.bash
@@ -82,9 +86,9 @@ source ~/.config/ranger/shell_automatic_cd.sh
 
 eval "$(lua5.3 ~/.config/zsh/plugins/z.lua/z.lua --init bash enhanced once fzf)"
 export _ZL_EXCLUDE_DIRS="buffers,.git,node_modules"
-export _ZL_DATA="~/.cache/zsh/.zlua"
-export _ZL_ADD_ONCE=1
-export _ZL_MATCH_MODE=1
+export _ZL_DATA="~/.local/share/zsh/.zlua"
+# export _ZL_ADD_ONCE=1
+# export _ZL_MATCH_MODE=1
 
 # set variable identifying the chroot you work in (used in the prompt below)
 if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
@@ -140,9 +144,6 @@ if [ -x $PREFIX/bin/dircolors ]; then
   alias egrep='egrep --color=auto'
 fi
 
-# some more ls aliases
-#alias proj='cd /home/user/projects'
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
@@ -186,6 +187,11 @@ if [[ ! "$PATH" == */data/data/com.termux/files/home/.fzf/bin* ]]; then
   export PATH="${PATH:+${PATH}:}/data/data/com.termux/files/home/.fzf/bin"
 fi
 
+# fzf-bash completions
+# --------------------
+# [[ $- == *i* ]] && source "/data/data/com.termux/files/home/.fzf/shell/completion.bash" 2> /dev/null
+source ~/.config/plugins/fzf-obc/bin/fzf-obc.bash
+
 # Key bindings
 
 bind -x '"\ei": "interactive_fzf"'
@@ -196,6 +202,7 @@ bind -x '"\C-fc": "dotf"'
 bind -x '"\C-ff": "fuz"'
 bind -x '"\el": "ls"'
 bind -x '"\eR": "ranger_cd"'
+bind -x '"\eV": "vifm_cd"'
 
 # ------------
 source "/data/data/com.termux/files/home/.fzf/shell/key-bindings.bash"
@@ -204,34 +211,16 @@ source ~/.config/zsh/plugins/dotbare/dotbare.plugin.bash
 
 export DOTBARE_DIR="$HOME/.cfg.git"
 export DOTBARE_TREE="$HOME"
-export DOTBARE_FZF_DEFAULT_OPTS="--preview-window 'down,70%' --keep-right"
+export DOTBARE_FZF_DEFAULT_OPTS="--preview-window 'down,70%' --keep-right --ansi \
+--history=$XDG_DATA_HOME/fzf-history/dotfiles"
 export DOTBARE_DIFF_PAGER="delta --diff-so-fancy --line-numbers"
-export DOTBARE_KEY="--bind=alt-j:jump,alt-w:toggle-preview-wrap"
+export DOTBARE_KEY="--bind=change:first,alt-j:jump,alt-w:toggle-preview-wrap"
 _dotbare_completion_cmd cfg
 bind -x '"\C-fd":"dotbare fedit"'
-bind -x '"\C-Xx":"dotbare fedit"'
 
-# fzf-bash completions
-# ---------------
-# [[ $- == *i* ]] && source "/data/data/com.termux/files/home/.fzf/shell/completion.bash" 2> /dev/null
-source ~/.config/plugins/fzf-obc/bin/fzf-obc.bash
-
-# fzf functions examples
-# search for configs and scripts
-se() { du ~/.aliases ~/.bashrc ~/*ignore ~/scripts/* ~/.config/*/* ~/.zshenv ~/.termux/* ~/*colors \
-  --exclude='*complete*' --exclude='plug*' --exclude='font*' --exclude='~/.config/colors' \
-  | awk '{print $2}' | fzf -m --keep-right | xargs -r $EDITOR -p ;}
-
-# fe [FUZZY PATTERN] - Open the selected file with the default editor
-#   - Bypass fuzzy finder if there's only one match (--select-1) - Exit if there's no match (--exit-0)
-fe() {
-  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
-  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
-}
-
-# Modified version where you can press
-#   - CTRL-O to open with `open` command,
-#   - CTRL-E or Enter key to open with the $EDITOR
+# fzf function example
+# - CTRL-O to open with `open` command,
+# - CTRL-E or Enter key to open with the $EDITOR
 fo() {
   IFS=$'\n' out=("$(fzf-tmux --query="$1" --exit-0 --expect=ctrl-o,ctrl-e)")
   key=$(head -1 <<< "$out")
@@ -240,49 +229,3 @@ fo() {
     [ "$key" = ctrl-o ] && termux-open --chooser "$file" || ${EDITOR:-vim} "$file"
   fi
 }
-
-# fcd - fuzzy cd from anywhere via fd result
-# ex: cd word (even part of a dir name)
-fcd() {
-  local dir
-  dir="$(fd -td -H "$1" | fzf --query="$*" -1 -0 +m --no-sort)" && cd "${dir}" || return 1
-}
-
-# find - cd into any directory of the current folder
-# fcd() {
-#   local dir
-#   dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
-# }
-
-# cdf - cd into the directory of the selected file
-cdf() {
-  file=$(find "${1:-.}" -type f | fzf +m -q "$1") && dir=$(dirname "$file") && cd "$dir" || return
-}
-
-# cd-jump by zlua
-j() {
-  if [[ -z "$*" ]]; then
-    cd "$(_zlua -l 2>&1 | fzf --keep-right +s --tac | sed 's/^[0-9,.]* *//')"
-  else
-    _last_z_args="$@"
-    _zlua "$@"
-  fi
-}
-
-jj() {
-  cd "$(_zlua -l 2>&1 | sed 's/^[0-9,.]* *//' | fzf --keep-right -q "$_last_z_args")"
-}
-
-# see environment variables
-envs() {
-  # ps eww -o command | tr ' ' '\n'
-  printenv | fzf -m
-}
-
-# Auto cd with fzf
-fzf_cd() {
-  local dir
-  DIR=$(find ${1:-*} \( -path .cache -o -path .cfg.git -o -path .git \) -prune -o -path '*/\.*' \
-    -prune -o -type d -print 2> /dev/null | fzf +m --keep-right) && cd "$DIR"
-  }
-bind -x '"\ej": "fzf_cd"'

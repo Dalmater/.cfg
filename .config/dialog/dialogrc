@@ -18,13 +18,13 @@ aspect = 0
 separate_widget = ""
 
 # Set tab-length (for textbox tab-conversion).
-tab_len = 2
+tab_len = 0
 
 # Make tab-traversal for checklist, etc., include the list.
 visit_items = OFF
 
 # Shadow dialog boxes? This also turns on color.
-use_shadow = ON
+use_shadow = OFF
 
 # Turn color support ON or OFF
 use_colors = ON
@@ -39,7 +39,7 @@ shadow_color = (BLACK,BLACK,ON)
 dialog_color = (BLACK,WHITE,OFF)
 
 # Dialog box title color
-title_color = (BLUE,WHITE,ON)
+title_color = (BLUE,WHITE,OFF)
 
 # Dialog box border color
 border_color = (WHITE,WHITE,ON)

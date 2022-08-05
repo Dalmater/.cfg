@@ -1,18 +1,12 @@
-#!bin/env bash
-export GREP_COLORS="mt=01;31;103"
+#!/usr/bin/bash
 
-alias crsr="echo -ne '\e[6 q'"
 alias cursor='tput cnorm'
-alias dateformatcodes='date --help | sed -n '\''/^FORMAT/,//p'\'
 alias dfc='date --help | sed -n '\''/^FORMAT/,//p'\'
 alias null='>/dev/null 2>&1 &'
 alias psf='ps -f'
 alias psg='ps -e | grep '
 alias pp='python -mjson.tool | pygmentize -l js'
-alias reset-colors='tput init'
-alias sb='source ~/.bashrc'
 alias sortnr='sort -n -r'
-alias sz='source ${ZDOTDIR:-${HOME}}/.zshrc'
 alias music='/storage/40E6-DFFD/Music/'
 
 # easier to read disk
@@ -26,14 +20,16 @@ alias psmem='ps auxf | sort -nr -k 4 | head -5'
 alias pscpu='ps auxf | sort -nr -k 3 | head -5'
 
 # zsh_history git bare repo
-alias cfghist='$PREFIX/bin/git --git-dir=$HOME/.cache/zsh/history --work-tree=$HOME/.cache/zsh'
+alias cfghist='$PREFIX/bin/git --git-dir=$HOME/.local/share/zsh/history.git --work-tree=$HOME/.local/share/zsh'
 
 # gpg encryption
 # verify signature for isos
-alias gpg-check="gpg2 --keyserver-options auto-key-retrieve --verify"
+alias gpg-check="gpg --keyserver-options auto-key-retrieve --verify"
 
 # receive the key of a developer
-alias gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
+alias gpg-retrieve="gpg --keyserver-options auto-key-retrieve --receive-keys"
+
+alias lynx='lynx -vikeys -accept_all_cookies'
 
 # apt
 alias \
@@ -41,37 +37,34 @@ alias \
     apti='apt install' \
     aptp='apt purge' \
     aptrm='apt remove' \
-    aptar='apt autoremove' \
+    apta='apt autoremove' \
     aptri='apt reinstall' \
     aptu='apt update -yy && apt full-upgrade -qq' \
     pkgri='pkg reinstall'
 
 # commands
 alias \
-    HMBs="du -h --max-depth=1 --one-file-system ~ | sort -hr | sed 's+\/data\/data\/com.termux\/files\/home\/++g'" \
-    MBs="du -h --max-depth=1 --one-file-system $PREFIX | sort -hr | sed 's+\/data\/data\/com.termux\/files\/usr\/++g'" \
     ag='ag "--color-match=01;31;103"' \
     chmod='chmod -v' \
     chown='chown -v' \
     cp='nocorrect cp -i -v' \
     dir='nocorrect dir --color=auto' \
     diff='diff --color=auto' \
-    dud='du --all -d 1 -h' \
-    duf='du -sh *' \
+    dud='du --all -d 1 -h | sort -hr' \
+    dus='du -sh * | sort -hr' \
     egrep='egrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.cfg.git,.cache}' \
     fgrep='fgrep --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn,.idea,.tox,.cfg.git,.cache}' \
     grep='grep --color=auto' \
     hgrep='fc -El 0 | rg' \
     h='history' \
     man='nocorrect man' \
-    md='nocorrect mkdir -pv' \
     mkd='nocorrect mkdir -pv' \
     mkdir='nocorrect mkdir -pv' \
     mv='nocorrect mv -i -v' \
-    ncdu='ncdu -e --color=dark' \
+    ncdu='ncdu -e -2 --color=dark' \
     pkg='noglob pkg' \
     py='python' \
-    rm='nocorrect rm -I -v' \
+    rm='rm -I -v' \
     s='source' \
     sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS,.cfg.git,.cache} ' \
     shad="ssh-add ~/.ssh/id_rsa" \
@@ -82,23 +75,21 @@ alias \
     tml='tmux list-sessions' \
     tksv='tmux kill-server' \
     tmks='tmux kill-session -t' \
-    ttyc='tty-clock -crC 3' \
     clock='tty-clock -crC 3' \
-    uhr='tty-clock -crC 3' \
-    rg="rg --colors 'match:bg:11' --ignore-case --pretty" \
-    ffmpeg='ffmpeg -hide_banner' \
-    wget='wget -r -e --robots=off -nc -np'
+    rg="rg --colors 'match:bg:11' --smart-case --pretty" \
+    wget='wget -r -e --robots=off -nc -np' \
+    binds='zle -al' \
+    x=extrakt
 
 # special commands
 alias \
     bfarben='spectrum_bls' \
-    bfrbn='spectrum_bls' \
     farben='spectrum_ls' \
-    frbn='spectrum_ls' \
-    coc='cd ~/.config && ./colors.sh' \
-    cof='cd ~/.config && ./fonts.sh' \
     clean='( for ((i=1;i<$LINES;i++)) ; do echo "" ; done ) ; clear' \
+    duck=duckduckgo \
     fsh='fast-theme' \
+    HMBs="du -h --max-depth=1 --one-file-system ~ | sort -hr | sed 's+\/data\/data\/com.termux\/files\/home\/++g'" \
+    MBs="du -h --max-depth=1 --one-file-system $PREFIX | sort -hr | sed 's+\/data\/data\/com.termux\/files\/usr\/++g'" \
     lazymux='cd ~/repos/Lazymux && python lazymux.py' \
     lch='launch' \
     lmux='cd ~/repos/Lazymux && python lazymux.py' \
@@ -108,7 +99,8 @@ alias \
     tbu='terbr -b' \
     tls='cd ~/repos/Termux-Lazyscript && python2 ls.py' \
     wtr='curl wttr.in/Berlin' \
-    weather='curl wttr.in/Berlin'
+    weather='curl wttr.in/Berlin' \
+    wiki=wikipedia
 
 # directories
 alias \
@@ -122,48 +114,43 @@ alias \
     btmp='$PREFIX/tmp' \
     bvar='$PREFIX/var' \
     storage='/storage/40E6-DFFD' \
-    strg='cd /storage/40E6-DFFD' \
-    sdcard='/sdcard' \
-    sdcrd='cd /storage/emulated/0'
+    sdcard='/storage/emulated/0'
 
 # find & fzf
 alias \
+    afind='ack --smart-case -l' \
     count='find . -type f | wc -l' \
     fdh='fd -H -I -i --color always' \
     ff='find . -type f -name' \
-    fgb='fzf-git-branch' \
-    fgc='fzf-git-checkout' \
     fv='nvim "$(fd -H -i --type f | fzf --keep-right)"' \
-    fzcd='\cd "$(find -L -type d | fzf)"' \
+    fzcd='\cd "$(fd -H -L -td | fzf)"' \
     iaf='interactive_fzf'
 
 # ls & exa
 alias \
-    exa='exa --no-user --color=always --icons'\
-    l='exa --icons --git' \
+    exa='exa --no-user --color=always --icons -I=.android_secure'\
+    ls='exa -a --colour-scale' \
+    l='exa' \
     lS='exa -1 --icons' \
-    la='exa -bhHimuSaa --git --icons' \
+    la='exa -bhHimuSaa --git' \
     lart='\ls -1Fcart' \
-    ldot='ls --colour-scale -ld .*' \
-    llg='ll --colour-scale --git' \
-    ll='exa -ahlFbG@ --colour-scale --icons' \
+    ldot='ls  -ld .*' \
+    ll='exa -ahlFbG@ --colour-scale --git' \
     l.='exa -d .*' \
     ll.='exa -Fhl -d .*' \
-    lld='\ls -D */' \
-    lll='exa -ahlRT --git --colour-scale --icons -L 3' \
-    llm='exa -lbGF@ --sort=modified --git --colour-scale --icons' \
-    llt='du -sh * | sort -hr' \
+    lld='\ls -AD */' \
+    lll='exa -ahlRT -I=.git --git --colour-scale -L 4' \
+    llt='exa -lbGF@ --sort=modified --git --colour-scale' \
     lr='\ls -tRFh' \
     lrt='\ls -1Fcrt' \
-    ls='exa -a --colour-scale --icons --git' \
-    lsa='exa -alFhR --icons | less' \
-    lt='exa -alhFt@ --time=changed --git --colour-scale --icons' \
+    lsa='exa -alFhR -I=.git' \
+    lt='exa -alhFt@ --time=changed --git --colour-scale' \
     lx='exa -lbhHimuSa@ --time-style=long-iso --git --color-scale'
 
 # Editors
 alias \
-    e.a='vim ${HOME}/.aliases' \
-    e.b='vim $HOME/.bashrc' \
+    e.a='v ${HOME}/.aliases' \
+    e.b='v $HOME/.bashrc' \
     eb='${EDITOR} $PREFIX/etc/bash.bashrc' \
     ep='${EDITOR} $PREFIX/etc/profile' \
     ez='${EDITOR} $PREFIX/etc/zshrc' \
@@ -187,10 +174,10 @@ alias \
     vim="nvim" \
     v="GIT_DIR=$HOME/.cfg.git GIT_WORK_TREE=$HOME nvim" \
     vimdiff='nvim -d' \
-    init='${EDITOR} $HOME/.config/nvim/init.vim' \
+    vimn='nvim --noplugin -u NONE' \
+    init='v $HOME/.config/nvim/init.vim' \
     zp='v ${ZDOTDIR:-$HOME/.config/zsh}/.zprofile' \
     zshrc='v ${ZDOTDIR:-$HOME/.config/zsh}/.zshrc'
-    # nvim="GIT_DIR=$HOME/.cfg.git GIT_WORK_TREE=$HOME nvim" \
 
 # Plugins
 alias \
@@ -198,8 +185,8 @@ alias \
     fsh='fast-theme' \
     zsnap='source $ZDOTDIR/plugins/zsnapshot/zsnapshot.plugin.zsh' \
     aliase='source ~/.zsh/plugins/aliases/aliases.plugin.zsh' \
-    zsh_edit='source ~/repos/zsh-edit/zsh-edit.plugin.zsh' \
-    npm_complete='s $ZDOTDIR/plugins/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh'
+    zsh_edit='source $ZDOTDIR/plugins/zsh-edit/zsh-edit.plugin.zsh' \
+    npm_complete='s $ZDOTDIR/plugins/zsh-better-npm-completion/zsh-better-npm-completion.plugin.zsh' \
 
 # zlua
 alias \
@@ -212,10 +199,9 @@ alias \
     zh='z -I -t .' \
     zzc='zz -c'
 
-# open='termux-open --chooser "$@"' \
 # Termux
 alias \
-    battry='termux-battery-status' \
+    battery='termux-battery-status' \
     cpy='termux-clipboard-set' \
     copy='termux-clipboard-set' \
     tcs='termux-clipboard-set' \
@@ -232,12 +218,13 @@ alias \
     tmr='termux-microphone-record' \
     tnr='termux-notification-remove' \
     to='termux-open --chooser "$@"' \
+    open='termux-open --chooser "$@"' \
     trs='termux-reload-settings' \
     tsg='termux-storage-get' \
     tto='termux-torch on' \
     ttf='termux-torch off' \
     tts='termux-tts-speak' \
-    tuo='termux-url-opener' \
+    tou='termux-open-url' \
     tv='termux-volume' \
     twe='termux-wifi-enable' \
     twl='termux-wake-lock' \
@@ -245,7 +232,7 @@ alias \
 
 # dotbare
 alias \
-    dot="$PREFIX/bin/git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME" \
+    dot="/usr/bin/git --git-dir=$HOME/.cfg.git/ --work-tree=$HOME" \
     dota='dot add' \
     dotu='dot add -u' \
     dotb='dot branch -a' \
@@ -261,13 +248,13 @@ alias \
     dotps='dot push' \
     dotpl='dot pull' \
     dots='dot status' \
+    dotst='dot stash' \
     dotre='dot remote -v' \
     dotrc='dot rm --cached' \
     dotr='dot restore' \
     dotrs='dot restore --staged' \
     dotmv='dot mv' \
     cfg='dotbare'
-    # dot=dotbare
 
 # git
 alias \
@@ -278,6 +265,7 @@ alias \
     gcm='git commit -m' \
     gca='git commit -a' \
     gdf='git diff' \
+    gdc='git diff --cached' \
     gds="git diff --staged" \
     gc='git clone' \
     gf='git fetch' \
@@ -289,17 +277,15 @@ alias \
     gs='git status' \
     gss='git status -sb' \
     gps='git push' \
+    gpf='git push --force' \
     gpl='git pull' \
     gl='git log' \
     gs='git status' \
-    gr='git remote -v' \
+    gre='git remote -v' \
     grm='git rm' \
     grmc='git rm --cached' \
+    gr="git restore" \
     grs="git restore --staged" \
     gmv='git mv' \
-    gst='git stash'
-
-# falias () {
-#     local out
-#     out=$(alias | fzf)
-#     echo -n "$(echo -n "${out}" | cut -d= -f2 | sed "s/\'//g" | termux-clipboard-set)" }
+    gst='git stash' \
+    gsub='git submodule update --remote'

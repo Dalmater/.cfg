@@ -1,6 +1,6 @@
 "---------------- " Goyo setup " ----------------
 
-let g:goyo_width  = '90'
+let g:goyo_width  = '104'
 let g:goyo_height = '100%'
 
 function! s:goyo_enter()
@@ -20,6 +20,7 @@ function! s:goyo_enter()
   set scrolloff=999
   " Limelight
   " ...
+  echom 'Goyo is now loaded!'
 endfunction
 
 function! s:goyo_leave()
@@ -42,6 +43,7 @@ function! s:goyo_leave()
   hi Normal guibg=none
   " Limelight!
   " ...
+  echom 'Left Goyo!'
 endfunction
 
 autocmd! User GoyoEnter nested call <SID>goyo_enter()
@@ -49,4 +51,4 @@ autocmd! User GoyoLeave nested call <SID>goyo_leave()
 
 " autocmd! User goyo.vim echom 'Goyo is now loaded!'
 
-noremap <silent> <leader>gy :Goyo <bar> set linebreak<cr>
+noremap <silent> <leader>gy :Goyo<CR>

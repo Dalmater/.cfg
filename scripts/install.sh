@@ -1,51 +1,70 @@
-##!/data/data/com.termux/files/usr/bin/sh
-pkg up -yy && pkg install man ncurses zsh git exa
+#!/data/data/com.termux/files/usr/bin/bash
+pkg up -yy && pkg install -y man ncurses zsh git exa
 
 chsh -s zsh
 echo "Changed shell to zsh!"
 sleep 2
 
 tput civis
-pkg up -yy && pkg install -yy game-repo science-repo unstable-repo shtool \
-termux-tools termux-am-socket termux-api readline inetutils bash-completion \
-ncdu inxi lua52 lua53 lua54 luajit make pigz lua-lpeg stylua dialog ack-grep \
-tmux neofetch command-not-found okc-agents perl golang python2 python tar bc \
-git-delta nodejs texinfo neovim android-tools cpufetch build-essential fd pv \
-tree moreutils jq gnutls ruby termimage toilet php mpv hors file ranger most \
-lesspipe openssh openssl gnupg ncurses-utils lynx clang no-more-secrets mdp \
+pkg up -y && pkg install -y lua-language-server nala\
+termux-am-socket termux-api dnsutils inetutils bash-completion traceroute \
+php inxi shtool lua53 lua54 luajit lua-lpeg stylua dialog ack-grep make mdp \
+tmux neofetch command-not-found okc-agents perl mlocate python2 python tar \
+git-delta nodejs jq texinfo neovim openssl-tool cpufetch build-essential fd \
+tree moreutils gnutls ruby termimage toilet ncdu mpv file ranger most bvi pv \
+lesspipe openssh openssl gnupg ncurses-utils lynx clang no-more-secrets pigz \
 dash ripgrep gawk elinks chafa micro cmatrix asciinema nano ctags tty-clock \
-fzf bat figlet binutils unzip keychain ttyrec w3m silversearcher-ag cowsay \
-starship slang wget vitetris help2man xmake bvi jp2a fortune zip p7zip glow \
-unrar tar vifm tidy gpgme gotop net-tools htop-legacy openssl-tool sl mlocate links
+fzf bat figlet unzip keychain net-tool ttyrec w3m silversearcher-ag cowsay \
+starship slang wget help2man xmake tar jp2a fortune zip p7zip glow bsd-games \
+unrar strace vifm gpgmes htop sl rsync onefetch bc sd 2048-c
 
 
 sleep 1
 echo "\033[1;32mPackages installt!"
 sleep 3
 
-gem install neovim lolcat
+gem install neovim lolcat ruby-beautify
 
 sleep 1
 echo "\033[1;32mruby gems installt!"
 sleep 3
 
-npm install -g bash-language-server cli-highlight js-beautify lua-fmt neovim npm-fzf pyright vim-language-server
+npm install -g cli-highlight js-beautify lua-fmt neovim npm-fzf prettier remark-cli \
+  vim-language-server bash-language-server fixjson css-language-server eslint
 
 sleep 1
 echo "\033[1;32mnpm packages installt!"
 sleep 3
 
-$PREFIX/bin/python3 -m pip install --upgrade --force pip neovim pygments speedtest-cli
+$PREFIX/bin/python2 -m pip install neovim
 
 sleep 1
-echo "\033[1;32mpip upgraded!"
-sleep 3
 
-$PREFIX/bin/python2 -m pip install --upgrade pip neovim
+$PREFIX/bin/python3 -m pip install --upgrade --force pip
+
+pip install neovim pyls yapf pygments speedtest-cli grip
 
 sleep 1
-echo "\033[1;32mPython2 pip upgraded!"
+echo "\033[1;32mPhython packages installed!"
 sleep 3
+
+if [ ! -d "$XDG_CONFIG_HOME/tmux/plugins" ]; then
+  mkdir "$XDG_CONFIG_HOME/tmux/plugins"
+  git clone https://github.com/tmux-plugins/tpm "$XDG_CONFIG_HOME/tmux/plugins/tpm" \
+    && echo "Tmux plugin manager installed!"
+fi
+
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+if [ ! -d "$XDG_DATA_HOME/nvim/plugged" ]; then
+  mkdir $XDG_DATA_HOME/nvim/plugged
+fi
+
+cd $XDG_DATA_HOME/nvim/plugged
+
+git clone https://github.com/itchyny/lightline.vim ~/.local/share/nvim/plugged/lightline.vim
+cp ~/.config/nvim/backups/lightline-gruvbox.vim  ~/.local/share/nvim/plugged/lightline.vim/autoload/lightline/colorscheme/gruvboxdark.vim
 
 echo ""
 clear
@@ -54,10 +73,10 @@ echo ""
 tput civis
 
 sleep 2
-printf '\033[1;4;33mDownloading oh-my-zsh install script with!\033[0m\n'
+printf '\033[1;4;33mDownloading oh-my-zsh install script via\033[0m\n'
 sleep 1
 echo ""
-printf "wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh ~/ohmyzsh\n"
+printf "wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh ~/ohmyzsh\n"
 
 echo ""
 printf "\033[0;30mAfter the install script is downloaded,\n" | lolcat -a -d 30 -s 10 -t -i -F 0.2
@@ -82,5 +101,5 @@ echo -n " "
 printf "\033[1;31mScript installation starting!\n"
 echo ""
 sleep 2
-sh -c "$(\wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh ~/.zsh)"
 tput cnorm

@@ -1,0 +1,12 @@
+
+setkey other_window   "\033OP\033[A"
+setkey other_window   "\033OP\033[B"
+setkey show_time    "^T"
+setkey set_mark	    "m"
+setkey goto_mark    "'"
+setkey toggle_width	"w"
+unsetkey bob     "T"
+setkey goto_line "T"
+setkey bob       "g"
+unsetkey eob     "G"
+setkey eob       "G"
