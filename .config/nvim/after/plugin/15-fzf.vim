@@ -26,7 +26,7 @@ let g:fzf_command_prefix = 'Fzf'
 " fzf-history
 let g:fzf_history_dir = '~/.local/share/fzf-history'
 
-let g:ackprg = 'ag --nobreak --nonumbers --noheading . | fzf --keep=right'
+let g:ackprg = 'ag --nobreak --nonumbers --noheading . | fzf --keep-right'
 
 " Split-term
 let g:split_term_vertical = 1
@@ -151,7 +151,7 @@ nnoremap <silent> <leader>fd :Fdot<CR>
 " with ag (better highlight)
   noremap  <leader>aw :FzfAg <C-R>=expand("<cword>")<CR><CR>
   noremap  <leader>ga :FzfAg <C-R>=expand("<cword>")<CR><CR>
-" 'grep' word under cursor with FzfLocate
+" 'locate' word under cursor with FzfLocate
   noremap  <M-K> :FzfLocate <C-R>=expand("<cword>")<CR><CR>
 " Insert mode completion
   imap     <c-x>w <Plug>(fzf-complete-word)
@@ -162,7 +162,7 @@ nnoremap <silent> <leader>fd :Fdot<CR>
   imap     <c-x>f <Plug>(fzf-complete-file-ag)
 
 " Path & file completion with custom source command
-  " inoremap <expr> <c-x><c-s> fzf#vim#complete#path('fd -H -td')
+  inoremap <expr> <c-x><c-s> fzf#vim#complete#path('fd -H -td')
   inoremap <expr> <c-x>a fzf#vim#complete#path('ag --hidden -f -l -g ""')
   inoremap <expr> <c-x>g fzf#vim#complete#path('rg --hidden --files')
 

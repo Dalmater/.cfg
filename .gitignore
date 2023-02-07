@@ -1,5 +1,8 @@
 .DS_Store
 .android_secure
+*zcompdump*
+*.zwc
+*.zwc.old
 .cfg.git/
 buffers/
 cache/

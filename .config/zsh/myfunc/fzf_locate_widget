@@ -1,5 +1,5 @@
 #!/data/data/com.termux/files/usr/bin/env zsh
-# ALT-k - Access every file or directorie via locate
+# ALT-k - Access every file or directory via locate
 
 set -o pipefail
 if [[ -n "$DEBUG" ]]; then

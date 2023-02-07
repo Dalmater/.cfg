@@ -14,7 +14,6 @@ cache/
 .config/micro/plug/
 .config/tmux/plugins/
 completions/
-data/
 fonts/
 .git/
 .github/
@@ -26,8 +25,6 @@ pulse/
 ranger/plugins/
 servers/
 specs/
-servers/
 undo/
 storage/shared/Android/
-undo/
 .zsh/themes/

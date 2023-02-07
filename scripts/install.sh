@@ -8,15 +8,15 @@ sleep 2
 tput civis
 pkg up -y && pkg install -y lua-language-server nala\
 termux-am-socket termux-api dnsutils inetutils bash-completion traceroute \
-php inxi shtool lua53 lua54 luajit lua-lpeg stylua dialog ack-grep make mdp \
-tmux neofetch command-not-found okc-agents perl mlocate python2 python tar \
-git-delta nodejs jq texinfo neovim openssl-tool cpufetch build-essential fd \
-tree moreutils gnutls ruby termimage toilet ncdu mpv file ranger most bvi pv \
-lesspipe openssh openssl gnupg lynx clang no-more-secrets pigz onefetch sd \
+inxi shtool lua53 lua54 luajit lua-lpeg stylua dialog ack-grep make mdp \
+tmux neofetch command-not-found okc-agents perl mlocate python2 python \
+git-delta nodejs jq texinfo neovim cpufetch build-essential fd rsync tar \
+tree moreutils gnutls ruby termimage toilet ncdu mpv file ranger bvi pv \
+lesspipe openssl gnupg lynx clang no-more-secrets pigz onefetch sd most \
 dash ripgrep gawk elinks chafa micro cmatrix asciinema nano ctags tty-clock \
 fzf bat figlet unzip keychain net-tools ttyrec w3m silversearcher-ag cowsay \
 starship slang wget help2man xmake tar jp2a fortune zip p7zip glow binutils \
-unrar strace ipmitool util-linux e2fsprogs vifm gpgme htop sl rsync bc 2048-c
+unrar strace ipmitool util-linux e2fsprogs vifm gpgme htop sl bc 2048-c
 
 
 sleep 1

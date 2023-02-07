@@ -46,7 +46,7 @@
 [mergetool]
     prompt      = false
 [pull]
-;    ff          = only
+    ff          = only
     rebase      = true
 [push]
     default     = tracking

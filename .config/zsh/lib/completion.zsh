@@ -17,6 +17,7 @@ LISTMAX=0
 # Use caching so that commands like apt and dpkg complete are useable
 zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' cache-path $ZSH_CACHE_DIR
+
 zstyle ':completion:*' menu yes select
 zstyle ':completion:*' rehash true
 zstyle ':acceptline:*' rehash true
@@ -33,9 +34,12 @@ zstyle ':completion:*:jobs' verbose true
 zstyle ':completion:*:jobs' numbers true
 
 zstyle ':completion:*' list-colors ''
-zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=34}:${(s.:.)LS_COLORS}")'
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
+zstyle ':completion:*:*:*:*:processes' command "ps -u $USERNAME -o pid,user,comm -w -w"
+
+zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)(?)*==34=34}:${(s.:.)LS_COLORS}")'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+
 zstyle ':completion:*:expand:*' keep-prefix no
 zstyle ':completion:complete:*:options' sort false
 zstyle ':completion:*:options' description yes
@@ -52,15 +56,19 @@ zstyle ':completion:*:warnings' format '%F{red}%BNo matches found for: %d %f'
 # zstyle ':completion:*' list-prompt $'\e[01;94m%SAt %p: Hit TAB for more; Character to insert%s \e[00;00m'
 zstyle ':completion:*' select-prompt $'\e[01;34m%SScrolling active: Match %M  at: %P \e[00;00m'
 
-# case insensitive (all), partial-word and substring completion
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+# case insensitive (all) completion
+# zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|=*' 'l:|=* r:|=*'
 
 # List of completers to use
 zstyle ':completion:*' completer \
   _oldlist _expand _complete _ignored _match _correct _approximate _prefix
 
 # Complete . and .. special directories
-zstyle ':completion:*:(ls|exa|mv|cp|cd|chdir|pushd|popd|vi|nvim):*' special-dirs ..
+# zstyle ':completion:*' special-dirs ..
+# zstyle ':completion:*' sort false
+zstyle ':completion:*:*:(ls|exa|mv|cp|rm|cd|pushd|vi|nvim|-command-|autocd):*' special-dirs ..
+zstyle ':completion:*:*:(ls|exa|mv|cp|rm|cd|pushd|vi|nvim|-command-|autocd):*' sort false
 zstyle ':completion:*:(cd|mv|cp):*' ignore-parents parent pwd
 
 zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
@@ -81,16 +89,16 @@ zstyle ':completion:*:manuals' separate-sections true
 zstyle ':completion:*:manuals.(^1*)' insert-sections true
 
 # rm: advanced completion (e.g. bakup files first)
-zstyle ':completion:*:rm:*:*' file-patterns '*.o:object-files:object\ file *(~|.(old|bak|BAK)):backup-files:backup*\ files *~*(~|.(o|old|bak|BAK)):all-files:all\ files'
+# zstyle ':completion:*:rm:*:*' file-patterns '*.o:object-files:object\ file *(~|.(out|old|bak|BAK)):backup-files:backup\ files *~*(~|.(o|old|bak|BAK)):all-files:all\ files'
 # zstyle ':completion:*:rm:*' file-patterns '*:all-files'
 
 # fzf-tab zstyle setup
 # zstyle ':fzf-tab:*' show-group full
 # zstyle ':fzf-tab:*' default-color $'\033[37m'
 zstyle ':fzf-tab:*' prefix ''
-zstyle ':fzf-tab:complete:*' fzf-flags --height 90% --no-border --preview-window=border-top:down:50%:wrap -1
-zstyle ':fzf-tab:complete:*' fzf-preview 'bat ${realpath} 2> /dev/null \
-  || exa -a1 -T -L 4 -I=.git ${realpath} || echo $word 2> /dev/null || echo ${(P)word}'
+zstyle ':fzf-tab:complete:*' fzf-flags --height 90% --no-border --preview-window=border-top:down:50%:wrap
+zstyle ':fzf-tab:complete:*' fzf-preview 'bat $realpath 2> /dev/null || exa -1a -T -L 4 -I=.git $realpath'
+#2> /dev/null || echo $word 2> /dev/null || echo ${(P)word}'
 
 # fzf-tab man completion
 zstyle ':fzf-tab:complete:(\\|)run-help:*' fzf-preview 'run-help $word'
@@ -117,8 +125,8 @@ zstyle ':fzf-tab:complete:_zlua:*' fzf-preview 'echo ${word}'
 zstyle ':fzf-tab:complete:_zlua:*' fzf-flags --height 90% --keep-right --no-border \
   --preview-window=border:3:wrap
 
-zstyle ':fzf-tab:complete:(vi|vim|nvim):*' fzf-preview 'bat --color=always ${realpath} 2> /dev/null || exa -a1 -T -L 4 -I=.git $realpath'
-zstyle ':fzf-tab:complete:(vi|vim|nvim):*' fzf-flags --height 90% \
+zstyle ':fzf-tab:complete:*:(vi|vim|nvim):*' fzf-preview 'bat --color=always $realpath 2> /dev/null || exa -1a -T -L 4 -I=.git $realpath'
+zstyle ':fzf-tab:complete:*:(vi|vim|nvim):*' fzf-flags --height 90% \
   --preview-window=border-top:down:50%
 
 zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview \
@@ -148,9 +156,9 @@ zstyle ':fzf-tab:complete:git-checkout:*' fzf-flags --height 80% --min-height 15
 # if other subcommand to git is given, show a git diff or git log
 # zstyle ':completion::*:git::*,[a-z]*' fzf-completion-opts --preview='eval set -- {+1} for arg in "$@"; do { git diff --color=always -- "$arg" | git log --color=always "$arg" } 2>/dev/null done'
 
-zstyle ':fzf-tab:complete:(-command-|autocd):*' fzf-preview 'bat --color=always ${realpath} 2> /dev/null || exa -a1l -T -L 4 --no-user -I=.git $realpath'
+zstyle ':fzf-tab:complete:(-command-|autocd):*' fzf-preview 'bat --color=always $realpath 2> /dev/null || exa -1a -T -L 4 -I=.git $realpath'
 zstyle ':fzf-tab:complete:(-command-|autocd):*' fzf-flags --height 90% \
-  --preview-window=50%
+  --preview-window=border-left:right:70%
 
 # preview when completing env vars (note: only works for exported variables)
 zstyle ':fzf-tab:complete:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' \
@@ -163,7 +171,6 @@ zstyle ':fzf-tab:complete:(kill|ps):argument-rest' fzf-preview \
   '[[ $group == "[process ID]" ]] && ps --pid=$word -o cmd --no-headers -w -w'
 zstyle ':fzf-tab:complete:(kill|ps):*' fzf-flags --height 80% --min-height 10 \
   --preview-window=down:4:border:nohidden:wrap
-zstyle ':completion:*:*:*:*:processes' command "ps -u $USERNAME -o pid,user,comm -w -w"
 
 ### fzf-tab key bindings ###
 # switch group using `,` and `.`

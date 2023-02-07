@@ -30,7 +30,7 @@ plugins=(
   # zsh-autopair
   # title
   # dotbare
-  fzf-tab
+  # fzf-tab
   # you-should-use
   # ssh-agent gpg-agent
   # zsh-handy-helpers
@@ -59,7 +59,7 @@ source $ZSH/oh-my-zsh.sh
 # source $ZDOTDIR/plugins/title/title.plugin.zsh
 source $ZDOTDIR/plugins/zsh-autopair/autopair.zsh
 source $ZDOTDIR/plugins/zsh-hist/zsh-hist.plugin.zsh
-# source $ZDOTDIR/plugins/fzf-tab/fzf-tab.zsh
+source $ZDOTDIR/plugins/fzf-tab/fzf-tab.zsh
 
 ZSH_EVALCACHE_DIR="$HOME/.cache/evalcache"
 
@@ -78,6 +78,7 @@ Found %alias_type for $fg[magenta]"%command"$fg[yellow] \
 
 # eval "$(lua ~/.zsh/custom/plugins/z.lua/z.lua --init zsh enhanced once)"
 _evalcache lua ~/.config/zsh/plugins/z.lua/z.lua --init zsh enhanced once
+export RANGER_ZLUA="$HOME/.config/zsh/plugins/z.lua/z.lua"
 export _ZL_EXCLUDE_DIRS="undo,buffers,.git,'_*','*_'"
 export _ZL_DATA="${XDG_DATA_HOME:-$HOME/.config}/zsh/.zlua"
 export _ZL_ADD_ONCE=1
@@ -125,7 +126,7 @@ setopt pushd_to_home
 setopt pushd_silent
 # setopt pushd_minus # (set by ohmyzsh)
 # setopt pushd_ignore_dups # (set by ohmyzsh)
-# setopt cdable_vars
+setopt cdable_vars
 # History
 # setopt hist_append # (default)
 # setopt hist_expand
@@ -224,7 +225,7 @@ source $HOME/.fzf/shell/key-bindings.zsh
 
 # export FZF_BASE='~/.fzf'
 export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow -c always --exclude .git'
-# export FZF_DEFAULT_COMMAND='ag -l --hidden --ignore .git -g ""'
+# export FZF_DEFAULT_COMMAND='ag -l --hidden --ignore .git -g ""' # --pointer=👉
 export FZF_DEFAULT_OPTS="--height 90% --min-height 20 --color=fg:#ebdbb2,bg+:#282828 \
   --color=gutter:-1,info:#d79921,border:#c00000,hl:reverse:#fabd2f,hl+:reverse:#fe8019 \
   --color=header:#8ec07c,pointer:#cc241d,prompt:#689d6a,marker:#91970a,spinner:#fb4934 \
@@ -235,18 +236,19 @@ export FZF_DEFAULT_OPTS="--height 90% --min-height 20 --color=fg:#ebdbb2,bg+:#28
   --bind 'alt-w:toggle-preview-wrap,alt-right:+kill-word,alt-left:+backward-kill-word' \
   --bind 'backward-eof:abort,ctrl-h:delete-char/eof,alt-|:+change-preview:file {}' \
   --bind 'alt-a:+toggle-all,tab:toggle+down,btab:toggle+up,alt-u:deselect-all' \
-  --bind 'ctrl-d:change-prompt(Dir> )+reload(fd -td -HL -c always)' \
-  --bind 'alt-j:jump,ctrl-f:change-prompt(Files> )+reload(fd -tf -H -c always)' \
+  --bind 'ctrl-d:change-prompt(Dir> )+reload(fd -td --strip-cwd-prefix -HL -c always)' \
+  --bind 'alt-j:jump,ctrl-f:change-prompt(Files> )+reload(fd -tf --strip-cwd-prefix -H -c always)' \
   --bind 'alt-y:execute-silent(printf {+} | cut -f2- | termux-clipboard-set)' \
   --bind 'alt-t:+change-preview-window(|down,3,border,wrap|down,70%,border-top|right,60%,border-left)' \
   --bind 'alt-o:execute(xdg-open --chooser {+} >/dev/tty),ctrl-e:execute(nvim -p {+} >/dev/tty)' \
   --preview '([[ -f {} ]] && (bat --color=always --line-range :500 {} || cat {})) || ([[ -d {} ]] && (exa -a1 -T -L 4 -I=.git {} || tree -a -L 4 -C {})) || echo {} 2> /dev/null'"
-export FZF_ALT_C_COMMAND='fd -td -HL --strip-cwd-prefix --base-directory /data/data/com.termux/files'
+export FZF_ALT_C_COMMAND='fd -td -HLap --strip-cwd-prefix --base-directory /data/data/com.termux/files'
 export FZF_ALT_C_OPTS="--preview 'exa -a1 -I=.git {}' --preview-window=right,40%,border \
   --keep-right --bind change:first,alt-j:jump-accept --prompt 'Dir> '"
 # export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_COMMAND='fd -tf --strip-cwd-prefix -HL -c always'
-export FZF_CTRL_T_OPTS="--keep-right --bind change:first --prompt 'Files> '"
+export FZF_CTRL_T_OPTS="--keep-right --bind change:first --prompt 'Files> ' \
+  --bind 'focus:transform-preview-label:echo [ {} ]'"
 export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window=down,3,wrap,border \
   --bind change:first,alt-j:jump-accept --sort --exact --prompt 'History> '"
 # export FZF_COMPLETION_OPTS="--color=gutter:-1,info:#d79921,border:21,hl:reverse:#fabd2f,hl+:reverse:#fe8019 \
@@ -255,6 +257,7 @@ export FZF_CTRL_R_OPTS="--preview 'echo {}' --preview-window=down,3,wrap,border 
 # export FZF_TMUX_OPTS="-d 60%"
 # export FZF_TMUX=1
 export FZF_HISTORY_DIR="$XDG_DATA_HOME/fzf-history"
+export FZF_HISTORY_SIZE=100
 
 export DOTBARE_DIR="$HOME/.cfg.git"
 export DOTBARE_TREE="$HOME"
@@ -267,7 +270,7 @@ bindkey -s '^Fd' 'dotbare fedit \n'
 _dotbare_completion_cmd #dotbare
 # _dotbare_completion_git dot
 # export FORGIT_FZF_DEFAULT_OPTS="--preview-window 'down,70%'"
-# FORGIT_COPY_CMD='termux-clipboard-set'
+FORGIT_COPY_CMD='termux-clipboard-set'
 
 # FZF Function Examples {{{
 
@@ -323,23 +326,6 @@ jj() {
 
 # ftags - search ctags with preview
 # only works if tags-file was generated with --excmd=number
-# fctags() {
-#   local line
-#   [ -e tags ] &&
-#     line=$(
-#       awk 'BEGIN { FS="\t" } !/^!/ {print toupper($4)"\t"$1"\t"$2"\t"$3}' tags |
-#         fzf \
-#         --nth=1,2 \
-#         --with-nth=2 \
-#         --preview="bat {3} | tail -n +\$(echo {4} | tr -d \";\\\"\")"
-#               ) && ${EDITOR:-vim} $(cut -f3 <<< "$line") -c "set nocst" \
-#                 -c "silent tag $(cut -f2 <<< "$line")"
-#               # zle accept-line
-#               zle reset-prompt
-#               # zle redisplay
-#             }
-
-# ftags - search ctags, with preview
 ftags() {
   local line
 

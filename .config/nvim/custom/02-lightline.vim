@@ -43,7 +43,7 @@ let g:lightline.tab = {
       \ }
 
 fun! GitInfo()
-  if exists('*FugitiveHead')
+  if exists('FugitiveHead')
     let mark = ' '
     let git = fugitive#head()
     if git != ''

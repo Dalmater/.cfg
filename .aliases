@@ -34,12 +34,12 @@ alias lynx='lynx -vikeys -accept_all_cookies'
 # apt
 alias \
     apt='noglob apt' \
+    apta='apt autoremove' \
     apti='apt install' \
     aptp='apt purge' \
     aptrm='apt remove' \
-    apta='apt autoremove' \
     aptri='apt reinstall' \
-    aptu='apt update -yy && apt full-upgrade -qq' \
+    aptup='apt update -yy && apt full-upgrade -qq' \
     pkgri='pkg reinstall'
 
 # commands
@@ -181,8 +181,8 @@ alias \
 
 # Plugins
 alias \
-    forgit="source <(curl -sSL git.io/forgit)" \
     fsh='fast-theme' \
+    forgit='source $HOME/.config/plugins/forgit/forgit.plugin.zsh'
     zsnap='source $ZDOTDIR/plugins/zsnapshot/zsnapshot.plugin.zsh' \
     aliase='source ~/.zsh/plugins/aliases/aliases.plugin.zsh' \
     zsh_edit='source $ZDOTDIR/plugins/zsh-edit/zsh-edit.plugin.zsh' \

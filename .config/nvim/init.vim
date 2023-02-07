@@ -89,7 +89,7 @@ Plug 'moll/vim-bbye', { 'on': ['Bdelete', 'Bwipeout'] }
 " Plug 'ap/vim-css-color'
 Plug 'norcalli/nvim-colorizer.lua'
 " Syntax Highlighting & Colorscheme
-Plug 'lifepillar/vim-gruvbox8', { 'commit': '1e20591' }
+Plug 'lifepillar/vim-gruvbox8' ", { 'commit': '1e20591' }
 " Plug 'lifepillar/vim-solarized8'
 " Plug 'sheerun/vim-polyglot'
 Plug 'nathom/filetype.nvim'
@@ -206,11 +206,11 @@ autocmd FileType vim,tex let b:autoformat_autoindent=0
 "Vim Configurations: {{{
 
 set background=dark
-colorscheme gruvbox8_hard
 " let g:gruvbox_filetype_hi_groups = 1
 " let g:gruvbox_plugin_hi_groups = 1
 let g:gruvbox_transp_bg = 1
 " let g:gruvbox_contrast_dark = 1
+colorscheme gruvbox8_hard
 
 " Enable default theme if some other is not set
 if !exists("g:colors_name")
@@ -219,7 +219,7 @@ endif
 
 " Always use terminal background
 " hi! Normal guibg=NONE
-" hi! Visual gui=reverse guibg=NONE
+hi! Visual gui=reverse guibg=NONE
 " hi! LineNr          guibg=#1d2021
 " hi! SignColumn      guibg=#1d2021
 " hi! CursorLine      guibg=#282828
@@ -228,8 +228,8 @@ endif
 " hi! Special         gui=NONE
 " hi! Pmenu           guibg=#32302f
 " hi! PmenuSel        guifg=#1d2021
-hi! StartifyHeader  guifg=#fabd2f gui=bold ctermfg=221
-hi! StartifySpecial guifg=#8ec07c ctermfg=114
+" hi! StartifyHeader  guifg=#fabd2f gui=bold ctermfg=221
+" hi! StartifySpecial guifg=#8ec07c ctermfg=114
 
 " highlights yanked region
 augroup YankHighlight

@@ -1,18 +1,18 @@
 # ~/.config/starship/starship.toml
-
+# $all is shorthand for $username$hostname$localip$shlvl$singularity$kubernetes$directory$vcsh$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$docker_context$package$bun$c$cmake$cobol$daml$dart$deno$dotnet$elixir$elm$erlang$golang$haskell$helm$java$julia$kotlin$lua$nim$nodejs$ocaml$perl$php$pulumi$purescript$python$raku$rlang$red$ruby$rust$scala$swift$terraform$vlang$vagrant$zig$buf$nix_shell$conda$spack$memory_usage$aws$gcloud$openstack$azure$env_var$crystal$custom$sudo$cmd_duration$line_break$jobs$time$status$container$shell$character
 # format = '$all'
-format = '$shlvl$username$hostname$localip$singularity$line_break$directory$git_branch$git_commit$git_state$git_metrics$git_status$custom$cmd_duration$line_break$jobs$time$status$character'
-right_format = '$env_var$battery'
+format = '$shlvl$username$hostname$localip$singularity$env_var$line_break$directory$vcsh$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$docker_context$package$custom$cmd_duration$line_break$jobs$time$status$character'
+# right_format = '$battery'
 # scan_timeout = 10
 command_timeout = 600
 add_newline = false # no new line before prompt
-continuation_prompt = '[❯](bold green) '
+continuation_prompt = '[❯](bright-black) '
 
 [character]
 format = '$symbol '
 success_symbol = '[❯](bold green)'
 error_symbol = '[❮](bold #CC241D)'
-vicmd_symbol = '[](bold #A3BE8C)'
+vimcmd_symbol = '[](bold #A3BE8C)'
 vimcmd_visual_symbol = '[❮](bold yellow)'
 vimcmd_replace_symbol = '[❮](bold purple)'
 vimcmd_replace_one_symbol = '[❮](bold purple)'
@@ -22,7 +22,7 @@ min_time = 500
 format = 'took [$duration]($style)'
 show_milliseconds = false
 show_notifications = true
-disabled = false
+disabled = true
 
 [directory]
 format = '[$path]($style)[$lock_symbol]($lock_style)[$read_only]($read_only_style) '
@@ -37,11 +37,11 @@ fish_style_pwd_dir_length = 1
 [env_var.USER]
 symbol = ''
 style = 'black bold dimmed'
-format = ' $fill with [$env_value]($style) '
+# format = '$fill with [$env_value]($style) '
 disabled = false
 
 [git_branch]
-format = '[$symbol](11 bold)[$branch]($style 014):[$remote_name]($style)[/](11)[$remote_branch]($style)'
+format = '[$symbol](11 bold)[$branch]($style 014):[$remote_name]($style)[/](11)[$remote_branch]($style) '
 symbol = ' '
 always_show_remote = true
 only_attached = false
@@ -54,6 +54,7 @@ ahead = '⇡[$count](#FABD2F bold) '
 diverged = '⇕⇡[$ahead_count](#FABD2F bold)⇣[$behind_count](#FABD2F bold) '
 behind = '⇣[$count](#FABD2F bold) '
 # up_to_date = '[√](bold green)'
+ignore_submodules = true
 conflicted = '![$count](#FE8019 bold) '
 untracked = '?[$count](#928374 bold) '
 stashed = '\$[$count](#458588 bold) '
@@ -67,7 +68,7 @@ disabled = false
 format = '[\($hash$tag\)]($style) '
 style = '#FABD2F'
 commit_hash_length = 7
-disabled = false
+disabled = true
 only_detached = false
 tag_symbol = ' 🏷' # 🔖
 tag_disabled = false
@@ -77,7 +78,7 @@ added_style = 'bold #90AB79'
 deleted_style = 'bold #BF616A'
 format = '[+$added]($added_style)[/](11)[-$deleted]($deleted_style) '
 only_nonzero_diffs = true
-disabled = false
+disabled = true
 
 [git_state]
 disabled = false
@@ -96,13 +97,13 @@ disabled = false
 [status]
 style = 'bold #CC241D'
 symbol = '💥' # 💣
-sigint_symbol = '🚫'
+sigint_symbol = '‽'
 signal_symbol = '☇'
-format = '[\[$symbol$status\]]($style)'
+format = '[\[$symbol$status\]]($style) '
 disabled = false
 map_symbol = true
 recognize_signal_code = true
-pipestatus_format = '$pipestatus => [$symbol$common_meaning$signal_name$maybe_int]($style)'
+pipestatus_format = '$pipestatus=> [$symbol$common_meaning$signal_name$maybe_int]($style)'
 pipestatus = true
 success_symbol = ''
 pipestatus_separator = ''
@@ -111,9 +112,6 @@ pipestatus_separator = ''
 format = '[$user]($style)@'
 style_user = '#4FDF4F'
 show_always = true
-
-[aws]
-disabled = true
 
 # [battery]
 # full_symbol = ' '
@@ -125,64 +123,13 @@ disabled = true
 # format = '[$symbol$percentage]($style) '
 
 # [[battery.display]]
-# threshold = 10
+# threshold = 15
 # style = 'red bold'
-
-[buf]
-disabled = true
-
-[c]
-disabled = true
-
-[cmake]
-disabled = true
-
-[cobol]
-disabled = true
-
-[crystal]
-disabled = true
-
-[deno]
-disabled = true
-
-[dotnet]
-disabled = true
-
-[conda]
-disabled = true
-
-[dart]
-disabled = true
 
 [docker_context]
 disabled = true
 
-[elixir]
-disabled = true
-
-[erlang]
-disabled = true
-
-[elm]
-disabled = true
-
-[fill]
-disabled = true
-
-[gcloud]
-disabled = true
-
-[golang]
-disabled = true
-
-[helm]
-disabled = true
-
 [hg_branch]
-disabled = true
-
-[java]
 disabled = true
 
 [jobs]
@@ -192,12 +139,6 @@ number_threshold = 2
 style = "#8ec07c bold"
 disabled = false
 
-[julia]
-disabled = true
-
-[kotlin]
-disabled = true
-
 [kubernetes]
 disabled = true
 
@@ -206,68 +147,14 @@ ssh_only = true
 style = '#FE8019'
 disabled = false
 
-[lua]
-disabled = true
-
 [memory_usage]
-disabled = true
-
-[nim]
-disabled = true
-
-[nix_shell]
-disabled = true
-
-[nodejs]
-disabled = true
-
-[ocaml]
-disabled = true
-
-[openstack]
 disabled = true
 
 [package]
 disabled = true
 
-[perl]
-disabled = true
-
-[php]
-disabled = true
-
-[python]
-disabled = true
-
-[ruby]
-disabled = true
-
-[purescript]
-disabled = true
-
-[red]
-disabled = true
-
-[rlang]
-disabled = true
-
-[rust]
-disabled = true
-
-[scala]
-disabled = true
-
-[swift]
-disabled = true
-
 [shell]
 disabled = true
-
-[singularity]
-symbol = ''
-format = '[$symbol\[$env\]]($style) '
-style = 'blue bold dimmed'
-disabled = false
 
 [shlvl]
 threshold = 2
@@ -276,26 +163,19 @@ symbol = ''
 repeat = true
 disabled = false
 
-[terraform]
-disabled = true
+[singularity]
+format = '[$symbol\[$env\]]($style) '
+style = 'blue bold dimmed'
+disabled = false
 
 [time]
 format = '[$time ]($style)'
 time_format = "%T"
-utc_time_offset = "+2"
+utc_time_offset = "+1"
 time_range = "23:00:00-06:00:00"
 disabled = false
 
-[vagrant]
-disabled = true
-
 [vcsh]
-disabled = true
-
-[vlang]
-disabled = true
-
-[zig]
 disabled = true
 
 [custom]
