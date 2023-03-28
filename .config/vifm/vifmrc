@@ -93,9 +93,9 @@ set confirm=delete,permdelete
 set nowrap
 set title
 set hlsearch
-set sort=+name
+set sort=+iname
 set sort+=dir
-set sortorder=ascending
+" set sortorder=ascending
 set shortmess="MTp"
 " set autocd
 " set lsview
