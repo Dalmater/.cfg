@@ -130,7 +130,7 @@ setopt cdable_vars
 # History
 # setopt hist_append # (default)
 # setopt hist_expand
-# setopt share_history # (set by ohmyzsh)
+setopt share_history # (set by ohmyzsh)
 setopt hist_lex_words
 setopt hist_save_no_dups
 # setopt hist_find_no_dups
@@ -142,8 +142,8 @@ unsetopt hist_reduce_blanks
 setopt long_list_jobs # (set by ohmyzsh/misc)
 # setopt no_bg_nice
 # Completion, expansion and globbing
-# setopt always_to_end # (set by ohmyzsh)
-# setopt complete_in_word # (set by ohmyzsh)
+setopt always_to_end # (set by ohmyzsh)
+setopt complete_in_word # (set by ohmyzsh)
 setopt glob_star_short
 # setopt extended_glob
 setopt glob_complete
@@ -197,9 +197,9 @@ _show_title(){
 precmd_functions+=(_show_title)
 
 # source "${EXTERNAL_STORAGE}/termuxlauncher/.apps-launcher"
-lazyload launch -- 'source "${EXTERNAL_STORAGE}/termuxlauncher/.apps-launcher"'
+# lazyload launch -- 'source "${EXTERNAL_STORAGE}/termuxlauncher/.apps-launcher"'
 
-source /sdcard/termux/launch-completion.bash
+# source /sdcard/termux/launch-completion.bash
 
 # source ~/.config/ranger/shell_automatic_cd.sh
 lazyload ranger_cd -- 'source "${HOME}/.config/ranger/shell_automatic_cd.sh"'
@@ -220,6 +220,7 @@ bindkey    '^X,' toggle-fzf-tab
 bindkey -s '^Fo' 'file="$(fzf --reverse)" && [ -f "$file" ] && xdg-open "$file" --chooser'
 
 source $ZDOTDIR/plugins/dotbare/dotbare.plugin.zsh
+# source $ZSH_CUSTOM/plugins/forgit/forgit.plugin.zsh
 source $HOME/.fzf/shell/key-bindings.zsh
 # source $HOME/scripts/fzf_functions.zsh
 
@@ -269,8 +270,8 @@ export DOTBARE_KEY="--bind 'change:first,alt-j:jump-accept,alt-w:toggle-preview-
 bindkey -s '^Fd' 'dotbare fedit \n'
 _dotbare_completion_cmd #dotbare
 # _dotbare_completion_git dot
-# export FORGIT_FZF_DEFAULT_OPTS="--preview-window 'down,70%'"
-FORGIT_COPY_CMD='termux-clipboard-set'
+export FORGIT_FZF_DEFAULT_OPTS="--preview-window 'down,70%'"
+export FORGIT_COPY_CMD='termux-clipboard-set'
 
 # FZF Function Examples {{{
 

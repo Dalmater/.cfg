@@ -7,7 +7,7 @@ alias psf='ps -f'
 alias psg='ps -e | grep '
 alias pp='python -mjson.tool | pygmentize -l js'
 alias sortnr='sort -n -r'
-alias music='/storage/40E6-DFFD/Music/'
+# alias music='/storage/40E6-DFFD/Music/'
 
 # easier to read disk
 alias df='df -h'     # human-readable sizes
@@ -113,7 +113,7 @@ alias \
     bshr='$PREFIX/share' \
     btmp='$PREFIX/tmp' \
     bvar='$PREFIX/var' \
-    storage='/storage/40E6-DFFD' \
+    # storage='/storage/40E6-DFFD' \
     sdcard='/storage/emulated/0'
 
 # find & fzf

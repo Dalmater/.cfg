@@ -1,15 +1,15 @@
 #!/data/data/com.termux/files/usr/bin/bash
-pkg up -yy && pkg install -y man ncurses-utils zsh git exa
+pkg up -yy && pkg install -y man ncurses-utils zsh git exa starship
 
 chsh -s zsh
 echo "Changed shell to zsh!"
 sleep 2
 
 tput civis
-pkg up -y && pkg install -y lua-language-server nala\
+pkg up -y && pkg install -yy lua-language-server nala \
 termux-am-socket termux-api dnsutils inetutils bash-completion traceroute \
 inxi shtool lua53 lua54 luajit lua-lpeg stylua dialog ack-grep make mdp \
-tmux neofetch command-not-found okc-agents perl mlocate python2 python \
+tmux neofetch command-not-found okc-agents perl mlocate python2 python-pip \
 git-delta nodejs jq texinfo neovim cpufetch build-essential fd rsync tar \
 tree moreutils gnutls ruby termimage toilet ncdu mpv file ranger bvi pv \
 lesspipe openssl gnupg lynx clang no-more-secrets pigz onefetch sd most \

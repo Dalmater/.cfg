@@ -41,7 +41,7 @@ style = 'black bold dimmed'
 disabled = false
 
 [git_branch]
-format = '[$symbol](11 bold)[$branch]($style 014):[$remote_name]($style)[/](11)[$remote_branch]($style) '
+format = '[$symbol](11 bold)[$branch]($style 014):[$remote_name]($style)[/](11)[$remote_branch]($style)'
 symbol = ' '
 always_show_remote = true
 only_attached = false
@@ -65,20 +65,20 @@ staged = '+[$count](#91971A bold) '
 disabled = false
 
 [git_commit]
-format = '[\($hash$tag\)]($style) '
+format = '[\($hash$tag\)]($style)'
 style = '#FABD2F'
 commit_hash_length = 7
-disabled = true
+disabled = false
 only_detached = false
-tag_symbol = ' 🏷' # 🔖
+tag_symbol = '🏷' # 🔖
 tag_disabled = false
 
 [git_metrics]
 added_style = 'bold #90AB79'
 deleted_style = 'bold #BF616A'
-format = '[+$added]($added_style)[/](11)[-$deleted]($deleted_style) '
+format = ' [+$added]($added_style)[/](11)[-$deleted]($deleted_style) '
 only_nonzero_diffs = true
-disabled = true
+disabled = false
 
 [git_state]
 disabled = false

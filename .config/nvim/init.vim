@@ -62,7 +62,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'jayli/vim-easycomplete'
 " Plug 'ervandew/supertab'
 Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 " Plug 'norcalli/snippets.nvim'
 " Neovim LSP:
 " Plug 'neovim/nvim-lspconfig'
