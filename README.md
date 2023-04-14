@@ -1,14 +1,15 @@
 # <p align="center">Termux dotfiles
 
-For **Termux/Android** with full setup for **Zsh, neovim, fzf, tmux & completions**.<br>
+For **Termux/Android11** with full setup for **Zsh, neovim, fzf, tmux & completions**.<br>
 With a lot of plugins, aliases, functions, colors and some fonts.<br>
-![picture](pics/Screenshot_Termux.jpg)
+![picture](pics/termux_pic.jpg)
 
 I'm using too many plugins but only 2 are essential, 5 if using fzf.<br>
 (fast-syntax-highlighting zsh-autosuggestions, fzf fzf-tab & fzf.vim).<br>
 [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh) (configured) manages some plugins & misc stuff.<br>
-***Zsh startup time on Android 9(Sm-j7) is about 0.5 - 0.7 seconds.***<br>
-`time zsh -i -c exit`  0.39s user 0.11s system 87% cpu 0.600 total
+***Zsh startup time on Android11(Sm-A505) is about 1.5 - 1.7 seconds.***<br>
+`time zsh -i -c exit`  0.53s user 1.01s system 104% cpu 1.540 total
+I have no clue why the Samsung A50 is halve as fast then the Samsung S7.
 
 ## *Warning*
 
@@ -19,7 +20,7 @@ You should only pick whatever you want and include it in your own config.
 
 #### Prompt
 
-[starship](https://github.com/starship/starship) **timings**
+[starship](https://github.com/starship/starship) **timings** (old phone)
 
 ![Termux-pic](pics/Termux_Prompt-time.jpg)
 

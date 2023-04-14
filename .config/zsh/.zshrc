@@ -89,9 +89,9 @@ export _ZL_NO_CHECK=1
 
 export EDITOR="nvim"
 export VISUAL="nvim"
+# colored pager
 # export PAGER="less -R"
 # export PAGER="bat -p --paging=always"
-# colored pager
 env_default 'PAGER' 'less'
 env_default 'LESS' '-R'
 
